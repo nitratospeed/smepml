@@ -9,6 +9,6 @@ export class SintomaService {
   constructor(private readonly http : HttpClient) { }
 
   get() {
-    return this.http.get<any>('https://smepml-api.azurewebsites.net/api/sintoma');
+    return this.http.get<any>('https://smepml-api.azurewebsites.net/api/v1/sintoma');
   }
 }

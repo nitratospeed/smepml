@@ -12,6 +12,8 @@ import { SettingsComponent } from './components/shared/settings/settings.compone
 import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DiagnosticoComponent } from './components/diagnostico/diagnostico.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { DiagnosticoComponent } from './components/diagnostico/diagnostico.compo
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AutocompleteLibModule
   ],
   providers: [],
   bootstrap: [AppComponent]

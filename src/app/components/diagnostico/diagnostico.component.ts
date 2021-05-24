@@ -15,12 +15,18 @@ export class DiagnosticoComponent implements OnInit {
   IsResultado : boolean;
   Resultado : string;
 
+  IsSugerencia : boolean;
+  Sugerencia:string;
+
+  keyword = 'nombre';
+  data = [];
+
   sintomas = [];
 
   prediccionForm = this.fb.group({
-    Sintoma1: ['', Validators.required],
-    Sintoma2: ['', Validators.required],
-    Sintoma3: ['', Validators.required],
+    Sintoma1: [''],
+    Sintoma2: [''],
+    Sintoma3: [''],
   });
 
 
@@ -31,19 +37,20 @@ export class DiagnosticoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sintomaService.get().subscribe((rest: any) => {
-      this.sintomas = rest.data;
-    })
   }
 
   onSubmit() {
     
     this.IsResultadoCount = true;
     this.ResultadoCount = 0;
+    this.IsSugerencia = false;
 
-    if(this.prediccionForm.valid) {
+    if(this.prediccionForm.valid && (this.prediccionForm.value.Sintoma1 != ""
+    || this.prediccionForm.value.Sintoma2 != ""
+    || this.prediccionForm.value.Sintoma3 != "")) {
+
       this.prediccionService.get(this.prediccionForm.value).subscribe((rest : any) => {
-        if (rest.succeeded) {
+        if (rest.isSuccess) {
           this.IsResultado = true;
           this.ResultadoCount = 100;
           this.Resultado = rest.data;
@@ -54,7 +61,61 @@ export class DiagnosticoComponent implements OnInit {
       }, Error => alert("Ocurrió un error."))
     } 
     else {
-      alert("Ingrese correctamente los datos.");
+      alert("Debe ingresar al menos un sintoma.");
     }
+  }
+
+  selectEvent(item) {
+    // do something with selected item
+    if (this.prediccionForm.value.Sintoma1 == "") {
+      this.prediccionForm.value.Sintoma1 = item.nombre;
+    }
+
+    else if (this.prediccionForm.value.Sintoma2 == "") {
+      this.prediccionForm.value.Sintoma2 = item.nombre;
+    }
+
+    else if (this.prediccionForm.value.Sintoma3 == "") {
+      this.prediccionForm.value.Sintoma3 = item.nombre;
+    }
+
+    else {
+      alert("Elimine un sintoma");
+    }
+
+    this.IsSugerencia = true;
+
+    if (this.prediccionForm.value.Sintoma1 != "" 
+    && this.prediccionForm.value.Sintoma2 == ""
+    && this.prediccionForm.value.Sintoma3 == "") {
+      this.Sugerencia = "Agregue más sintomas para mejorar los resultados.";
+    }
+
+    else if(this.prediccionForm.value.Sintoma1 != "" 
+    && this.prediccionForm.value.Sintoma2 != ""
+    && this.prediccionForm.value.Sintoma3 == "") {
+      this.Sugerencia = "Agregue más sintomas para mejorar los resultados.";
+    }
+
+    else {
+      this.Sugerencia = "Se brindarán resultados más óptimos.";
+    }
+  }
+
+  onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    this.sintomaService.get().subscribe((rest : any) => {
+      if (rest.isSuccess) {
+        this.data = rest.data;
+      }
+      else {
+        alert("Ocurrió un error.");
+      }
+    }, Error => alert("Ocurrió un error."))
+  }
+  
+  onFocused(e){
+    // do something when input is focused
   }
 }
