@@ -10,8 +10,6 @@ import { SintomaService } from 'src/app/services/sintoma.service';
 })
 export class DiagnosticoComponent implements OnInit {
 
-  IsResultadoCount : boolean;
-  ResultadoCount : number;
   IsResultado : boolean;
   Resultado : string;
 
@@ -41,8 +39,6 @@ export class DiagnosticoComponent implements OnInit {
 
   onSubmit() {
     
-    this.IsResultadoCount = true;
-    this.ResultadoCount = 0;
     this.IsSugerencia = false;
 
     if(this.prediccionForm.valid && (this.prediccionForm.value.Sintoma1 != ""
@@ -52,7 +48,6 @@ export class DiagnosticoComponent implements OnInit {
       this.prediccionService.get(this.prediccionForm.value).subscribe((rest : any) => {
         if (rest.isSuccess) {
           this.IsResultado = true;
-          this.ResultadoCount = 100;
           this.Resultado = rest.data;
         }
         else {
@@ -117,5 +112,17 @@ export class DiagnosticoComponent implements OnInit {
   
   onFocused(e){
     // do something when input is focused
+  }
+
+  onClear(item) {
+    if (item == "s1") {
+      this.prediccionForm.value.Sintoma1 = "";
+    }
+    else if (item == "s2") {
+      this.prediccionForm.value.Sintoma2 = "";
+    }
+    else if (item == "s3") {
+      this.prediccionForm.value.Sintoma3 = "";
+    }
   }
 }
