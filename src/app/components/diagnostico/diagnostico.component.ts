@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PrediccionService } from 'src/app/services/prediccion.service';
 import { SintomaService } from 'src/app/services/sintoma.service';
@@ -19,14 +19,15 @@ export class DiagnosticoComponent implements OnInit {
   keyword = 'nombre';
   data = [];
 
-  sintomas = [];
+  Sintoma1: string;
+  Sintoma2: string;
+  Sintoma3: string;
 
-  prediccionForm = this.fb.group({
-    Sintoma1: [''],
-    Sintoma2: [''],
-    Sintoma3: [''],
-  });
-
+  IsStep1: boolean = true;
+  IsStep2: boolean = false;
+  IsStep3: boolean = false;
+  IsStep4: boolean = false;
+  IsStep5: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -35,17 +36,27 @@ export class DiagnosticoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    localStorage.setItem("Sintoma1", '');
+    localStorage.setItem("Sintoma2", '');
+    localStorage.setItem("Sintoma3", '');
   }
 
   onSubmit() {
     
     this.IsSugerencia = false;
 
-    if(this.prediccionForm.valid && (this.prediccionForm.value.Sintoma1 != ""
-    || this.prediccionForm.value.Sintoma2 != ""
-    || this.prediccionForm.value.Sintoma3 != "")) {
+    if(localStorage.getItem("Sintoma1") != ""
+    || localStorage.getItem("Sintoma2") != ""
+    || localStorage.getItem("Sintoma3") != "") {
 
-      this.prediccionService.get(this.prediccionForm.value).subscribe((rest : any) => {
+      this.IsStep4 = false;
+      this.IsStep5 = true;
+
+      this.Sintoma1 = localStorage.getItem("Sintoma1");
+      this.Sintoma2 = localStorage.getItem("Sintoma2");
+      this.Sintoma3 = localStorage.getItem("Sintoma3");
+
+      this.prediccionService.get({Sintoma1: this.Sintoma1, Sintoma2: this.Sintoma2, Sintoma3: this.Sintoma3}).subscribe((rest : any) => {
         if (rest.isSuccess) {
           this.IsResultado = true;
           this.Resultado = rest.data;
@@ -62,16 +73,17 @@ export class DiagnosticoComponent implements OnInit {
 
   selectEvent(item) {
     // do something with selected item
-    if (this.prediccionForm.value.Sintoma1 == "") {
-      this.prediccionForm.value.Sintoma1 = item.nombre;
+
+    if (localStorage.getItem("Sintoma1") == "") {
+      localStorage.setItem("Sintoma1", item.nombre)
     }
 
-    else if (this.prediccionForm.value.Sintoma2 == "") {
-      this.prediccionForm.value.Sintoma2 = item.nombre;
+    else if (localStorage.getItem("Sintoma2") == "") {
+      localStorage.setItem("Sintoma2", item.nombre)
     }
 
-    else if (this.prediccionForm.value.Sintoma3 == "") {
-      this.prediccionForm.value.Sintoma3 = item.nombre;
+    else if (localStorage.getItem("Sintoma3") == "") {
+      localStorage.setItem("Sintoma3", item.nombre)
     }
 
     else {
@@ -80,21 +92,26 @@ export class DiagnosticoComponent implements OnInit {
 
     this.IsSugerencia = true;
 
-    if (this.prediccionForm.value.Sintoma1 != "" 
-    && this.prediccionForm.value.Sintoma2 == ""
-    && this.prediccionForm.value.Sintoma3 == "") {
+    if (localStorage.getItem("Sintoma1") != "" 
+    && localStorage.getItem("Sintoma2") == ""
+    && localStorage.getItem("Sintoma3") == "") {
       this.Sugerencia = "Agregue más sintomas para mejorar los resultados.";
     }
 
-    else if(this.prediccionForm.value.Sintoma1 != "" 
-    && this.prediccionForm.value.Sintoma2 != ""
-    && this.prediccionForm.value.Sintoma3 == "") {
+    else if(localStorage.getItem("Sintoma1") != "" 
+    && localStorage.getItem("Sintoma2") != ""
+    && localStorage.getItem("Sintoma3") == "") {
       this.Sugerencia = "Agregue más sintomas para mejorar los resultados.";
     }
 
     else {
       this.Sugerencia = "Se brindarán resultados más óptimos.";
     }
+
+    this.Sintoma1 = localStorage.getItem("Sintoma1");
+    this.Sintoma2 = localStorage.getItem("Sintoma2");
+    this.Sintoma3 = localStorage.getItem("Sintoma3");
+
   }
 
   onChangeSearch(val: string) {
@@ -116,13 +133,65 @@ export class DiagnosticoComponent implements OnInit {
 
   onClear(item) {
     if (item == "s1") {
-      this.prediccionForm.value.Sintoma1 = "";
+      localStorage.setItem("Sintoma1", '');
+      this.Sintoma1 = "";
     }
     else if (item == "s2") {
-      this.prediccionForm.value.Sintoma2 = "";
+      localStorage.setItem("Sintoma2", '');
+      this.Sintoma2 = "";
     }
     else if (item == "s3") {
-      this.prediccionForm.value.Sintoma3 = "";
+      localStorage.setItem("Sintoma3", '');
+      this.Sintoma3 = "";
     }
+  }
+
+  step1() {
+    this.IsStep1 = true;
+    this.IsStep2 = false;
+    this.IsStep3 = false;
+    this.IsStep4 = false;
+    this.IsStep5 = false;
+  }
+
+  step2() {
+    this.IsStep1 = false;
+    this.IsStep2 = true;
+    this.IsStep3 = false;
+    this.IsStep4 = false;
+    this.IsStep5 = false;
+  }
+
+  step3() {
+    this.IsStep1 = false;
+    this.IsStep2 = false;
+    this.IsStep3 = true;
+    this.IsStep4 = false;
+    this.IsStep5 = false;
+  }
+
+  step4() {
+    this.IsStep1 = false;
+    this.IsStep2 = false;
+    this.IsStep3 = false;
+    this.IsStep4 = true;
+    this.IsStep5 = false;
+  }
+
+  reset(){
+    this.IsStep1 = true;
+    this.IsStep2 = false;
+    this.IsStep3 = false;
+    this.IsStep4 = false;
+    this.IsStep5 = false;
+
+    localStorage.setItem("Sintoma1", '');
+    this.Sintoma1 = "";
+
+    localStorage.setItem("Sintoma2", '');
+      this.Sintoma2 = "";
+
+      localStorage.setItem("Sintoma3", '');
+      this.Sintoma3 = "";  
   }
 }
