@@ -12,12 +12,12 @@
         </div>
         <div class="mb-3">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">Masculino</label>
+            <input class="form-check-input" type="radio" name="rbSexo" id="rbSexo" value="Masculino">
+            <label class="form-check-label">Masculino</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">Femenino</label>
+            <input class="form-check-input" type="radio" name="rbSexo" id="rbSexo" value="Femenino">
+            <label class="form-check-label">Femenino</label>
           </div>
         </div>
         <div class="mb-3">
@@ -26,13 +26,115 @@
       </div>
       <div *ngIf="IsStep2" class="d-flex flex-column align-items-center mb-4">
         <label>¿Cuál es su edad?</label>
-        <input type="number" class="form-control col-1">
+        <input type="number" class="form-control col-2" id="Edad">
         <div class="row justify-content-center my-4">
           <button type="button" (click)="step1()" class="btn btn-info mx-3">Atrás</button>
           <button type="button" (click)="step3()" class="btn btn-info mx-3">Siguiente</button>
         </div>
       </div>
-      <div *ngIf="IsStep3">
+      <div *ngIf="IsStep3" class="mb-4">
+        <label class="mb-4 d-flex justify-content-center">Condiciones previas del paciente</label>
+        <div class="row justify-content-center mb-4">
+          <div class="col-3">
+            <label>¿Tiene sobrepeso?</label>
+          </div>
+          <div class="col-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbSobrepeso" id="rbSobrepeso" value="si">
+              <label class="form-check-label">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbSobrepeso" id="rbSobrepeso" value="no">
+              <label class="form-check-label">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbSobrepeso" id="rbSobrepeso" value="nose">
+              <label class="form-check-label">No lo sé</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-4">
+          <div class="col-3">
+            <label>¿Fuma cigarrillos?</label>
+          </div>
+          <div class="col-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbCigarrillos" id="rbCigarrillos" value="si">
+              <label class="form-check-label">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbCigarrillos" id="rbCigarrillos" value="no">
+              <label class="form-check-label">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbCigarrillos" id="rbCigarrillos" value="nose">
+              <label class="form-check-label">No lo sé</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-4">
+          <div class="col-3">
+            <label>¿Tiene hipertensión?</label>
+          </div>
+          <div class="col-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbHipertension" id="rbHipertension" value="si">
+              <label class="form-check-label">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbHipertension" id="rbHipertension" value="no">
+              <label class="form-check-label">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbHipertension" id="rbHipertension" value="nose">
+              <label class="form-check-label">No lo sé</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-4">
+          <div class="col-3">
+            <label>¿Tiene diabetes?</label>
+          </div>
+          <div class="col-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbDiabetes" id="rbDiabetes" value="si">
+              <label class="form-check-label">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbDiabetes" id="rbDiabetes" value="no">
+              <label class="form-check-label">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbDiabetes" id="rbDiabetes" value="nose">
+              <label class="form-check-label">No lo sé</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-4">
+          <div class="col-3">
+            <label>¿Tiene colesterol alto?</label>
+          </div>
+          <div class="col-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbColesterol" id="rbColesterol" value="si">
+              <label class="form-check-label">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbColesterol" id="rbColesterol" value="no">
+              <label class="form-check-label">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rbColesterol" id="rbColesterol" value="nose">
+              <label class="form-check-label">No lo sé</label>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center my-4">
+          <button type="button" (click)="step2()" class="btn btn-info mx-3">Atrás</button>
+          <button type="button" (click)="step4()" class="btn btn-info mx-3">Siguiente</button>
+        </div>
+      </div>
+      <div *ngIf="IsStep4">
         <div class="row d-flex flex-column align-items-center mb-4">
           <label>¿Cuáles son sus síntomas?</label>
           <div class="ng-autocomplete col-6">
@@ -71,91 +173,9 @@
         </div>
         <div class="row d-flex justify-content-center mb-4">
           <div class="row justify-content-center my-4">
-              <button type="button" (click)="step2()" class="btn btn-info mx-3">Atrás</button>
-              <button type="button" (click)="step4()" class="btn btn-info mx-3">Siguiente</button>
+              <button type="button" (click)="step3()" class="btn btn-info mx-3">Atrás</button>
+              <button type="button" (click)="step5()" class="btn btn-info mx-3">Diagnosticar</button>
           </div>
-        </div>
-      </div>
-      <div *ngIf="IsStep4" class="row d-flex flex-column align-items-center mb-4">
-        <label class="mb-4">Condiciones previas del paciente</label>
-        <div class="row my-2">
-          <label class="mx-5">Tiene sobrepeso?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbSobrepeso">
-            <label class="form-check-label">Sí</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbSobrepeso">
-            <label class="form-check-label">No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbSobrepeso">
-            <label class="form-check-label">No lo sé</label>
-          </div>
-        </div>
-        <div class="row my-2">
-          <label class="mx-5">Fuma cigarrillos?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbCigarrillos">
-            <label class="form-check-label">Sí</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbCigarrillos">
-            <label class="form-check-label">No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbCigarrillos">
-            <label class="form-check-label">No lo sé</label>
-          </div>
-        </div>
-        <div class="row my-2">
-          <label class="mx-5">Se ha realizado una operación previa?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbOperacion">
-            <label class="form-check-label">Sí</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbOperacion">
-            <label class="form-check-label">No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbOperacion">
-            <label class="form-check-label">No lo sé</label>
-          </div>
-        </div>
-        <div class="row my-2">
-          <label class="mx-5">Tiene colesterol alto?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbColesterol">
-            <label class="form-check-label">Sí</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbColesterol">
-            <label class="form-check-label">No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbColesterol">
-            <label class="form-check-label">No lo sé</label>
-          </div>
-        </div>
-        <div class="row my-2">
-          <label class="mx-5">Tiene hipertensión?</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbHipertension">
-            <label class="form-check-label">Sí</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbHipertension">
-            <label class="form-check-label">No</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="rbHipertension">
-            <label class="form-check-label">No lo sé</label>
-          </div>
-        </div>
-        <div class="row justify-content-center my-4">
-          <button type="button" (click)="step3()" class="btn btn-info mx-3">Atrás</button>
-          <button type="button" (click)="onSubmit()" class="btn btn-info mx-3">Diagnosticar</button>
         </div>
       </div>
       <div *ngIf="IsStep5" class="d-flex flex-column align-items-center mb-4">
