@@ -204,11 +204,14 @@ export class DiagnosticoComponent implements OnInit {
       this.IsStep4 = false;
       this.IsStep5 = true;
 
-      let Sintoma1V = this.sintomas.at(0)?.value;
-      let Sintoma2V = this.sintomas.at(1)?.value;
-      let Sintoma3V = this.sintomas.at(2)?.value;
+      let Sexo = this.diagnosticoForm.controls['Sexo'].value;
+      let Edad = this.diagnosticoForm.controls['Edad'].value;
+      let Condiciones : Array<string> = ['Diabetes', 'Cigarrillos'];
+      let Sintomas = this.sintomas.value;
 
-      this.prediccionService.get({"Sintoma1": Sintoma1V, "Sintoma2": Sintoma2V, "Sintoma3": Sintoma3V}).subscribe((rest : any) => {
+      console.log(this.diagnosticoForm.value);
+
+      this.prediccionService.get({"Sexo": Sexo, "Edad": Edad, "Condiciones": Condiciones, "Sintomas": Sintomas}).subscribe((rest : any) => {
         if (rest.isSuccess) {
           this.IsResultado = true;
           this.Resultado = rest.data;
