@@ -5,189 +5,187 @@
     </div>
   </div>
   <div class="card mb-3">
-    <div class="card-body">
-      <div *ngIf="IsStep1" class="d-flex flex-column align-items-center mb-4">
-        <div class="mb-3">
-          <label>¿Cuál es su sexo?</label>
-        </div>
-        <div class="mb-3">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="rbSexo" id="rbSexo" value="Masculino">
-            <label class="form-check-label">Masculino</label>
+    <form [formGroup]="diagnosticoForm">
+      <div class="card-body">
+        <div *ngIf="IsStep1" class="d-flex flex-column align-items-center mb-4">
+          <div class="mb-3">
+            <label>¿Cuál es su sexo?</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="rbSexo" id="rbSexo" value="Femenino">
-            <label class="form-check-label">Femenino</label>
+          <div class="mb-3">
+            <button type="button" class="btn btn-outline-secondary btn-lg mx-2" [ngClass]="[bntStyleM]" (click)="onChangeSexo('M')">             
+              <i class="fas fa-male"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-lg mx-2" [ngClass]="[bntStyleF]" (click)="onChangeSexo('F')">
+              <i class="fas fa-female"></i>
+            </button>
           </div>
-        </div>
-        <div class="mb-3">
-          <button type="button" (click)="step2()" class="btn btn-info">Siguiente</button>
-        </div>
-      </div>
-      <div *ngIf="IsStep2" class="d-flex flex-column align-items-center mb-4">
-        <label>¿Cuál es su edad?</label>
-        <input type="number" class="form-control col-2" id="Edad">
-        <div class="row justify-content-center my-4">
-          <button type="button" (click)="step1()" class="btn btn-info mx-3">Atrás</button>
-          <button type="button" (click)="step3()" class="btn btn-info mx-3">Siguiente</button>
-        </div>
-      </div>
-      <div *ngIf="IsStep3" class="mb-4">
-        <label class="mb-4 d-flex justify-content-center">Condiciones previas del paciente</label>
-        <div class="row justify-content-center mb-4">
-          <div class="col-3">
-            <label>¿Tiene sobrepeso?</label>
-          </div>
-          <div class="col-3">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbSobrepeso" id="rbSobrepeso" value="si">
-              <label class="form-check-label">Sí</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbSobrepeso" id="rbSobrepeso" value="no">
-              <label class="form-check-label">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbSobrepeso" id="rbSobrepeso" value="nose">
-              <label class="form-check-label">No lo sé</label>
-            </div>
+          <div class="mb-3">
+            <button type="button" (click)="step2()" class="btn btn-info">Siguiente</button>
           </div>
         </div>
-        <div class="row justify-content-center mb-4">
-          <div class="col-3">
-            <label>¿Fuma cigarrillos?</label>
-          </div>
-          <div class="col-3">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbCigarrillos" id="rbCigarrillos" value="si">
-              <label class="form-check-label">Sí</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbCigarrillos" id="rbCigarrillos" value="no">
-              <label class="form-check-label">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbCigarrillos" id="rbCigarrillos" value="nose">
-              <label class="form-check-label">No lo sé</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center mb-4">
-          <div class="col-3">
-            <label>¿Tiene hipertensión?</label>
-          </div>
-          <div class="col-3">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbHipertension" id="rbHipertension" value="si">
-              <label class="form-check-label">Sí</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbHipertension" id="rbHipertension" value="no">
-              <label class="form-check-label">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbHipertension" id="rbHipertension" value="nose">
-              <label class="form-check-label">No lo sé</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center mb-4">
-          <div class="col-3">
-            <label>¿Tiene diabetes?</label>
-          </div>
-          <div class="col-3">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbDiabetes" id="rbDiabetes" value="si">
-              <label class="form-check-label">Sí</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbDiabetes" id="rbDiabetes" value="no">
-              <label class="form-check-label">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbDiabetes" id="rbDiabetes" value="nose">
-              <label class="form-check-label">No lo sé</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center mb-4">
-          <div class="col-3">
-            <label>¿Tiene colesterol alto?</label>
-          </div>
-          <div class="col-3">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbColesterol" id="rbColesterol" value="si">
-              <label class="form-check-label">Sí</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbColesterol" id="rbColesterol" value="no">
-              <label class="form-check-label">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rbColesterol" id="rbColesterol" value="nose">
-              <label class="form-check-label">No lo sé</label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center my-4">
-          <button type="button" (click)="step2()" class="btn btn-info mx-3">Atrás</button>
-          <button type="button" (click)="step4()" class="btn btn-info mx-3">Siguiente</button>
-        </div>
-      </div>
-      <div *ngIf="IsStep4">
-        <div class="row d-flex flex-column align-items-center mb-4">
-          <label>¿Cuáles son sus síntomas?</label>
-          <div class="ng-autocomplete col-6">
-            <ng-autocomplete 
-              [data]="data"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent($event)'
-              (inputChanged)='onChangeSearch($event)'
-              (inputFocused)='onFocused($event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">                                 
-            </ng-autocomplete>
-            
-            <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.nombre"></a>
-            </ng-template>
-            
-            <ng-template #notFoundTemplate let-notFound>
-            <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>          
-        </div>
-        <div class="row d-flex flex-column align-items-center mb-4">
-        <div class="row mb-2">
-          <span class="badge bg-primary">Síntoma 1: {{Sintoma1}} <button type="button" (click)="onClear('s1')" class="close" aria-label="Dismiss"><span aria-hidden="true">&times;</span></button></span>
-        </div>
-        <div class="row mb-2">
-          <span class="badge bg-primary">Síntoma 2: {{Sintoma2}} <button type="button" (click)="onClear('s2')" class="close" aria-label="Dismiss"><span aria-hidden="true">&times;</span></button></span>
-        </div>
-        <div class="row mb-2">
-          <span class="badge bg-primary">Síntoma 3: {{Sintoma3}} <button type="button" (click)="onClear('s3')" class="close" aria-label="Dismiss"><span aria-hidden="true">&times;</span></button></span>
-        </div>
-        </div>
-        <div class="d-flex justify-content-center mb-4">
-          <h6 *ngIf="IsSugerencia">Recomendaciones: {{Sugerencia}}</h6>
-        </div>
-        <div class="row d-flex justify-content-center mb-4">
+        <div *ngIf="IsStep2" class="d-flex flex-column align-items-center mb-4">
+          <label>¿Cuál es su edad?</label>
+          <input type="number" class="form-control col-2" min="18" max="75" formControlName="Edad">
           <div class="row justify-content-center my-4">
-              <button type="button" (click)="step3()" class="btn btn-info mx-3">Atrás</button>
-              <button type="button" (click)="step5()" class="btn btn-info mx-3">Diagnosticar</button>
+            <button type="button" (click)="step1()" class="btn btn-info mx-3">Atrás</button>
+            <button type="button" (click)="step3()" class="btn btn-info mx-3">Siguiente</button>
+          </div>
+        </div>
+        <div *ngIf="IsStep3" class="mb-4">
+          <label class="mb-4 d-flex justify-content-center">Condiciones previas del paciente</label>
+          <div class="row justify-content-center mb-4">
+            <div class="col-3">
+              <label>¿Tuvo o tiene sobrepeso?</label>
+            </div>
+            <div class="col-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="si" formControlName="Sobrepeso">
+                <label class="form-check-label">Sí</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="no" formControlName="Sobrepeso">
+                <label class="form-check-label">No</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="nose" formControlName="Sobrepeso">
+                <label class="form-check-label">No lo sé</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-3">
+              <label>¿Fumaba o fuma cigarrillos?</label>
+            </div>
+            <div class="col-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="si" formControlName="Cigarrillos">
+                <label class="form-check-label">Sí</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="no" formControlName="Cigarrillos">
+                <label class="form-check-label">No</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="nose" formControlName="Cigarrillos">
+                <label class="form-check-label">No lo sé</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-3">
+              <label>¿Tiene hipertensión?</label>
+            </div>
+            <div class="col-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="si" formControlName="Hipertension">
+                <label class="form-check-label">Sí</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="no" formControlName="Hipertension">
+                <label class="form-check-label">No</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="nose" formControlName="Hipertension">
+                <label class="form-check-label">No lo sé</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-3">
+              <label>¿Tiene diabetes?</label>
+            </div>
+            <div class="col-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="si" formControlName="Diabetes">
+                <label class="form-check-label">Sí</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="no" formControlName="Diabetes">
+                <label class="form-check-label">No</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="nose" formControlName="Diabetes">
+                <label class="form-check-label">No lo sé</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-3">
+              <label>¿Tuvo o tiene colesterol alto?</label>
+            </div>
+            <div class="col-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="si" formControlName="Colesterol">
+                <label class="form-check-label">Sí</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="no" formControlName="Colesterol">
+                <label class="form-check-label">No</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="nose" formControlName="Colesterol">
+                <label class="form-check-label">No lo sé</label>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center my-4">
+            <button type="button" (click)="step2()" class="btn btn-info mx-3">Atrás</button>
+            <button type="button" (click)="step4()" class="btn btn-info mx-3">Siguiente</button>
+          </div>
+        </div>
+        <div *ngIf="IsStep4">
+          <div class="row d-flex flex-column align-items-center mb-4">
+            <label>¿Cuáles son sus síntomas?</label>
+            <div class="ng-autocomplete col-6">
+              <ng-autocomplete 
+                [data]="data"
+                [searchKeyword]="keyword"
+                (selected)='selectEvent($event)'
+                (inputChanged)='onChangeSearch($event)'
+                (inputFocused)='onFocused($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate">                                 
+              </ng-autocomplete>
+              
+              <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre"></a>
+              </ng-template>
+              
+              <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div>          
+          </div>
+          <div class="row d-flex flex-column align-items-center mb-4">
+            <div formArrayName="sintomas">
+              <!-- <h3>Aliases</h3> <button (click)="addAlias()">Add Alias</button> -->
+              <div *ngFor="let sintoma of sintomas.controls; let i=index">
+                <div class="row mb-2">
+                  <span class="badge bg-primary"><input type="text" readonly [formControlName]="i"><button type="button" (click)="onClear(i)" class="close" aria-label="Dismiss"><span aria-hidden="true">&times;</span></button></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mb-4">
+            <h6 *ngIf="IsSugerencia">{{Sugerencia}}</h6>
+          </div>
+          <div class="row d-flex justify-content-center mb-4">
+            <div class="row justify-content-center my-4">
+                <button type="button" (click)="step3()" class="btn btn-info mx-3">Atrás</button>
+                <button type="button" (click)="step5()" class="btn btn-info mx-3">Diagnosticar</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="IsStep5" class="d-flex flex-column align-items-center mb-4">
+          <h6 *ngIf="IsResultado;else other_content">La enfermedad más probable según lo síntomas escogidos es: {{Resultado}}</h6>
+          <ng-template #other_content>
+            <h6>Realizando diagnóstico, espere por favor.</h6>
+          </ng-template>
+          <div class="row justify-content-center my-4">
+            <button type="button" (click)="reset()" class="btn btn-info mx-3">Realizar otro diagnóstico</button>
           </div>
         </div>
       </div>
-      <div *ngIf="IsStep5" class="d-flex flex-column align-items-center mb-4">
-        <h6 *ngIf="IsResultado;else other_content">La enfermedad más probable según lo síntomas escogidos es: {{Resultado}}</h6>
-        <ng-template #other_content>
-          <h6>Realizando diagnóstico, espere por favor.</h6>
-        </ng-template>
-        <div class="row justify-content-center my-4">
-          <button type="button" (click)="step4()" class="btn btn-info mx-3">Atrás</button>
-          <button type="button" (click)="reset()" class="btn btn-info mx-3">Realizar otro diagnóstico</button>
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
