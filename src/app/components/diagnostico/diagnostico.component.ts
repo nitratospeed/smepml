@@ -15,6 +15,7 @@ export class DiagnosticoComponent implements OnInit {
 
   IsSugerencia : boolean;
   Sugerencia:string;
+  Nivel:string;
 
   keyword = 'nombre';
   data = [];
@@ -66,6 +67,7 @@ export class DiagnosticoComponent implements OnInit {
 
     this.IsSugerencia = true;
     this.Sugerencia = "";
+    this.Nivel = "";
 
     let yaExiste = false;
 
@@ -87,15 +89,18 @@ export class DiagnosticoComponent implements OnInit {
     }
 
     if(this.sintomas.length <= 4){
-      this.Sugerencia = "Nivel: Débil, Sugerencia: Agregue muchos más síntomas.";
+      this.Sugerencia = "Sugerencia: Agregue muchos más síntomas.";
+      this.Nivel = "Potencial de acierto: Débil";
     }
 
     if(this.sintomas.length >= 5 && this.sintomas.length <= 8){
-      this.Sugerencia = "Nivel: Moderado, Sugerencia: Agregue algunos síntomas más.";
+      this.Sugerencia = "Sugerencia: Agregue algunos síntomas más.";
+      this.Nivel = "Potencial de acierto: Moderado";
     }
 
     if(this.sintomas.length >= 9 && this.sintomas.length <= 12){
-      this.Sugerencia = "Nivel: Fuerte, Sugerencia: Resultados Óptimos.";
+      this.Sugerencia = "Sugerencia: Resultados Óptimos.";
+      this.Nivel = "Potencial de acierto: Fuerte";
     }
   }
 
