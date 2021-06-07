@@ -36,6 +36,7 @@ export class DiagnosticoComponent implements OnInit {
   IsStep3: boolean = false;
   IsStep4: boolean = false;
   IsStep5: boolean = false;
+  IsStep6: boolean = false;
 
   bntStyleM: string = "";
   bntStyleF: string = "";
@@ -140,6 +141,7 @@ export class DiagnosticoComponent implements OnInit {
     this.IsStep3 = false;
     this.IsStep4 = false;
     this.IsStep5 = false;
+    this.IsStep6 = false;
   }
 
   step2() {
@@ -152,6 +154,7 @@ export class DiagnosticoComponent implements OnInit {
       this.IsStep3 = false;
       this.IsStep4 = false;
       this.IsStep5 = false;
+      this.IsStep6 = false;
     }
   }
 
@@ -172,6 +175,7 @@ export class DiagnosticoComponent implements OnInit {
     this.IsStep3 = true;
     this.IsStep4 = false;
     this.IsStep5 = false;
+    this.IsStep6 = false;
     }
   }
 
@@ -192,10 +196,20 @@ export class DiagnosticoComponent implements OnInit {
     this.IsStep3 = false;
     this.IsStep4 = true;
     this.IsStep5 = false;
+    this.IsStep6 = false;
     }
   }
 
   step5() {
+    this.IsStep1 = false;
+    this.IsStep2 = false;
+    this.IsStep3 = false;
+    this.IsStep4 = false;
+    this.IsStep5 = true;
+    this.IsStep6 = false;
+  }
+
+  step6() {
 
     if(this.sintomas.length == 0){
       alert("Debe ingresar al menos un sintoma.")
@@ -207,7 +221,8 @@ export class DiagnosticoComponent implements OnInit {
       this.IsStep2 = false;
       this.IsStep3 = false;
       this.IsStep4 = false;
-      this.IsStep5 = true;
+      this.IsStep5 = false;
+      this.IsStep6 = true;
 
       let Sexo = this.diagnosticoForm.controls['Sexo'].value;
       let Edad = this.diagnosticoForm.controls['Edad'].value;
@@ -234,6 +249,7 @@ export class DiagnosticoComponent implements OnInit {
     this.IsStep3 = false;
     this.IsStep4 = false;
     this.IsStep5 = false;
+    this.IsStep6 = false;
 
     this.bntStyleM = "";
     this.bntStyleF = "";
