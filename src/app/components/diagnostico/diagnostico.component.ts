@@ -11,7 +11,7 @@ import { SintomaService } from 'src/app/services/sintoma.service';
 export class DiagnosticoComponent implements OnInit {
 
   IsResultado : boolean;
-  Resultado : string;
+  Resultado : string[];
 
   IsSugerencia : boolean;
   Sugerencia:string;

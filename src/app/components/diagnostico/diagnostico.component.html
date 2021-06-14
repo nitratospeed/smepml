@@ -217,7 +217,14 @@
           </div>
         </div>
         <div *ngIf="IsStep6" class="d-flex flex-column align-items-center mb-4">
-          <h6 *ngIf="IsResultado;else other_content">La enfermedad más probable según lo síntomas escogidos es: {{Resultado}}</h6>
+          <h6 *ngIf="IsResultado;else other_content">La enfermedades más probables según lo síntomas escogidos son:</h6>
+          <div *ngIf="IsResultado" >
+            <div *ngFor="let res of Resultado; let i=index">           
+              <p>{{res}}</p>
+              <h3 *ngIf="res.includes('Scored Labels')">La enfermedad más acertada es: {{res}}</h3>
+            </div>
+          </div>
+
           <ng-template #other_content>
             <h6>Realizando diagnóstico, espere por favor.</h6>
           </ng-template>
