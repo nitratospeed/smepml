@@ -179,33 +179,95 @@
         </div>
         <div *ngIf="IsStep5" class="d-flex flex-column align-items-center mb-4">
           <label> Indique el nivel de sus siguientes sintomas: </label>
-          <div class="row justify-content-center mb-4">
-            <div class="col-4">
-              <label>Nivel de fiebre</label>
+          <div *ngIf="IsDolor" class="row justify-content-center mb-4">
+            <div class="col">
+              <label>¿Cuál es la intensidad de su dolor abdominal?</label>
             </div>
-            <div class="col-4">
+            <div class="col">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" value="Normal" formControlName="FiebreNivel">
-                <label class="form-check-label">Normal</label>
+                <input class="form-check-input" type="radio" value="1" formControlName="DolorNivel">
+                <label class="form-check-label">Leve</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" value="Crónica" formControlName="FiebreNivel">
-                <label class="form-check-label">Crónica</label>
+                <input class="form-check-input" type="radio" value="2" formControlName="DolorNivel">
+                <label class="form-check-label">Moderado</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="3" formControlName="DolorNivel">
+                <label class="form-check-label">Intenso</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="0" formControlName="DolorNivel">
+                <label class="form-check-label">No lo sé</label>
               </div>
             </div>
           </div>
-          <div class="row justify-content-center mb-4">
-            <div class="col-4">
-              <label>Nivel de Tos</label>
+          <div *ngIf="IsFiebre" class="row justify-content-center mb-4">
+            <div class="col">
+              <label>¿Cuál es su temperatura corporal actual?</label>
             </div>
-            <div class="col-4">
+            <div class="col">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" value="Normal" formControlName="TosNivel">
-                <label class="form-check-label">Normal</label>
+                <input class="form-check-input" type="radio" value="1" formControlName="FiebreNivel">
+                <label class="form-check-label">Entre 37°C y 38°C</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" value="Crónica" formControlName="TosNivel">
-                <label class="form-check-label">Crónica</label>
+                <input class="form-check-input" type="radio" value="2" formControlName="FiebreNivel">
+                <label class="form-check-label">Entre 38°C y 40°C</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="3" formControlName="FiebreNivel">
+                <label class="form-check-label">Superior a 40°C</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="4" formControlName="FiebreNivel">
+                <label class="form-check-label">No lo sé</label>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="IsDiarrea" class="row justify-content-center mb-4">
+            <div class="col">
+              <label>¿Cuánto días lleva con diarrea?</label>
+            </div>
+            <div class="col">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="1" formControlName="DiarreaNivel">
+                <label class="form-check-label">Menos de 2 días</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="2" formControlName="DiarreaNivel">
+                <label class="form-check-label">Entre 2 a 7 días</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="3" formControlName="DiarreaNivel">
+                <label class="form-check-label">Entre 7 a 14 días</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="4" formControlName="DiarreaNivel">
+                <label class="form-check-label">Más de 14 días</label>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="IsVomitos" class="row justify-content-center mb-4">
+            <div class="col">
+              <label>¿Cuánto días lleva con vómitos?</label>
+            </div>
+            <div class="col">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="1" formControlName="VomitosNivel">
+                <label class="form-check-label">Menos de 2 días</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="2" formControlName="VomitosNivel">
+                <label class="form-check-label">Entre 2 a 7 días</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="3" formControlName="VomitosNivel">
+                <label class="form-check-label">Entre 7 a 14 días</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" value="4" formControlName="VomitosNivel">
+                <label class="form-check-label">Más de 14 días</label>
               </div>
             </div>
           </div>
@@ -217,16 +279,15 @@
           </div>
         </div>
         <div *ngIf="IsStep6" class="d-flex flex-column align-items-center mb-4">
-          <h6 *ngIf="IsResultado;else other_content">La enfermedades más probables según lo síntomas escogidos son:</h6>
+          <h6 class="my-4" *ngIf="IsResultado;else other_content">La enfermedades más probables según lo síntomas escogidos son:</h6>
           <div *ngIf="IsResultado" >
-            <div *ngFor="let res of Resultado; let i=index">           
+            <div *ngFor="let res of Resultados; let i=index">           
               <p>{{res}}</p>
-              <h3 *ngIf="res.includes('Scored Labels')">La enfermedad más acertada es: {{res}}</h3>
             </div>
+            <h6>La enfermedad más acertada es: {{Resultado}}</h6>
           </div>
-
           <ng-template #other_content>
-            <h6>Realizando diagnóstico, espere por favor.</h6>
+            <h6 class="my-4">Realizando diagnóstico, espere por favor.</h6>
           </ng-template>
           <div class="row justify-content-center my-4">
             <button type="button" (click)="reset()" class="btn btn-info mx-3">Realizar otro diagnóstico</button>

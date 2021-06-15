@@ -11,7 +11,8 @@ import { SintomaService } from 'src/app/services/sintoma.service';
 export class DiagnosticoComponent implements OnInit {
 
   IsResultado : boolean;
-  Resultado : string[];
+  Resultados : string[];
+  Resultado : string;
 
   IsSugerencia : boolean;
   Sugerencia:string;
@@ -19,6 +20,11 @@ export class DiagnosticoComponent implements OnInit {
 
   keyword = 'nombre';
   data = [];
+
+  IsDolor : boolean = false;
+  IsFiebre : boolean = false;
+  IsDiarrea : boolean = false;
+  IsVomitos : boolean = false;
 
   diagnosticoForm = this.fb.group({
     Sexo: ['', Validators.required],
@@ -28,6 +34,10 @@ export class DiagnosticoComponent implements OnInit {
     Hipertension: ['', Validators.required],
     Diabetes: ['', Validators.required],
     Colesterol: ['', Validators.required],
+    DolorNivel: ['', Validators.required],
+    FiebreNivel: ['', Validators.required],
+    DiarreaNivel: ['', Validators.required],
+    VomitosNivel: ['', Validators.required],
     sintomas: this.fb.array([])
   });
 
@@ -86,6 +96,18 @@ export class DiagnosticoComponent implements OnInit {
       }
       if(!yaExiste){
         this.sintomas.push(this.fb.control(item.nombre));
+        if(item.nombre == "Dolor o ardor en la parte superior del abdomen"){
+          this.IsDolor = true;
+        }
+        if(item.nombre == "Fiebre"){
+          this.IsFiebre = true;
+        }
+        if(item.nombre == "Diarrea"){
+          this.IsDiarrea = true;
+        }
+        if(item.nombre == "Vomitos"){
+          this.IsVomitos = true;
+        }
       }
     }
 
@@ -117,6 +139,37 @@ export class DiagnosticoComponent implements OnInit {
 
   onClear(item) {
     this.sintomas.removeAt(item);
+
+    this.Sugerencia = "";
+    this.Nivel = "";
+
+    if(this.sintomas.length <= 4){
+      this.Sugerencia = "Sugerencia: Agregue muchos más síntomas.";
+      this.Nivel = "Potencial de acierto: Débil";
+    }
+
+    if(this.sintomas.length >= 5 && this.sintomas.length <= 8){
+      this.Sugerencia = "Sugerencia: Agregue algunos síntomas más.";
+      this.Nivel = "Potencial de acierto: Moderado";
+    }
+
+    if(this.sintomas.length >= 9 && this.sintomas.length <= 12){
+      this.Sugerencia = "Sugerencia: Resultados Óptimos.";
+      this.Nivel = "Potencial de acierto: Fuerte";
+    }
+
+    if(item.nombre == "Dolor o ardor en la parte superior del abdomen"){
+      this.IsDolor = false;
+    }
+    if(item.nombre == "Fiebre"){
+      this.IsFiebre = false;
+    }
+    if(item.nombre == "Diarrea"){
+      this.IsDiarrea = false;
+    }
+    if(item.nombre == "Vomitos"){
+      this.IsVomitos = false;
+    }
   }
 
   onChangeSexo(item) {
@@ -207,14 +260,25 @@ export class DiagnosticoComponent implements OnInit {
     this.IsStep4 = false;
     this.IsStep5 = true;
     this.IsStep6 = false;
+
+    if(this.IsDolor == false &&
+      this.IsFiebre == false &&
+       this.IsVomitos == false &&
+       this.IsDiarrea == false){
+         if(this.sintomas.length == 0){
+          this.IsStep4 = true;
+          this.IsStep5 = false;
+           alert("Debe ingresar al menos un sintoma");
+         }
+         else{
+          this.IsStep5 = false;
+          this.IsStep6 = true;
+          this.step6();
+         }
+   }
   }
 
   step6() {
-
-    if(this.sintomas.length == 0){
-      alert("Debe ingresar al menos un sintoma.")
-    }
-    else{
       this.IsSugerencia = false;
 
       this.IsStep1 = false;
@@ -234,13 +298,13 @@ export class DiagnosticoComponent implements OnInit {
       this.prediccionService.get({"Sexo": Sexo, "Edad": Edad, "Condiciones": Condiciones, "Sintomas": Sintomas}).subscribe((rest : any) => {
         if (rest.isSuccess) {
           this.IsResultado = true;
-          this.Resultado = rest.data;
+          this.Resultados = rest.data;
+          this.Resultado = this.Resultados[this.Resultados.length-1];
         }
         else {
           alert("Ocurrió un error.");
         }
       }, Error => alert("Ocurrió un error."))
-    }
   }
 
   reset(){
@@ -253,6 +317,11 @@ export class DiagnosticoComponent implements OnInit {
 
     this.bntStyleM = "";
     this.bntStyleF = "";
+
+    this.IsDolor = false;
+    this.IsDiarrea = false;
+    this.IsFiebre = false;
+    this.IsVomitos = false;
 
     this.diagnosticoForm.patchValue({
       Sexo: "",
