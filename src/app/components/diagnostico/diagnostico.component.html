@@ -279,8 +279,15 @@
           </div>
         </div>
         <div *ngIf="IsStep6" class="d-flex flex-column align-items-center mb-4">
-          <h6 class="my-4" *ngIf="IsResultado;else other_content">La enfermedades más probables según lo síntomas escogidos son:</h6>
+          <h6 class="my-4" *ngIf="IsResultado;else other_content">Resultados del diagnóstico</h6>
           <div *ngIf="IsResultado" >
+            <h6 class="my-4">Sexo: </h6><p>{{diagnosticoForm.value.Sexo}}</p>
+            <h6 class="my-4">Edad: </h6><p>{{diagnosticoForm.value.Edad}}</p>
+            <h6 class="my-4">Mis Sintomas:</h6>
+            <div *ngFor="let sin of sintomas.controls; let i=index">           
+              <p>{{sin.value}}</p>
+            </div>
+            <h6 class="my-4">Resultados</h6>
             <div *ngFor="let res of Resultados; let i=index">           
               <p>{{res}}</p>
             </div>
