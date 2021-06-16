@@ -12,7 +12,6 @@ export class DiagnosticoComponent implements OnInit {
 
   IsResultado : boolean;
   Resultados : string[];
-  Resultado : string;
 
   IsSugerencia : boolean;
   Sugerencia:string;
@@ -299,7 +298,6 @@ export class DiagnosticoComponent implements OnInit {
         if (rest.isSuccess) {
           this.IsResultado = true;
           this.Resultados = rest.data;
-          this.Resultado = this.Resultados[this.Resultados.length-1];
         }
         else {
           alert("Ocurrió un error.");
