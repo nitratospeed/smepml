@@ -281,15 +281,11 @@ export class DiagnosticoComponent implements OnInit {
 
   step6() {
     if(
-      (this.IsDolor == true ||
-      this.IsFiebre == true ||
-       this.IsVomitos == true ||
-       this.IsDiarrea == true) && (
-      this.diagnosticoForm.controls['DolorNivel'].value == "" &&
-      this.diagnosticoForm.controls['FiebreNivel'].value == "" &&
-      this.diagnosticoForm.controls['DiarreaNivel'].value == "" &&
-      this.diagnosticoForm.controls['VomitosNivel'].value == "")
-      ){
+      (this.IsDolor == true && this.diagnosticoForm.controls['DolorNivel'].value == "") ||
+      (this.IsFiebre == true && this.diagnosticoForm.controls['FiebreNivel'].value == "") ||
+      (this.IsVomitos == true && this.diagnosticoForm.controls['VomitosNivel'].value == "") ||
+       (this.IsDiarrea == true && this.diagnosticoForm.controls['DiarreaNivel'].value == ""))
+       {
         this.IsStep1 = false;
         this.IsStep2 = false;
         this.IsStep3 = false;
