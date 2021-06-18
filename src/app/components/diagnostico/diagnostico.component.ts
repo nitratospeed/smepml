@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormArray, Validators, Form } from '@angular/forms';
 import { PrediccionService } from 'src/app/services/prediccion.service';
 import { SintomaService } from 'src/app/services/sintoma.service';
+import { Enfermedades } from 'src/app/models/enfermedades';
 
 @Component({
   selector: 'app-diagnostico',
@@ -10,8 +11,9 @@ import { SintomaService } from 'src/app/services/sintoma.service';
 })
 export class DiagnosticoComponent implements OnInit {
 
+  Resultados : Enfermedades[];
+
   IsResultado : boolean;
-  Resultados : string[];
 
   IsSugerencia : boolean;
   Sugerencia:string;
@@ -297,7 +299,21 @@ export class DiagnosticoComponent implements OnInit {
       this.prediccionService.get({"Sexo": Sexo, "Edad": Edad, "Condiciones": Condiciones, "Sintomas": Sintomas}).subscribe((rest : any) => {
         if (rest.isSuccess) {
           this.IsResultado = true;
-          this.Resultados = rest.data;
+          let res : string[] = rest.data;
+
+          let resList = [];
+
+          res.forEach(element => {
+            let enf = {} as Enfermedades;
+
+            enf.nombre = element.split(':')[0];
+            enf.porcentaje = element.split(':')[1];
+            enf.porcentaje_numero = Number(element.split(':')[1].replace("%","").replace(" ",""));
+
+            resList.push(enf);
+          });
+
+          this.Resultados = resList;
         }
         else {
           alert("Ocurrió un error.");
