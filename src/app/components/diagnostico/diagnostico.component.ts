@@ -144,7 +144,7 @@ export class DiagnosticoComponent implements OnInit {
     this.Sugerencia = "";
     this.Nivel = "";
 
-    if(this.sintomas.length <= 4){
+    if(this.sintomas.length >= 1 && this.sintomas.length <= 4){
       this.Sugerencia = "Sugerencia: Agregue muchos más síntomas.";
       this.Nivel = "Potencial de acierto: Débil";
     }
@@ -280,6 +280,21 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   step6() {
+    if(
+      this.diagnosticoForm.controls['DolorNivel'].value == "" &&
+      this.diagnosticoForm.controls['FiebreNivel'].value == "" &&
+      this.diagnosticoForm.controls['DiarreaNivel'].value == "" &&
+      this.diagnosticoForm.controls['VomitosNivel'].value == ""
+      ){
+        this.IsStep1 = false;
+        this.IsStep2 = false;
+        this.IsStep3 = false;
+        this.IsStep4 = false;
+        this.IsStep5 = true;
+        this.IsStep6 = false;
+        alert("Campos obligatorios*");
+    }
+    else{
       this.IsSugerencia = false;
 
       this.IsStep1 = false;
@@ -319,6 +334,7 @@ export class DiagnosticoComponent implements OnInit {
           alert("Ocurrió un error.");
         }
       }, Error => alert("Ocurrió un error."))
+    }
   }
 
   reset(){
