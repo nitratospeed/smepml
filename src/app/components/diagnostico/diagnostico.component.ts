@@ -3,6 +3,7 @@ import { FormBuilder, FormArray, Validators, Form } from '@angular/forms';
 import { PrediccionService } from 'src/app/services/prediccion.service';
 import { SintomaService } from 'src/app/services/sintoma.service';
 import { Enfermedades } from 'src/app/models/enfermedades';
+import { Sintomas } from 'src/app/models/sintomas';
 
 @Component({
   selector: 'app-diagnostico',
@@ -11,16 +12,20 @@ import { Enfermedades } from 'src/app/models/enfermedades';
 })
 export class DiagnosticoComponent implements OnInit {
 
+  ListaSintomas : Sintomas[];
+
   Resultados : Enfermedades[];
 
   IsResultado : boolean;
+
+  IsPreguntas : boolean = false;
 
   IsSugerencia : boolean;
   Sugerencia:string;
   Nivel:string;
 
   keyword = 'nombre';
-  data = [];
+  
 
   IsDolor : boolean = false;
   IsFiebre : boolean = false;
@@ -35,10 +40,6 @@ export class DiagnosticoComponent implements OnInit {
     Hipertension: ['', Validators.required],
     Diabetes: ['', Validators.required],
     Colesterol: ['', Validators.required],
-    DolorNivel: ['', Validators.required],
-    FiebreNivel: ['', Validators.required],
-    DiarreaNivel: ['', Validators.required],
-    VomitosNivel: ['', Validators.required],
     sintomas: this.fb.array([])
   });
 
@@ -62,7 +63,8 @@ export class DiagnosticoComponent implements OnInit {
 
     this.sintomaService.get().subscribe((rest : any) => {
       if (rest.isSuccess) {
-        this.data = rest.data;
+        this.ListaSintomas = rest.data;
+        console.log(this.ListaSintomas);
       }
       else {
         alert("Ocurrió un error.");
@@ -97,18 +99,18 @@ export class DiagnosticoComponent implements OnInit {
       }
       if(!yaExiste){
         this.sintomas.push(this.fb.control(item.nombre));
-        if(item.nombre == "Dolor o ardor en la parte superior del abdomen"){
-          this.IsDolor = true;
-        }
-        if(item.nombre == "Fiebre"){
-          this.IsFiebre = true;
-        }
-        if(item.nombre == "Diarrea"){
-          this.IsDiarrea = true;
-        }
-        if(item.nombre == "Vomitos"){
-          this.IsVomitos = true;
-        }
+
+        let itemIndex = this.ListaSintomas.findIndex(x=>x.nombre == item.nombre);
+
+        this.ListaSintomas[itemIndex].hasChecked = true;
+
+        this.IsPreguntas = false;
+
+        this.ListaSintomas.forEach(element => {
+          if(element.hasChecked && element.hasPreguntas){
+            this.IsPreguntas = true;
+          }
+        });
       }
     }
 
@@ -139,7 +141,25 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   onClear(item) {
+
+    let element1 = this.sintomas.at(item).value;
+
     this.sintomas.removeAt(item);
+
+    this.IsPreguntas = false;
+
+    console.log(element1);
+
+    let itemIndex = this.ListaSintomas.findIndex(x=>x.nombre == element1);
+
+    this.ListaSintomas[itemIndex].hasChecked = false;
+
+    this.ListaSintomas.forEach(element => {
+      if((element.hasChecked == true) && (element.hasPreguntas == true)){
+        this.IsPreguntas = true;
+        console.log('here');
+      }
+    });
 
     this.Sugerencia = "";
     this.Nivel = "";
@@ -157,19 +177,6 @@ export class DiagnosticoComponent implements OnInit {
     if(this.sintomas.length >= 9 && this.sintomas.length <= 12){
       this.Sugerencia = "Sugerencia: Resultados Óptimos.";
       this.Nivel = "Potencial de acierto: Fuerte";
-    }
-
-    if(item.nombre == "Dolor o ardor en la parte superior del abdomen"){
-      this.IsDolor = false;
-    }
-    if(item.nombre == "Fiebre"){
-      this.IsFiebre = false;
-    }
-    if(item.nombre == "Diarrea"){
-      this.IsDiarrea = false;
-    }
-    if(item.nombre == "Vomitos"){
-      this.IsVomitos = false;
     }
   }
 
@@ -255,46 +262,35 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   step5() {
+
+    console.log(this.IsPreguntas);
+    console.log(this.sintomas.length);
+
     this.IsStep1 = false;
     this.IsStep2 = false;
     this.IsStep3 = false;
     this.IsStep4 = false;
-    this.IsStep5 = true;
-    this.IsStep6 = false;
+    this.IsStep5 = false;
+    this.IsStep6 = true;
 
-    if(this.IsDolor == false &&
-      this.IsFiebre == false &&
-       this.IsVomitos == false &&
-       this.IsDiarrea == false){
-         if(this.sintomas.length == 0){
-          this.IsStep4 = true;
-          this.IsStep5 = false;
-           alert("Debe ingresar al menos un sintoma");
-         }
-         else{
-          this.IsStep5 = false;
-          this.IsStep6 = true;
-          this.step6();
-         }
-   }
+    if(this.sintomas.length == 0){
+        this.IsStep4 = true;
+        this.IsStep5 = false;
+        this.IsStep6 = false;
+      alert("Debe ingresar al menos un sintoma");
+    }
+    else{
+      if(this.IsPreguntas == true){
+        this.IsStep5 = true;
+        this.IsStep6 = false;
+      }
+      else{
+        this.step6();
+      }
+    }
   }
 
   step6() {
-    if(
-      (this.IsDolor == true && this.diagnosticoForm.controls['DolorNivel'].value == "") ||
-      (this.IsFiebre == true && this.diagnosticoForm.controls['FiebreNivel'].value == "") ||
-      (this.IsVomitos == true && this.diagnosticoForm.controls['VomitosNivel'].value == "") ||
-       (this.IsDiarrea == true && this.diagnosticoForm.controls['DiarreaNivel'].value == ""))
-       {
-        this.IsStep1 = false;
-        this.IsStep2 = false;
-        this.IsStep3 = false;
-        this.IsStep4 = false;
-        this.IsStep5 = true;
-        this.IsStep6 = false;
-        alert("Campos obligatorios*");
-    }
-    else{
       this.IsSugerencia = false;
 
       this.IsStep1 = false;
@@ -334,7 +330,7 @@ export class DiagnosticoComponent implements OnInit {
           alert("Ocurrió un error.");
         }
       }, Error => alert("Ocurrió un error."))
-    }
+    
   }
 
   reset(){
@@ -352,6 +348,9 @@ export class DiagnosticoComponent implements OnInit {
     this.IsDiarrea = false;
     this.IsFiebre = false;
     this.IsVomitos = false;
+
+    this.IsResultado = false;
+    this.IsPreguntas = false;
 
     this.diagnosticoForm.patchValue({
       Sexo: "",
