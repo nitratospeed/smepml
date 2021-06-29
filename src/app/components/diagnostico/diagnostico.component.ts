@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
-import { FormBuilder, FormArray, Validators, Form } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { PrediccionService } from 'src/app/services/prediccion.service';
 import { SintomaService } from 'src/app/services/sintoma.service';
 import { Enfermedades } from 'src/app/models/enfermedades';
 import { Sintomas } from 'src/app/models/sintomas';
-import { DiagnosticoModalComponent } from '../diagnostico-modal/diagnostico-modal.component';
 
 @Component({
   selector: 'app-diagnostico',
@@ -13,9 +11,9 @@ import { DiagnosticoModalComponent } from '../diagnostico-modal/diagnostico-moda
   styleUrls: ['./diagnostico.component.scss']
 })
 export class DiagnosticoComponent implements OnInit {
-  bsModalRef: BsModalRef;
-
   ListaSintomas : Sintomas[];
+
+  ListaSintomasFiltrada : Sintomas[];
 
   Resultados : Enfermedades[];
 
@@ -58,7 +56,6 @@ export class DiagnosticoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
-    private modalService: BsModalService,
     private readonly prediccionService : PrediccionService, 
     private readonly sintomaService : SintomaService, 
   ) { }
@@ -81,6 +78,10 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   selectEvent(item) {
+   this.afterSelect(item.nombre)
+  }
+
+  afterSelect(sintoma: string){
     // do something with selected item
 
     this.IsSugerencia = true;
@@ -95,16 +96,16 @@ export class DiagnosticoComponent implements OnInit {
     else{
       for (let index = 0; index < this.sintomas.length; index++) {     
         let element = this.sintomas.at(index).value;
-        if (element == item.nombre) {
+        if (element == sintoma) {
           alert('El sintoma ingresado ya existe.');
           yaExiste = true;
           break;
         }
       }
       if(!yaExiste){
-        this.sintomas.push(this.fb.control(item.nombre));
+        this.sintomas.push(this.fb.control(sintoma));
 
-        let itemIndex = this.ListaSintomas.findIndex(x=>x.nombre == item.nombre);
+        let itemIndex = this.ListaSintomas.findIndex(x=>x.nombre == sintoma);
 
         this.ListaSintomas[itemIndex].hasChecked = true;
 
@@ -295,11 +296,7 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   getBodyPartName(t) {
-    const initialState = {
-      bodyPart: t,
-      ListaTotal: this.ListaSintomas
-    };
-    this.bsModalRef = this.modalService.show(DiagnosticoModalComponent, { initialState });
+    this.ListaSintomasFiltrada = this.ListaSintomas.filter(x=>x.zonaId == t);
   }
 
   step6() {
