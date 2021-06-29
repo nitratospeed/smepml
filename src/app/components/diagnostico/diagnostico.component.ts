@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { FormBuilder, FormArray, Validators, Form } from '@angular/forms';
 import { PrediccionService } from 'src/app/services/prediccion.service';
 import { SintomaService } from 'src/app/services/sintoma.service';
 import { Enfermedades } from 'src/app/models/enfermedades';
 import { Sintomas } from 'src/app/models/sintomas';
+import { DiagnosticoModalComponent } from '../diagnostico-modal/diagnostico-modal.component';
 
 @Component({
   selector: 'app-diagnostico',
@@ -11,6 +13,7 @@ import { Sintomas } from 'src/app/models/sintomas';
   styleUrls: ['./diagnostico.component.scss']
 })
 export class DiagnosticoComponent implements OnInit {
+  bsModalRef: BsModalRef;
 
   ListaSintomas : Sintomas[];
 
@@ -55,6 +58,7 @@ export class DiagnosticoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
+    private modalService: BsModalService,
     private readonly prediccionService : PrediccionService, 
     private readonly sintomaService : SintomaService, 
   ) { }
@@ -288,6 +292,14 @@ export class DiagnosticoComponent implements OnInit {
         this.step6();
       }
     }
+  }
+
+  getBodyPartName(t) {
+    const initialState = {
+      bodyPart: t,
+      ListaTotal: this.ListaSintomas
+    };
+    this.bsModalRef = this.modalService.show(DiagnosticoModalComponent, { initialState });
   }
 
   step6() {

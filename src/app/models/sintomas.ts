@@ -6,4 +6,5 @@ export class Sintomas {
     hasPreguntas: boolean;
     preguntas: Preguntas[];
     hasChecked: boolean;
+    zonaId: number;
 }

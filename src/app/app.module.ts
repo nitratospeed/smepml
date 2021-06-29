@@ -13,7 +13,8 @@ import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DiagnosticoComponent } from './components/diagnostico/diagnostico.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-
+import { ModalModule } from "ngx-bootstrap/modal";
+import { DiagnosticoModalComponent } from './components/diagnostico-modal/diagnostico-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     SettingsComponent,
     PacientesComponent,
     DashboardComponent,
-    DiagnosticoComponent
+    DiagnosticoComponent,
+    DiagnosticoModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
