@@ -14,7 +14,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DiagnosticoComponent } from './components/diagnostico/diagnostico.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DiagnosticoModalComponent } from './components/diagnostico-modal/diagnostico-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { DiagnosticoModalComponent } from './components/diagnostico-modal/diagno
     PacientesComponent,
     DashboardComponent,
     DiagnosticoComponent,
-    DiagnosticoModalComponent,
   ],
   imports: [
     BrowserModule,

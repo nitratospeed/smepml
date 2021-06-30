@@ -11,6 +11,7 @@ import { Sintomas } from 'src/app/models/sintomas';
   styleUrls: ['./diagnostico.component.scss']
 })
 export class DiagnosticoComponent implements OnInit {
+
   ListaSintomas : Sintomas[];
 
   ListaSintomasFiltrada : Sintomas[];
@@ -22,16 +23,36 @@ export class DiagnosticoComponent implements OnInit {
   IsPreguntas : boolean = false;
 
   IsSugerencia : boolean;
+
   Sugerencia:string;
+
   Nivel:string;
 
   keyword = 'nombre';
-  
 
-  IsDolor : boolean = false;
-  IsFiebre : boolean = false;
-  IsDiarrea : boolean = false;
-  IsVomitos : boolean = false;
+  bntStyleM: string = "";
+  bntStyleF: string = "";
+
+  svgStyleHead: string = "#57c9d5";
+  svgStyleLeftShoulder: string = "#57c9d5";
+  svgStyleRightShoulder: string = "#57c9d5";
+  svgStyleLeftArm: string = "#57c9d5";
+  svgStyleRightArm: string = "#57c9d5";
+  svgStyleChest: string = "#57c9d5";
+  svgStyleStomach: string = "#57c9d5";
+  svgStyleLeftLeg: string = "#57c9d5";
+  svgStyleRightLeg: string = "#57c9d5";
+  svgStyleLeftHand: string = "#57c9d5";
+  svgStyleRightHand: string = "#57c9d5";
+  svgStyleLeftFoot: string = "#57c9d5";
+  svgStyleRightFoot: string = "#57c9d5";
+
+  IsStep1: boolean = true;
+  IsStep2: boolean = false;
+  IsStep3: boolean = false;
+  IsStep4: boolean = false;
+  IsStep5: boolean = false;
+  IsStep6: boolean = false;
 
   diagnosticoForm = this.fb.group({
     Sexo: ['', Validators.required],
@@ -44,16 +65,6 @@ export class DiagnosticoComponent implements OnInit {
     sintomas: this.fb.array([])
   });
 
-  IsStep1: boolean = true;
-  IsStep2: boolean = false;
-  IsStep3: boolean = false;
-  IsStep4: boolean = false;
-  IsStep5: boolean = false;
-  IsStep6: boolean = false;
-
-  bntStyleM: string = "";
-  bntStyleF: string = "";
-
   constructor(
     private fb: FormBuilder, 
     private readonly prediccionService : PrediccionService, 
@@ -61,7 +72,10 @@ export class DiagnosticoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getSintomasFromService();
+  }
 
+  getSintomasFromService(){
     this.sintomaService.get().subscribe((rest : any) => {
       if (rest.isSuccess) {
         this.ListaSintomas = rest.data;
@@ -116,6 +130,20 @@ export class DiagnosticoComponent implements OnInit {
             this.IsPreguntas = true;
           }
         });
+
+        let sintomaEncontrado = this.ListaSintomas.find(x=>x.nombre == sintoma);
+
+        let t = sintomaEncontrado.zonaId;
+
+        if (t == 1) { this.svgStyleHead = "#ff7d16" } 
+        else if (t == 2) { this.svgStyleLeftShoulder = "#ff7d16"; this.svgStyleRightShoulder = "#ff7d16";  }
+        else if (t == 3) { this.svgStyleLeftArm = "#ff7d16"; this.svgStyleRightArm = "#ff7d16";  }
+        else if (t == 4) { this.svgStyleChest = "#ff7d16" }
+        else if (t == 5) { this.svgStyleStomach = "#ff7d16" }
+        else if (t == 6) { this.svgStyleLeftLeg = "#ff7d16"; this.svgStyleRightLeg = "#ff7d16"; }
+        else if (t == 7) { this.svgStyleRightHand = "#ff7d16"; this.svgStyleRightHand = "#ff7d16"; }
+        else if (t == 8) { this.svgStyleLeftFoot = "#ff7d16"; this.svgStyleRightFoot = "#ff7d16"; }
+
       }
     }
 
@@ -183,6 +211,19 @@ export class DiagnosticoComponent implements OnInit {
       this.Sugerencia = "Sugerencia: Resultados Óptimos.";
       this.Nivel = "Potencial de acierto: Fuerte";
     }
+
+    let sintomaAEliminar = this.ListaSintomas.find(x=>x.nombre == element1);
+
+    let t = sintomaAEliminar.zonaId;
+
+    if (t == 1) { this.svgStyleHead = "#57c9d5" } 
+    else if (t == 2) { this.svgStyleLeftShoulder = "#57c9d5"; this.svgStyleRightShoulder = "#57c9d5";  }
+    else if (t == 3) { this.svgStyleLeftArm = "#57c9d5"; this.svgStyleRightArm = "#57c9d5";  }
+    else if (t == 4) { this.svgStyleChest = "#57c9d5" }
+    else if (t == 5) { this.svgStyleStomach = "#57c9d5" }
+    else if (t == 6) { this.svgStyleLeftLeg = "#57c9d5"; this.svgStyleRightLeg = "#57c9d5"; }
+    else if (t == 7) { this.svgStyleRightHand = "#57c9d5"; this.svgStyleRightHand = "#57c9d5"; }
+    else if (t == 8) { this.svgStyleLeftFoot = "#57c9d5"; this.svgStyleRightFoot = "#57c9d5"; }
   }
 
   onChangeSexo(item) {
@@ -295,7 +336,7 @@ export class DiagnosticoComponent implements OnInit {
     }
   }
 
-  getBodyPartName(t) {
+  getBodyPartName(t,d) {
     this.ListaSintomasFiltrada = this.ListaSintomas.filter(x=>x.zonaId == t);
   }
 
@@ -353,11 +394,6 @@ export class DiagnosticoComponent implements OnInit {
     this.bntStyleM = "";
     this.bntStyleF = "";
 
-    this.IsDolor = false;
-    this.IsDiarrea = false;
-    this.IsFiebre = false;
-    this.IsVomitos = false;
-
     this.IsResultado = false;
     this.IsPreguntas = false;
 
@@ -372,5 +408,24 @@ export class DiagnosticoComponent implements OnInit {
     });
 
     this.sintomas.clear();
+
+    this.svgStyleHead = "#57c9d5";
+    this.svgStyleLeftShoulder = "#57c9d5";
+    this.svgStyleRightShoulder = "#57c9d5";
+    this.svgStyleLeftArm = "#57c9d5";
+    this.svgStyleRightArm = "#57c9d5";
+    this.svgStyleChest = "#57c9d5";
+    this.svgStyleStomach = "#57c9d5";
+    this.svgStyleLeftLeg = "#57c9d5";
+    this.svgStyleRightLeg = "#57c9d5";
+    this.svgStyleLeftHand = "#57c9d5";
+    this.svgStyleRightHand = "#57c9d5";
+    this.svgStyleLeftFoot = "#57c9d5";
+    this.svgStyleRightFoot = "#57c9d5";
+
+    this.ListaSintomas.length = 0;
+    this.ListaSintomasFiltrada.length = 0;
+
+    this.getSintomasFromService();
   }
 }
