@@ -340,7 +340,37 @@ export class DiagnosticoComponent implements OnInit {
     this.ListaSintomasFiltrada = this.ListaSintomas.filter(x=>x.zonaId == t);
   }
 
+  onPreguntaChecked(sintomaId:number, preguntaId: number, opcion: string){
+    this.ListaSintomas.find(x=>x.id == sintomaId).preguntas.forEach(element => {
+      if (element.id == preguntaId) {
+        element.opcionEscogida = opcion;
+      }     
+    });
+  }
+
   step6() {
+    console.log(this.ListaSintomas);
+    let InvalidForm : boolean = false;
+
+    this.ListaSintomas.filter(x=>x.hasPreguntas && x.hasChecked).forEach(element => {
+      element.preguntas.forEach(element1 => {
+        console.log(element1);
+        if (element1.opcionEscogida == "") {
+          InvalidForm = true;
+        }
+      });
+    });
+
+    if (InvalidForm) {
+      alert('Todos los campos son obligatorios*');
+      this.IsStep1 = false;
+      this.IsStep2 = false;
+      this.IsStep3 = false;
+      this.IsStep4 = false;
+      this.IsStep5 = true;
+      this.IsStep6 = false;
+    }
+    else {
       this.IsSugerencia = false;
 
       this.IsStep1 = false;
@@ -380,7 +410,7 @@ export class DiagnosticoComponent implements OnInit {
           alert("Ocurrió un error.");
         }
       }, Error => alert("Ocurrió un error."))
-    
+    }    
   }
 
   reset(){

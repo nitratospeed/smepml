@@ -205,8 +205,8 @@
               </div>
             </div>
             <ng-template #popContent>
-              <select class="form-control" #mySelect
-              (change)='afterSelect(mySelect.value)'>
+              <select class="form-control" #mySelect (change)='afterSelect(mySelect.value)'>
+                <option value="" selected disabled hidden>Seleccione</option>
                 <option *ngFor="let option of ListaSintomasFiltrada" [value]="option.nombre" >{{option.nombre}}</option>
               </select>
             </ng-template>
@@ -253,8 +253,8 @@
                 <div class="row mb-4">
                   <div class="col offset-md-3">
                     <div *ngFor="let opcion of pregunta['opciones']; let i=index" class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" value={{opcion.descripcion}}>
-                      <label class="form-check-label">{{opcion.descripcion}}</label>
+                      <input class="form-check-input" type="radio" value={{opcion.descripcion}} id={{opcion.id}} name={{pregunta.id}} (change)="onPreguntaChecked(sintoma.id,pregunta.id,$event.target.value)">
+                      <label class="form-check-label" for={{opcion.id}}>{{opcion.descripcion}}</label>
                     </div>
                   </div>
                 </div>           

@@ -3,5 +3,7 @@ import { Opciones } from "./opciones";
 export class Preguntas {
     id: number;
     descripcion : string;
-    opciones : Opciones[]
+    opciones : Opciones[];
+    opcionEscogida : string;
+    sintomaId : number;
 }
