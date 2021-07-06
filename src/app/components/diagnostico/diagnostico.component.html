@@ -8,6 +8,14 @@
     <form [formGroup]="diagnosticoForm">
       <div class="card-body">
         <div *ngIf="IsStep1" class="d-flex flex-column align-items-center mb-4">
+
+          <div class="mb-3">
+            <label>¿Cuáles son los nombres y apellidos del paciente?</label>
+          </div>
+          <div class="mb-4">
+            <input type="text" class="form-control" formControlName="NombresApellidos">
+          </div>
+
           <div class="mb-3">
             <label>¿Cuál es su sexo?</label>
           </div>
@@ -275,6 +283,10 @@
           <div *ngIf="IsResultado" >
             <div class="row justify-content-between">
               <div class="col-4">
+                <h6>Nombres y Apellidos: </h6>
+                <p>{{diagnosticoForm.value.NombresApellidos}}</p>
+              </div>
+              <div class="col-4">
                 <h6>Sexo: </h6>
                 <p>{{diagnosticoForm.value.Sexo}}</p>
               </div>
@@ -296,6 +308,10 @@
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style.width]="res.porcentaje_numero + '%'" aria-valuemin="0" aria-valuemax="100"></div>
               </div>        
             </div>
+            <hr>
+            <h6 class="my-4">Recomendación</h6>
+            <p>{{Recomendacion}}</p>
+            <div></div>
           </div>
           <ng-template #other_content>
             <h6 class="my-4">Realizando diagnóstico, espere por favor.</h6>

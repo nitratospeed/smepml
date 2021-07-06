@@ -18,6 +18,8 @@ export class DiagnosticoComponent implements OnInit {
 
   Resultados : Enfermedades[];
 
+  Recomendacion : string;
+
   IsResultado : boolean;
 
   IsPreguntas : boolean = false;
@@ -55,6 +57,7 @@ export class DiagnosticoComponent implements OnInit {
   IsStep6: boolean = false;
 
   diagnosticoForm = this.fb.group({
+    NombresApellidos: ['', Validators.required],
     Sexo: ['', Validators.required],
     Edad: [18, Validators.required],
     Sobrepeso: ['', Validators.required],
@@ -252,7 +255,10 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   step2() {
-    if(this.diagnosticoForm.controls['Sexo'].value == "") {
+    if(this.diagnosticoForm.controls['NombresApellidos'].value == "") {
+      alert("Debe ingresar sus nombres / apellidos.")
+    }
+    else if(this.diagnosticoForm.controls['Sexo'].value == "") {
       alert("Debe seleccionar al menos una opción.")
     }
     else{
@@ -380,17 +386,36 @@ export class DiagnosticoComponent implements OnInit {
       this.IsStep5 = false;
       this.IsStep6 = true;
 
+      let nombresApellidos = this.diagnosticoForm.controls['NombresApellidos'].value;
       let Sexo = this.diagnosticoForm.controls['Sexo'].value;
       let Edad = this.diagnosticoForm.controls['Edad'].value;
-      let Condiciones : Array<string> = ['Diabetes', 'Cigarrillos'];
+
+      let Condiciones : string[] = [];
+
+      Condiciones.push('Sobrepeso: ' + this.diagnosticoForm.controls['Sobrepeso'].value + ", ");
+      Condiciones.push('Cigarrillos: ' + this.diagnosticoForm.controls['Cigarrillos'].value + ", ");
+      Condiciones.push('Hipertension: ' + this.diagnosticoForm.controls['Hipertension'].value + ", ");
+      Condiciones.push('Diabetes: ' + this.diagnosticoForm.controls['Diabetes'].value + ", ");
+      Condiciones.push('Colesterol: ' + this.diagnosticoForm.controls['Colesterol'].value);
+
+      let Preguntas : string[] = [];
+
+      this.ListaSintomas.filter(x=>x.hasPreguntas && x.hasChecked).forEach(element => {
+        element.preguntas.forEach(element1 => {
+          Preguntas.push(element.nombre + ": " + element1.descripcion + ": " + element1.opcionEscogida + ", ");
+        });
+      });
+
       let Sintomas = this.sintomas.value;
 
       console.log(this.diagnosticoForm.value);
 
-      this.prediccionService.get({"Sexo": Sexo, "Edad": Edad, "Condiciones": Condiciones, "Sintomas": Sintomas}).subscribe((rest : any) => {
+      this.prediccionService.post({"nombresApellidos": nombresApellidos, "edad": Edad, "genero": Sexo,  "condiciones": Condiciones, "preguntas": Preguntas, "sintomas": Sintomas}).subscribe((rest : any) => {
         if (rest.isSuccess) {
           this.IsResultado = true;
-          let res : string[] = rest.data;
+          let res : string[] = rest.data.enfermedades;
+
+          this.Recomendacion = rest.data.recomendacion;
 
           let resList = [];
 
@@ -428,6 +453,7 @@ export class DiagnosticoComponent implements OnInit {
     this.IsPreguntas = false;
 
     this.diagnosticoForm.patchValue({
+      NombresApellidos: "",
       Sexo: "",
       Edad: "18",
       Sobrepeso: "",
@@ -436,6 +462,8 @@ export class DiagnosticoComponent implements OnInit {
       Diabetes: "",
       Colesterol: ""
     });
+
+    this.Recomendacion = "";
 
     this.sintomas.clear();
 
