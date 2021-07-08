@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="card mb-2">
+      <div class="card-body">
+          <h3>Historial de Diagnósticos</h3>
+      </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Edad</th>
+                            <th>Género</th>
+                            <th>Síntomas</th>
+                            <th>Resultado Más Preciso</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let diagnostico of Diagnosticos; let i=index">
+                            <td>{{ diagnostico.nombres }}</td>
+                            <td>{{ diagnostico.edad }}</td>
+                            <td>{{ diagnostico.genero }}</td>
+                            <td>{{ diagnostico.sintomas }}</td>
+                            <td>{{ diagnostico.resultadoMasPreciso }}</td>
+                            <td><a href="#">Ver Detalle</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
