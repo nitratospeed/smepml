@@ -13,7 +13,6 @@
                             <th>Nombres</th>
                             <th>Edad</th>
                             <th>Género</th>
-                            <th>Síntomas</th>
                             <th>Resultado Más Preciso</th>
                             <th></th>
                         </tr>
@@ -23,9 +22,8 @@
                             <td>{{ diagnostico.nombres }}</td>
                             <td>{{ diagnostico.edad }}</td>
                             <td>{{ diagnostico.genero }}</td>
-                            <td>{{ diagnostico.sintomas }}</td>
                             <td>{{ diagnostico.resultadoMasPreciso }}</td>
-                            <td><a href="#">Ver Detalle</a></td>
+                            <td><button class="btn btn-link" type="button" (click)="open(content, diagnostico.id)">Ver Detalle</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -33,3 +31,37 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Detalle diagnóstico</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+            <dl class="row">
+                <dt class="col-sm-3">Nombres y Apellidos:</dt>
+                <dd class="col-sm-9">{{DiagnosticoNombres}}</dd>
+
+                <dt class="col-sm-3">Edad:</dt>
+                <dd class="col-sm-9">{{DiagnosticoEdad}}</dd>
+
+                <dt class="col-sm-3">Género:</dt>
+                <dd class="col-sm-9">{{DiagnosticoGenero}}</dd>
+
+                <dt class="col-sm-3">Síntomas:</dt>
+                <dd class="col-sm-9">{{DiagnosticoSintomas}}</dd>
+
+                <dt class="col-sm-3">Resultado Más Preciso:</dt>
+                <dd class="col-sm-9">{{DiagnosticoResultado}}</dd>
+            </dl>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Cerrar</button>
+    </div>
+  </ng-template>
