@@ -39,7 +39,7 @@ export class DiagnosticoHistorialComponent implements OnInit {
   }
 
   open(content, diagnosticoId) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.open(content, { size: 'lg' });
     this.DiagnosticoId = diagnosticoId;
     let diag = this.Diagnosticos.find(x=>x.id == this.DiagnosticoId);
     this.DiagnosticoNombres = diag.nombres;
