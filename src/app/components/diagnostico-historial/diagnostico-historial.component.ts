@@ -21,21 +21,38 @@ export class DiagnosticoHistorialComponent implements OnInit {
   DiagnosticoSintomas : string = "";
   DiagnosticoResultado : string = "";
 
+  PageIndex : number = 0;
+  TotalPages : number = 0;
+  TotalCount : number = 0;
+  HasPreviousPage : boolean = false;
+  HasNextPage : boolean = true;
+
   constructor(private readonly prediccionService : PrediccionService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.getDiagnosticosFromService();
+    this.getDiagnosticosFromService(1);
   }
 
-  getDiagnosticosFromService(){
-    this.prediccionService.get().subscribe((rest : any) => {
-      if (rest.isSuccess) {
-        this.Diagnosticos = rest.data
-      }
-      else {
-        alert("Ocurrió un error.");
-      }
-    }, Error => alert("Ocurrió un error."))
+  getDiagnosticosFromService(currentIndex:number){
+
+    if (
+      currentIndex > 0 &&
+       ((this.TotalPages > 0 && currentIndex <= this.TotalPages) ||
+       (this.TotalPages == 0))
+       ) {
+      this.prediccionService.get({"PageNumber": currentIndex, "PageSize": 5}).subscribe((rest : any) => {
+        if (rest.isSuccess) {
+          this.Diagnosticos = rest.data.items;
+          this.PageIndex = rest.data.pageIndex;
+          this.TotalPages = rest.data.totalPages;
+          this.HasPreviousPage = rest.data.hasPreviousPage;
+          this.HasNextPage = rest.data.hasNextPage;
+        }
+        else {
+          alert("Ocurrió un error.");
+        }
+      }, Error => alert("Ocurrió un error.")) 
+    }
   }
 
   open(content, diagnosticoId) {

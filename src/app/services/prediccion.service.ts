@@ -8,8 +8,9 @@ export class PrediccionService {
 
   constructor(private readonly http : HttpClient) { }
 
-  get() {
-    return this.http.get<any>('https://smepml-api.azurewebsites.net/api/v1/prediccion');
+  get(data) {
+    let params = new HttpParams();
+    return this.http.get<any>('https://smepml-api.azurewebsites.net/api/v1/prediccion', {params:data});
   }
 
   post(data) {
