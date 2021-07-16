@@ -25,7 +25,7 @@
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
                   <a routerLink="/dashboard" class="nav-link flex-between">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <fa-icon class="nav-icon" [icon]="faTachometerAlt"></fa-icon>
                     <p class="flex-between">
                       Dashboard 
                       <!-- /<span class="right badge badge-danger">New</span>-->
@@ -34,22 +34,22 @@
                 </li>
             <li class="nav-item menu-closed">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-hospital-user"></i>
+                <fa-icon class="nav-icon" [icon]="faHospitalUser"></fa-icon>
                   <p>
                     Pacientes
-                    <i class="right fas fa-chevron-left"></i>
+                    <fa-icon class="right" [icon]="faChevronLeft"></fa-icon>
                   </p>
               </a>
               <ul class="nav nav-treeview" style="margin-left: 1rem">
                 <li class="nav-item">
                   <a routerLink="/paciente" class="nav-link">
-                    <i class="fas fa-users nav-icon"></i>
+                    <fa-icon class="nav-icon" [icon]="faUsers"></fa-icon>
                     <p>Lista</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="fas fa-user-plus nav-icon"></i>
+                    <fa-icon class="nav-icon" [icon]="faUserPlus"></fa-icon>
                     <p>Nuevo</p>
                   </a>
                 </li>
@@ -57,22 +57,22 @@
             </li>
             <li class="nav-item menu-closed">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-stethoscope"></i>
+                <fa-icon class="nav-icon" [icon]="faStethoscope"></fa-icon>
                 <p>
                   Diagnósticos
-                  <i class="right fas fa-chevron-left"></i>
+                  <fa-icon class="right" [icon]="faChevronLeft"></fa-icon>
                 </p>
               </a>
               <ul class="nav nav-treeview" style="margin-left: 1rem">
                 <li class="nav-item">
                   <a routerLink="/diagnostico" class="nav-link">
-                    <i class="nav-icon fas fa-diagnoses"></i>
+                    <fa-icon class="nav-icon" [icon]="faDiagnoses"></fa-icon>
                     <p>Nuevo</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a routerLink="/diagnostico-historial" class="nav-link">
-                    <i class="nav-icon fas fa-notes-medical"></i>
+                    <fa-icon class="nav-icon" [icon]="faNotesMedical"></fa-icon>
                     <p>Historial</p>
                   </a>
                 </li>

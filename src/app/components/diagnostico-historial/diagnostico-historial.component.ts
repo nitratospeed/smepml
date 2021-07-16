@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PrediccionService } from "src/app/services/prediccion.service";
 import { Diagnosticos } from "src/app/models/diagnosticos";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { 
+  faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-diagnostico-historial',
@@ -9,6 +11,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./diagnostico-historial.component.scss']
 })
 export class DiagnosticoHistorialComponent implements OnInit {
+
+  faEye = faEye;
 
   closeResult = '';
 

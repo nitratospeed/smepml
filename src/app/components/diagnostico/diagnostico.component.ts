@@ -82,7 +82,6 @@ export class DiagnosticoComponent implements OnInit {
     this.sintomaService.get().subscribe((rest : any) => {
       if (rest.isSuccess) {
         this.ListaSintomas = rest.data;
-        console.log(this.ListaSintomas);
       }
       else {
         alert("Ocurrió un error.");
@@ -184,8 +183,6 @@ export class DiagnosticoComponent implements OnInit {
 
     this.IsPreguntas = false;
 
-    console.log(element1);
-
     let itemIndex = this.ListaSintomas.findIndex(x=>x.nombre == element1);
 
     this.ListaSintomas[itemIndex].hasChecked = false;
@@ -193,7 +190,6 @@ export class DiagnosticoComponent implements OnInit {
     this.ListaSintomas.forEach(element => {
       if((element.hasChecked == true) && (element.hasPreguntas == true)){
         this.IsPreguntas = true;
-        console.log('here');
       }
     });
 
@@ -314,10 +310,6 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   step5() {
-
-    console.log(this.IsPreguntas);
-    console.log(this.sintomas.length);
-
     this.IsStep1 = false;
     this.IsStep2 = false;
     this.IsStep3 = false;
@@ -355,12 +347,10 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   step6() {
-    console.log(this.ListaSintomas);
     let InvalidForm : boolean = false;
 
     this.ListaSintomas.filter(x=>x.hasPreguntas && x.hasChecked).forEach(element => {
       element.preguntas.forEach(element1 => {
-        console.log(element1);
         if (element1.opcionEscogida == "") {
           InvalidForm = true;
         }
@@ -407,8 +397,6 @@ export class DiagnosticoComponent implements OnInit {
       });
 
       let Sintomas = this.sintomas.value;
-
-      console.log(this.diagnosticoForm.value);
 
       this.prediccionService.post({"nombresApellidos": nombresApellidos, "edad": Edad, "genero": Sexo,  "condiciones": Condiciones, "preguntas": Preguntas, "sintomas": Sintomas}).subscribe((rest : any) => {
         if (rest.isSuccess) {

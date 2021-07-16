@@ -23,7 +23,7 @@
                             <td>{{ diagnostico.edad }}</td>
                             <td>{{ diagnostico.genero }}</td>
                             <td>{{ diagnostico.resultadoMasPreciso }}</td>
-                            <td><button class="btn btn-link" type="button" (click)="open(content, diagnostico.id)">Ver Detalle</button></td>
+                            <td><button class="btn btn-link" type="button" (click)="open(content, diagnostico.id)">Ver Detalle <fa-icon [icon]="faEye"></fa-icon></button></td>
                         </tr>
                     </tbody>
                 </table>
