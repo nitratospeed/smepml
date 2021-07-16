@@ -4,6 +4,7 @@ import { PrediccionService } from 'src/app/services/prediccion.service';
 import { SintomaService } from 'src/app/services/sintoma.service';
 import { Enfermedades } from 'src/app/models/enfermedades';
 import { Sintomas } from 'src/app/models/sintomas';
+import { faMale, faFemale } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-diagnostico',
@@ -11,6 +12,9 @@ import { Sintomas } from 'src/app/models/sintomas';
   styleUrls: ['./diagnostico.component.scss']
 })
 export class DiagnosticoComponent implements OnInit {
+
+  faMale = faMale;
+  faFemale = faFemale;
 
   ListaSintomas : Sintomas[];
 
