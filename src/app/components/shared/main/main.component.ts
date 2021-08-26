@@ -10,12 +10,11 @@ import {
     faNotesMedical } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styles: [
-  ]
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MainComponent implements OnInit {
 
   faTachometerAlt = faTachometerAlt;
   faHospitalUser = faHospitalUser;
