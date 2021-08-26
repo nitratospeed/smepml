@@ -1,8 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "/subscriptions/c14171ea-74a9-4410-80a9-31c4e66d2770/resourceGroups/smepml/providers/Microsoft.Web/sites/smepml",
-    "appService.deploySubpath": "dist\\proyectoTesis",
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ]
-}
