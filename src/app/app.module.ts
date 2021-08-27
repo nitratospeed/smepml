@@ -11,6 +11,10 @@ import { DiagnosticoComponent } from './components/diagnostico/diagnostico.compo
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DiagnosticoHistorialComponent } from './components/diagnostico-historial/diagnostico-historial.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { CreateComponent } from './components/usuario/create/create.component';
+import { UpdateComponent } from './components/usuario/update/update.component';
+import { DeleteComponent } from './components/usuario/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,10 @@ import { DiagnosticoHistorialComponent } from './components/diagnostico-historia
     DashboardComponent,
     DiagnosticoComponent,
     DiagnosticoHistorialComponent,
+    UsuarioComponent,
+    CreateComponent,
+    UpdateComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserModule,
