@@ -4,54 +4,61 @@
         <div class="position-sticky pt-3">
           <ul class="list-unstyled ps-0">
             <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                Home
+              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                Usuario 1
               </button>
-              <div class="collapse show" id="home-collapse">
+              <div class="collapse" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="#" class="link-dark rounded">Overview</a></li>
-                  <li><a href="#" class="link-dark rounded">Updates</a></li>
-                  <li><a href="#" class="link-dark rounded">Reports</a></li>
+                  <li><a href="#" class="link-dark rounded">Perfil</a></li>
+                  <li><a href="#" class="link-dark rounded">Cerrar sesión</a></li>
                 </ul>
               </div>
             </li>
+            <li class="border-top my-3"></li>
             <li class="mb-1">
               <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                 Dashboard
               </button>
               <div class="collapse" id="dashboard-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="#" class="link-dark rounded">Overview</a></li>
-                  <li><a href="#" class="link-dark rounded">Weekly</a></li>
-                  <li><a href="#" class="link-dark rounded">Monthly</a></li>
-                  <li><a href="#" class="link-dark rounded">Annually</a></li>
+                  <li>
+                    <a routerLink="/dashboard" class="link-dark rounded">
+                      <fa-icon class="nav-icon" [icon]="faTachometerAlt"></fa-icon>Principal
+                    </a>
+                  </li>
                 </ul>
               </div>
             </li>
             <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                Orders
+              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#pacientes-collapse" aria-expanded="false">
+                Pacientes
               </button>
-              <div class="collapse" id="orders-collapse">
+              <div class="collapse" id="pacientes-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="#" class="link-dark rounded">New</a></li>
-                  <li><a href="#" class="link-dark rounded">Processed</a></li>
-                  <li><a href="#" class="link-dark rounded">Shipped</a></li>
-                  <li><a href="#" class="link-dark rounded">Returned</a></li>
+                  <li>
+                    <a routerLink="/paciente" class="link-dark rounded">
+                      <fa-icon class="nav-icon" [icon]="faUsers"></fa-icon>Lista
+                    </a>
+                  </li>
                 </ul>
               </div>
             </li>
-            <li class="border-top my-3"></li>
             <li class="mb-1">
-              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                Account
+              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#diagnosticos-collapse" aria-expanded="false">
+                Diagnósticos
               </button>
-              <div class="collapse" id="account-collapse">
+              <div class="collapse" id="diagnosticos-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li><a href="#" class="link-dark rounded">New...</a></li>
-                  <li><a href="#" class="link-dark rounded">Profile</a></li>
-                  <li><a href="#" class="link-dark rounded">Settings</a></li>
-                  <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                  <li>
+                    <a routerLink="/diagnostico" class="link-dark rounded">
+                      <fa-icon class="nav-icon" [icon]="faDiagnoses"></fa-icon>Nuevo
+                    </a>
+                  </li>
+                  <li>
+                    <a routerLink="/diagnostico-historial" class="link-dark rounded">
+                      <fa-icon class="nav-icon" [icon]="faNotesMedical"></fa-icon>Historial
+                    </a>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -60,11 +67,13 @@
       </nav>
   
       <main class="col-md-9 ms-sm-auto col-lg-10 px-4 py-4">
-        <div class="card">
-          <div class="card-body">
-            <p>----</p>
-          </div>
+        <div class="container">
+          <router-outlet></router-outlet>
         </div>
       </main>
+
+      <footer class="footer fixed-bottom col-md-9 ms-sm-auto col-lg-10 px-4 py-4 bg-light">
+        <strong>Copyright &copy; 2021 <b>SMEPML</b>.</strong> All rights reserved.
+      </footer>
     </div>
   </div>
