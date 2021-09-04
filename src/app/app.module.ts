@@ -12,9 +12,9 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DiagnosticoHistorialComponent } from './components/diagnostico-historial/diagnostico-historial.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
-import { CreateComponent } from './components/usuario/create/create.component';
-import { UpdateComponent } from './components/usuario/update/update.component';
-import { DeleteComponent } from './components/usuario/delete/delete.component';
+import { CreateUsuarioComponent } from './components/usuario/create-usuario/create-usuario.component';
+import { UpdateUsuarioComponent } from './components/usuario/update-usuario/update-usuario.component';
+import { DeleteUsuarioComponent } from './components/usuario/delete-usuario/delete-usuario.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +24,9 @@ import { DeleteComponent } from './components/usuario/delete/delete.component';
     DiagnosticoComponent,
     DiagnosticoHistorialComponent,
     UsuarioComponent,
-    CreateComponent,
-    UpdateComponent,
-    DeleteComponent,
+    CreateUsuarioComponent,
+    UpdateUsuarioComponent,
+    DeleteUsuarioComponent,
   ],
   imports: [
     BrowserModule,

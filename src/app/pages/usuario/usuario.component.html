@@ -3,24 +3,41 @@
         <h3>Usuarios</h3>
     </div>
     <div class="card-body">
-        <table class="table table-hover table-responsive">
-            <thead class="table-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Perfil</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let usuario of Usuario">
-                        <td>{{ usuario.id }}</td>
-                        <td>{{ usuario.nombreCompleto }}</td>
-                        <td>{{ usuario.correo }}</td>
-                        <td>{{ usuario.perfil }}</td>
+        <form class="row g-3">
+            <div class="col-auto">
+                <label for="Nombres" class="visually-hidden">Nombres</label>
+                <input type="text" class="form-control" id="Nombres" placeholder="Filtrar Nombre">
+              </div>
+            <div class="col-auto">
+              <label for="Correo" class="visually-hidden">Correo</label>
+              <input type="text" class="form-control" id="Correo" placeholder="Filtrar Correo">
+            </div>
+            <div class="col-auto ms-auto">
+              <button type="button" class="btn btn-primary mb-3" (click)="createUsuario()">Nuevo Usuario</button>
+            </div>
+          </form>
+        <div class="table-responsive">
+            <table class="table table-hover">               
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Perfil</th>
+                        <th></th>
                     </tr>
-                </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of Usuarios">
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.nombreCompleto }}</td>
+                            <td>{{ usuario.correo }}</td>
+                            <td>{{ usuario.perfil }}</td>
+                            <td><a href="javascript:void(0);" (click)="updateUsuario(usuario.id)">Editar</a></td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
     </div>
     <div class="card-footer text-muted text-center">
         <nav>

@@ -1,9 +1,7 @@
-import { Pagination } from "./pagination";
-
-export class Base {
+export interface Base<T> {
     isSuccess : boolean;
-    data : any;
+    data : T;
     message : string;
     exception : string;
-    validationErrors : object;
+    validationErrors : string[];
 }
