@@ -1,0 +1,96 @@
+<div class="modal-header">
+    <h4 class="modal-title">Editar Paciente</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <form [formGroup]="pacienteForm">
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Apellidos</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="apellidos">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Nombre</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="nombres">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Dni</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="dni">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Celular</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="celular">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Fecha Nacimiento</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="fechaNacimiento">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Correo</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="correo">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Dirección</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="direccion">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Edad</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <input type="text" class="form-control" formControlName="edad">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <label class="form-label">Género</label>
+            </div>
+            <div class="col-auto ms-auto">
+                <select class="form-select" formControlName="genero">
+                    <option value="">Seleccione</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row justify-content-end">
+        <div class="col">
+            <button type="button" class="btn btn-success" (click)="updatePaciente()">Actualizar</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
+        </div>
+    </div>   
+</div>

@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-header">
+        <h3>Diagnósticos</h3>
+    </div>
+    <div class="card-body">
+        <form class="row g-3">
+            <div class="col-auto">
+                <label for="Nombres" class="visually-hidden">Nombres</label>
+                <input type="text" class="form-control" id="Nombres" placeholder="Filtrar Nombres">
+              </div>
+            <div class="col-auto">
+              <label for="Apellidos" class="visually-hidden">Apellidos</label>
+              <input type="text" class="form-control" id="Apellidos" placeholder="Filtrar Apellidos">
+            </div>
+            <div class="col-auto ms-auto">
+                <button type="button" class="btn btn-primary mb-3" (click)="createDiagnostico()">Nuevo Diagnóstico</button>
+              </div>
+          </form>
+        <div class="table-responsive">
+            <table class="table table-hover">               
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombres</th>
+                        <th>Edad</th>
+                        <th>Resultado Más Preciso</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let diagnostico of Diagnosticos">
+                            <td>{{ diagnostico.id }}</td>
+                            <td>{{ diagnostico.nombres }}</td>
+                            <td>{{ diagnostico.edad }}</td>
+                            <td>{{ diagnostico.resultadoMasPreciso }}</td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted text-center">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getDiagnosticos(Pagination.pageIndex - 1)">Anterior</a></li>
+                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getDiagnosticos(Pagination.pageIndex + 1)">Siguiente</a></li>
+            </ul>
+        </nav>
+        Página {{Pagination.pageIndex}} de {{Pagination.totalPages}}
+    </div>
+</div>
