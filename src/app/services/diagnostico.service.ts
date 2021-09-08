@@ -10,6 +10,18 @@ export class DiagnosticoService {
 
   get(data) {
     let params = new HttpParams();
-    return this.http.get<any>('https://smepml-api.azurewebsites.net/api/v1/prediccion', {params:data});
+    return this.http.get<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico', {params:data});
+  }
+
+  getById(data) {
+    return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/${data}`);
+  }
+
+  post(data) {
+    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico', data);
+  }
+
+  email(data) {
+    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico/email', data);
   }
 }

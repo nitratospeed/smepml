@@ -19,6 +19,7 @@ import { UpdatePacienteComponent } from './components/paciente/update-paciente/u
 import { DeletePacienteComponent } from './components/paciente/delete-paciente/delete-paciente.component';
 import { DiagnosticoComponent } from './pages/diagnostico/diagnostico.component';
 import { CreateDiagnosticoComponent } from './components/diagnostico/create-diagnostico/create-diagnostico.component';
+import { DetailDiagnosticoComponent } from './components/diagnostico/detail-diagnostico/detail-diagnostico.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CreateDiagnosticoComponent } from './components/diagnostico/create-diag
     UpdatePacienteComponent,
     DeletePacienteComponent,
     CreateDiagnosticoComponent,
+    DetailDiagnosticoComponent,
   ],
   imports: [
     BrowserModule,

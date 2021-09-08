@@ -5,6 +5,7 @@ import { Pagination } from "src/app/models/pagination";
 import { Diagnostico } from "src/app/models/diagnostico";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateDiagnosticoComponent } from 'src/app/components/diagnostico/create-diagnostico/create-diagnostico.component';
+import { DetailDiagnosticoComponent } from 'src/app/components/diagnostico/detail-diagnostico/detail-diagnostico.component';
 
 @Component({
   selector: 'app-diagnostico',
@@ -42,5 +43,10 @@ export class DiagnosticoComponent implements OnInit {
 
   createDiagnostico(){
     this.modalService.open(CreateDiagnosticoComponent);
+  }
+
+  detailDiagnostico(id:number){
+    const modalRef = this.modalService.open(DetailDiagnosticoComponent);
+    modalRef.componentInstance.id = id;
   }
 }

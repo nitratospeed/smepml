@@ -14,7 +14,7 @@
             </div>
             <div class="col-auto ms-auto">
                 <button type="button" class="btn btn-primary mb-3" (click)="createDiagnostico()">Nuevo Diagnóstico</button>
-              </div>
+            </div>
           </form>
         <div class="table-responsive">
             <table class="table table-hover">               
@@ -24,14 +24,16 @@
                         <th>Nombres</th>
                         <th>Edad</th>
                         <th>Resultado Más Preciso</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let diagnostico of Diagnosticos">
                             <td>{{ diagnostico.id }}</td>
-                            <td>{{ diagnostico.nombres }}</td>
-                            <td>{{ diagnostico.edad }}</td>
+                            <td>{{ diagnostico.paciente.nombres }}</td>
+                            <td>{{ diagnostico.paciente.edad }}</td>
                             <td>{{ diagnostico.resultadoMasPreciso }}</td>
+                            <td><a href="javascript:void(0);" (click)="detailDiagnostico(diagnostico.id)">Detalle</a></td>
                         </tr>
                     </tbody>
             </table>
