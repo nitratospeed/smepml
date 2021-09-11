@@ -38,6 +38,6 @@ steps:
     azureSubscription: 'Suscripción de Azure 1(5)(c14171ea-74a9-4410-80a9-31c4e66d2770)'
     appType: 'webApp'
     WebAppName: 'smepml'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/dist/proyectoTesis/test'
 
 - task: PublishBuildArtifacts@1
