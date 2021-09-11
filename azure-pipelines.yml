@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+  buildOutputFolder: 'dist/proyectoTesis'
+
 steps:
 - task: NodeTool@0
   inputs:
