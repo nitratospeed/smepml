@@ -1,0 +1,114 @@
+<div class="modal-header">
+    <h4 class="modal-title">Nuevo Diagnóstico</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <form [formGroup]="diagnosticoForm">
+            <div class="row mb-2">
+                <div class="col-auto">
+                    <label class="form-label">DNI del paciente</label>
+                </div>
+                <div class="col-auto ms-auto">
+                    <input type="text" class="form-control" formControlName="pacienteDni">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary" (click)="getPacienteByDni(diagnosticoForm.value['pacienteDni'])">Siguiente</button>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <label class="form-label">Condiciones previas del paciente</label>
+                </div>
+            </div>
+            <div formArrayName="condiciones">
+                <div class="row mb-2" *ngFor="let condicion of condiciones.controls; let i = index" [formGroupName]="i">
+                    <div class="col-auto">                   
+                        <input type="text" readonly class="form-control-plaintext" formControlName="nombre">
+                    </div>
+                    <div class="col-auto ms-auto">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="si" id="{{ 'condicion_si' + i}}" formControlName="resultado">
+                            <label class="form-check-label" for="{{ 'condicion_si' + i}}">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="no" id="{{ 'condicion_no' + i}}" formControlName="resultado">
+                            <label class="form-check-label" for="{{ 'condicion_no' + i}}">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="nose" id="{{ 'condicion_nose' + i}}" formControlName="resultado">
+                            <label class="form-check-label" for="{{ 'condicion_nose' + i}}">No sé</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary">Siguiente</button>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-auto">
+                    <label class="form-label">Sintomas</label>
+                </div>
+                <div class="col-auto ms-auto">
+                    <input class="form-control" list="datalistOptions" autocomplete="off" (change)="addSintoma($event)" (keyup)="filterSintomas($event)" formControlName=sintomaSubstring>
+                    <datalist id="datalistOptions" class="datalist">
+                        <option *ngFor="let sintomasL of sintomasList2; let i = index" value={{sintomasL.nombre}}>
+                    </datalist>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary">Siguiente</button>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <label class="form-label">Preguntas necesarias al paciente</label>
+                </div>
+            </div>
+            <div *ngFor="let sintoma of sintomas.controls;">
+                <div *ngIf="sintoma.value.hasPreguntas">
+                    <div class="row mb-2">
+                        <div class="col text-center">
+                            <label class="form-label">{{sintoma.value.nombre}}</label>
+                        </div>
+                    </div>
+                    <div formArrayName="preguntas">
+                        <div *ngFor="let pregunta of preguntas.controls; let i = index;" [formGroupName]="i">
+                            <div class="row mb-2" *ngIf="pregunta.value.sintoma == sintoma.value.nombre">
+                                <div class="col-auto">                   
+                                    <input type="text" readonly class="form-control-plaintext" formControlName="nombre">
+                                </div>
+                                <div class="col-auto ms-auto">
+                                    <div *ngFor="let opcion of pregunta.value.opciones; let j = index;" class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="{{opcion.descripcion}}" id="{{ opcion.descripcion + i}}" formControlName="resultado">
+                                        <label class="form-check-label" for="{{ opcion.descripcion + i}}">{{opcion.descripcion}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary" (click)="predictDiagnostico()">Diagnosticar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row justify-content-end">
+        <div class="col">
+            <button type="button" class="btn btn-success" (click)="createDiagnostico()">Guardar</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
+        </div>
+    </div>   
+</div>
