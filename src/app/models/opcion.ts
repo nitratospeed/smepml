@@ -1,4 +1,4 @@
-export class Opciones {
+export interface Opcion {
     id: number;
     descripcion : string;
 }

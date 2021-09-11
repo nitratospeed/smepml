@@ -1,9 +1,9 @@
-import { Opciones } from "./opciones";
+import { Opcion } from "./opcion";
 
-export class Preguntas {
+export interface Pregunta {
     id: number;
     descripcion : string;
-    opciones : Opciones[];
+    opciones : Opcion[];
     opcionEscogida : string;
     sintomaId : number;
 }
