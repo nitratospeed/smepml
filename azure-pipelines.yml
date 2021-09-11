@@ -9,7 +9,8 @@ trigger:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: 'Suscripción de Azure 1(4)(c14171ea-74a9-4410-80a9-31c4e66d2770)'
-  
+# Environment name
+  environmentName: 'proyectoTesis'
   # Web app name
   webAppName: 'proyectoTesis'
 
@@ -55,6 +56,7 @@ stages:
   - deployment: DeploymentJob
     pool:
       vmImage: 'windows-latest'
+    environment: $(environmentName)
     strategy:
       runOnce:
         deploy:
