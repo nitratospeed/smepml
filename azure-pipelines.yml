@@ -20,10 +20,17 @@ steps:
     npm install
     ng build --prod
   displayName: 'npm install and build'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      **\*.js
+      package.json
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Suscripción de Azure 1(4)(c14171ea-74a9-4410-80a9-31c4e66d2770)'
     appType: 'webApp'
     WebAppName: 'smepml'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/smepml/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
