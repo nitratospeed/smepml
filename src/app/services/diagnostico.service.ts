@@ -21,8 +21,8 @@ export class DiagnosticoService {
     return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico', data);
   }
 
-  email(data) {
-    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico/email', data);
+  email(id) {
+    return this.http.post<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/email/${id}`, null);
   }
 
   predict(data) {

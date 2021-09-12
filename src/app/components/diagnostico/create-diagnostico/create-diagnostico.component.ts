@@ -154,12 +154,27 @@ export class CreateDiagnosticoComponent implements OnInit {
     this.diagnostico = this.diagnosticoForm.value;
     this.diagnostico.pacienteId = Number.parseInt(this.diagnosticoForm.value['pacienteId']);
 
+    let condicionesx : string[] = [];
+    this.diagnosticoForm.value['condiciones'].forEach(element => {
+      condicionesx.push(`${ element.nombre }: ${ element.resultado }`)
+    });
+
+    let sintomasx : string[] = [];
+    this.diagnosticoForm.value['sintomas'].forEach(element => {
+      sintomasx.push(`${ element.nombre }: ${ element.resultado }`)
+    });
+
+    let preguntasx : string[] = [];
+    this.diagnosticoForm.value['preguntas'].forEach(element => {
+      preguntasx.push(`${ element.nombre }: ${ element.resultado }`)
+    });
+
     this.diagnosticoService.predict(
       { "edad": this.paciente.edad,
         "genero": this.paciente.genero,
-        "condiciones": this.diagnosticoForm.value['condiciones'],
-        "sintomas": this.diagnosticoForm.value['sintomas'],
-        "preguntas": this.diagnosticoForm.value['preguntas'] }
+        "condiciones": condicionesx,
+        "sintomas": sintomasx,
+        "preguntas": preguntasx }
           ).subscribe((result : Base<PredictDiagnosticoDto>) => 
     {
       if (result.isSuccess) 
@@ -181,7 +196,34 @@ export class CreateDiagnosticoComponent implements OnInit {
     this.diagnostico = this.diagnosticoForm.value;
     this.diagnostico.pacienteId = Number.parseInt(this.diagnosticoForm.value['pacienteId']);
 
-    this.diagnosticoService.post(this.diagnostico).subscribe((result : Base<number>) => 
+    let condicionesx : string[] = [];
+    this.diagnosticoForm.value['condiciones'].forEach(element => {
+      condicionesx.push(`${ element.nombre }: ${ element.resultado }`)
+    });
+
+    let sintomasx : string[] = [];
+    this.diagnosticoForm.value['sintomas'].forEach(element => {
+      sintomasx.push(`${ element.nombre }: ${ element.resultado }`)
+    });
+
+    let preguntasx : string[] = [];
+    this.diagnosticoForm.value['preguntas'].forEach(element => {
+      preguntasx.push(`${ element.nombre }: ${ element.resultado }`)
+    });
+
+    let resultadosx : string[] = [];
+    this.diagnosticoForm.value['resultados'].forEach(element => {
+      resultadosx.push(`${ element }`)
+    });
+
+    this.diagnosticoService.post(
+      { "pacienteId": this.paciente.id,
+        "condiciones": condicionesx.toString(),
+        "sintomas": sintomasx.toString(),
+        "preguntas": preguntasx.toString(),
+        "resultados": resultadosx.toString(),
+        "resultadoMasPreciso": this.diagnosticoForm.value['resultadoMasPreciso']}
+    ).subscribe((result : Base<number>) => 
     {
       if (result.isSuccess) 
       {
