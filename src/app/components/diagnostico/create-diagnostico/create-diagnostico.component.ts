@@ -41,6 +41,20 @@ export class CreateDiagnosticoComponent implements OnInit {
   showPreguntasControl : boolean = false;
   showResultados : number = 0;
 
+  svgStyleHead: string = "#57c9d5";
+  svgStyleLeftShoulder: string = "#57c9d5";
+  svgStyleRightShoulder: string = "#57c9d5";
+  svgStyleLeftArm: string = "#57c9d5";
+  svgStyleRightArm: string = "#57c9d5";
+  svgStyleChest: string = "#57c9d5";
+  svgStyleStomach: string = "#57c9d5";
+  svgStyleLeftLeg: string = "#57c9d5";
+  svgStyleRightLeg: string = "#57c9d5";
+  svgStyleLeftHand: string = "#57c9d5";
+  svgStyleRightHand: string = "#57c9d5";
+  svgStyleLeftFoot: string = "#57c9d5";
+  svgStyleRightFoot: string = "#57c9d5";
+  
   diagnosticoForm = this.fb.group({
     pacienteDni: [''],
     pacienteId: [0],
@@ -119,7 +133,7 @@ export class CreateDiagnosticoComponent implements OnInit {
   }
 
   validateCondiciones(){
-    if (this.condiciones.controls.some(x=>x.value.resultado == '')) {
+    if (this.condiciones.value.some(x=>x.resultado == '')) {
       alert("Favor llenar todas las preguntas.")
     }
     else{
@@ -155,39 +169,91 @@ export class CreateDiagnosticoComponent implements OnInit {
       sintomaSubstring: '',
     });
 
-    if (this.sintomas.controls.some(x=>x.value.nombre == sintomaNombre)) {
+    if (this.sintomas.value.some(x=>x.nombre == sintomaNombre)) {
       alert("El sintoma ya ha sido escogido.");
     } 
     else {
       this.sintomas.push(this.fb.group({
+        id: sintoma.id,
         nombre: sintoma.nombre,
         resultado: ['ok'],
         hasPreguntas : sintoma.hasPreguntas,
       }));
 
-      sintoma.preguntas.forEach(element1 => {
-        this.preguntas.push(this.fb.group({
-          sintoma: [sintoma.nombre],
-          nombre: [element1.descripcion],
-          resultado: [''],
-          opciones: [element1.opciones],
-        }));
-      });   
+      let bodyPart = sintoma.zonaId;
+
+      if (bodyPart == 1) { this.svgStyleHead = "#ff7d16" } 
+        else if (bodyPart == 2) { this.svgStyleLeftShoulder = "#ff7d16"; this.svgStyleRightShoulder = "#ff7d16";  }
+        else if (bodyPart == 3) { this.svgStyleLeftArm = "#ff7d16"; this.svgStyleRightArm = "#ff7d16";  }
+        else if (bodyPart == 4) { this.svgStyleChest = "#ff7d16" }
+        else if (bodyPart == 5) { this.svgStyleStomach = "#ff7d16" }
+        else if (bodyPart == 6) { this.svgStyleLeftLeg = "#ff7d16"; this.svgStyleRightLeg = "#ff7d16"; }
+        else if (bodyPart == 7) { this.svgStyleRightHand = "#ff7d16"; this.svgStyleRightHand = "#ff7d16"; }
+        else if (bodyPart == 8) { this.svgStyleLeftFoot = "#ff7d16"; this.svgStyleRightFoot = "#ff7d16"; }
+
+      if (sintoma.hasPreguntas) {
+        sintoma.preguntas.forEach(element1 => {
+          this.preguntas.push(this.fb.group({
+            id: element1.id,
+            sintoma: [sintoma.nombre],
+            nombre: [element1.descripcion],
+            resultado: [''],
+            opciones: [element1.opciones],
+          }));
+        }); 
+      }
     }
   }
 
+  checkedSintoma(event){  
+    let sintomaNombre : string = event.target.value;
+    let sintoma = {preguntas : {}} as Sintoma;
+    sintoma = this.sintomasList.find(x=>x.nombre.toLowerCase() == sintomaNombre.toLowerCase())
+
+    this.sintomas.removeAt(this.sintomas.value.findIndex(x=>x.id == sintoma.id))
+
+    let bodyPart = sintoma.zonaId;
+
+    if (bodyPart == 1) { this.svgStyleHead = "#57c9d5" } 
+      else if (bodyPart == 2) { this.svgStyleLeftShoulder = "#57c9d5"; this.svgStyleRightShoulder = "#57c9d5";  }
+      else if (bodyPart == 3) { this.svgStyleLeftArm = "#57c9d5"; this.svgStyleRightArm = "#57c9d5";  }
+      else if (bodyPart == 4) { this.svgStyleChest = "#57c9d5" }
+      else if (bodyPart == 5) { this.svgStyleStomach = "#57c9d5" }
+      else if (bodyPart == 6) { this.svgStyleLeftLeg = "#57c9d5"; this.svgStyleRightLeg = "#57c9d5"; }
+      else if (bodyPart == 7) { this.svgStyleRightHand = "#57c9d5"; this.svgStyleRightHand = "#57c9d5"; }
+      else if (bodyPart == 8) { this.svgStyleLeftFoot = "#57c9d5"; this.svgStyleRightFoot = "#57c9d5"; }
+
+    if (sintoma.hasPreguntas) {
+      this.preguntas.value.forEach(element => {
+        if (element.sintoma == sintomaNombre) {
+          this.preguntas.removeAt(this.preguntas.value.findIndex(x=>x.id == element.id)) 
+        }
+      });
+    }
+  }
+
+  getBodyPartName(t,d) {
+    this.sintomasList2 = this.sintomasList.filter(x=>x.zonaId == t);
+  }
+
   validateSintomas(){
-    if (this.sintomas.controls.length == 0) {
+    if (this.sintomas.value.length == 0) {
       alert("Favor escoger al menos un sintoma.")
     }
     else{
-      this.showSintomasControl = false;
-      this.showPreguntasControl = true;
+      if (this.sintomas.value.some(x=>x.hasPreguntas)) {
+        this.showSintomasControl = false;
+        this.showPreguntasControl = true; 
+      }
+      else{
+        this.showSintomasControl = false;
+        this.predictDiagnostico();
+      }
     }
   }
 
   predictDiagnostico(){
-    if (this.preguntas.controls.some(x=>x.value.resultado == '')) {
+    if (this.sintomas.value.some(x=>x.hasPreguntas) && this.preguntas.value.some(x=>x.resultado == '')) {
       alert("Favor de llenar todas las preguntas.")
     }
     else{
@@ -204,7 +270,7 @@ export class CreateDiagnosticoComponent implements OnInit {
   
       let sintomasx : string[] = [];
       this.diagnosticoForm.value['sintomas'].forEach(element => {
-        sintomasx.push(`${ element.nombre }: ${ element.resultado }`)
+        sintomasx.push(`${ element.nombre }`)
       });
   
       let preguntasx : string[] = [];
@@ -221,9 +287,7 @@ export class CreateDiagnosticoComponent implements OnInit {
             ).subscribe((result : Base<PredictDiagnosticoDto>) => 
       {
         if (result.isSuccess) 
-        {
-          alert("Predecido con éxito.");
-          
+        {        
           this.diagnosticoForm.patchValue({
             resultados: result.data.resultados,
             resultadoMasPreciso: result.data.resultadoMasPreciso
@@ -231,8 +295,10 @@ export class CreateDiagnosticoComponent implements OnInit {
   
           this.getEnfRecomExam();
   
-          this.createDiagnostico();
+          this.createDiagnostico(condicionesx, sintomasx, preguntasx);
           
+          alert("Predecido con éxito.");
+
           this.showResultados = 2;
         }
         else 
@@ -259,37 +325,18 @@ export class CreateDiagnosticoComponent implements OnInit {
     }, Error => alert("Error en servicio interno. Favor intentar luego."))  
   }
 
-  createDiagnostico(){
-    this.diagnostico = this.diagnosticoForm.value;
-    this.diagnostico.pacienteId = Number.parseInt(this.diagnosticoForm.value['pacienteId']);
+  createDiagnostico(condiciones:string[], sintomas:string[], preguntas:string[]){
 
-    let condicionesx : string[] = [];
-    this.diagnosticoForm.value['condiciones'].forEach(element => {
-      condicionesx.push(`${ element.nombre }: ${ element.resultado }`)
-    });
-
-    let sintomasx : string[] = [];
-    this.diagnosticoForm.value['sintomas'].forEach(element => {
-      sintomasx.push(`${ element.nombre }: ${ element.resultado }`)
-    });
-
-    let preguntasx : string[] = [];
-    this.diagnosticoForm.value['preguntas'].forEach(element => {
-      preguntasx.push(`${ element.nombre }: ${ element.resultado }`)
-    });
-
-    let resultadosx : string[] = [];
-    this.diagnosticoForm.value['resultados'].forEach(element => {
-      resultadosx.push(`${ element }`)
-    });
+    let resultados : string = this.diagnosticoForm.value['resultados']
+    let resultadoMasPreciso : string = this.diagnosticoForm.value['resultadoMasPreciso']
 
     this.diagnosticoService.post(
       { "pacienteId": this.paciente.id,
-        "condiciones": condicionesx.toString(),
-        "sintomas": sintomasx.toString(),
-        "preguntas": preguntasx.toString(),
-        "resultados": resultadosx.toString(),
-        "resultadoMasPreciso": this.diagnosticoForm.value['resultadoMasPreciso']}
+        "condiciones": condiciones.toString(),
+        "sintomas": sintomas.toString(),
+        "preguntas": preguntas.toString(),
+        "resultados": resultados.toString(),
+        "resultadoMasPreciso": resultadoMasPreciso.toString() }
     ).subscribe((result : Base<number>) => 
     {
       if (result.isSuccess) 

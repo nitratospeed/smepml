@@ -42,7 +42,7 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   createDiagnostico(){
-    this.modalService.open(CreateDiagnosticoComponent);
+    this.modalService.open(CreateDiagnosticoComponent, { size: 'lg' });
   }
 
   detailDiagnostico(id:number){

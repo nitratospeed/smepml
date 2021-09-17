@@ -5,10 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { CreateUsuarioComponent } from './components/usuario/create-usuario/create-usuario.component';
 import { UpdateUsuarioComponent } from './components/usuario/update-usuario/update-usuario.component';
@@ -20,11 +17,18 @@ import { DeletePacienteComponent } from './components/paciente/delete-paciente/d
 import { DiagnosticoComponent } from './pages/diagnostico/diagnostico.component';
 import { CreateDiagnosticoComponent } from './components/diagnostico/create-diagnostico/create-diagnostico.component';
 import { DetailDiagnosticoComponent } from './components/diagnostico/detail-diagnostico/detail-diagnostico.component';
+import { IncidenciaComponent } from './pages/incidencia/incidencia.component';
+import { CreateIncidenciaComponent } from './components/incidencia/create-incidencia/create-incidencia.component';
+import { UpdateIncidenciaComponent } from './components/incidencia/update-incidencia/update-incidencia.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     DiagnosticoComponent,
     UsuarioComponent,
     CreateUsuarioComponent,
@@ -36,6 +40,12 @@ import { DetailDiagnosticoComponent } from './components/diagnostico/detail-diag
     DeletePacienteComponent,
     CreateDiagnosticoComponent,
     DetailDiagnosticoComponent,
+    IncidenciaComponent,
+    CreateIncidenciaComponent,
+    UpdateIncidenciaComponent,
+    LoginComponent,
+    LogoutComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +53,10 @@ import { DetailDiagnosticoComponent } from './components/diagnostico/detail-diag
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AutocompleteLibModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
