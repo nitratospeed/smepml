@@ -4,12 +4,13 @@ import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { DiagnosticoService } from "src/app/services/diagnostico.service";
 import { PacienteService } from "src/app/services/paciente.service";
 import { SintomaService } from "src/app/services/sintoma.service";
+import { EnfermedadService } from "src/app/services/enfermedad.service";
 import { Base } from 'src/app/models/base';
 import { Pagination } from "src/app/models/pagination";
 import { Diagnostico } from 'src/app/models/diagnostico';
 import { Paciente } from 'src/app/models/paciente';
 import { Sintoma } from 'src/app/models/sintoma';
-import { Pregunta } from 'src/app/models/pregunta';
+import { Enfermedad } from 'src/app/models/enfermedad';
 import { Opcion } from 'src/app/models/opcion';
 import { PredictDiagnosticoDto } from 'src/app/models/predict-diagnostico-dto';
 
@@ -31,6 +32,15 @@ export class CreateDiagnosticoComponent implements OnInit {
 
   opcionesList : Opcion[];
 
+  recomendaciones : string;
+  examenes : string[];
+
+  showDniControl : boolean = true;
+  showCondicionesControl : boolean = false;
+  showSintomasControl : boolean = false;
+  showPreguntasControl : boolean = false;
+  showResultados : number = 0;
+
   diagnosticoForm = this.fb.group({
     pacienteDni: [''],
     pacienteId: [0],
@@ -46,7 +56,8 @@ export class CreateDiagnosticoComponent implements OnInit {
     private fb: FormBuilder,
     private readonly diagnosticoService : DiagnosticoService,
     private readonly sintomaService : SintomaService,
-    private readonly pacienteService : PacienteService) { }
+    private readonly pacienteService : PacienteService,
+    private readonly enfermedadService : EnfermedadService) { }
 
   ngOnInit(): void {
     this.condicionesList.push("¿Tuvo o tiene sobrepeso?");
@@ -65,29 +76,6 @@ export class CreateDiagnosticoComponent implements OnInit {
     this.getSintomas();
   }
 
-  getPacienteByDni(dni:string) {
-    this.pacienteService.get({"Dni": dni}).subscribe((result : Base<Pagination<Paciente>>) => 
-      {
-        if (result.isSuccess) 
-        {
-          if (result.data.items.length>0) {
-            this.paciente = result.data.items[0];
-            this.diagnosticoForm.patchValue({
-              pacienteId: this.paciente.id,
-            });
-            alert(`Paciente encontrado, Sr/Sra: ${ this.paciente.apellidos }`); 
-          }
-          else{
-            alert(`No se encontró al paciente con dni: ${ dni }`); 
-          }
-        }
-        else 
-        {
-          alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}`);
-        }
-      }, Error => alert("Error en servicio interno. Favor intentar luego.")) 
-  }
-
   get condiciones() {
     return this.diagnosticoForm.get('condiciones') as FormArray;
   }
@@ -98,6 +86,46 @@ export class CreateDiagnosticoComponent implements OnInit {
 
   get preguntas() {
     return this.diagnosticoForm.get('preguntas') as FormArray;
+  }
+
+  getPacienteByDni(dni:string) {
+    if(dni != ""){
+      this.pacienteService.get({"Dni": dni}).subscribe((result : Base<Pagination<Paciente>>) => 
+      {
+        if (result.isSuccess) 
+        {
+          if (result.data.items.length>0) {
+            this.paciente = result.data.items[0];
+            this.diagnosticoForm.patchValue({
+              pacienteId: this.paciente.id,
+            });
+            alert(`Paciente encontrado, Sr/Sra: ${ this.paciente.apellidos }`);
+            this.showDniControl = false;
+            this.showCondicionesControl = true;
+          }
+          else{
+            alert(`No se encontró al paciente con dni: ${ dni }`); 
+          }
+        }
+        else 
+        {
+          alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}`);
+        }
+      }, Error => alert("Error en servicio interno. Favor intentar luego.")) 
+    }
+    else{
+      alert("Dni obligatorio.")
+    }
+  }
+
+  validateCondiciones(){
+    if (this.condiciones.controls.some(x=>x.value.resultado == '')) {
+      alert("Favor llenar todas las preguntas.")
+    }
+    else{
+      this.showCondicionesControl = false;
+      this.showSintomasControl = true;
+    }
   }
 
   getSintomas() {
@@ -121,77 +149,116 @@ export class CreateDiagnosticoComponent implements OnInit {
   addSintoma(event){
     let sintomaNombre : string = event.target.value;
     let sintoma = {preguntas : {}} as Sintoma;
-
     sintoma = this.sintomasList.find(x=>x.nombre.toLowerCase() == sintomaNombre.toLowerCase());
-
-    this.sintomas.push(this.fb.group({
-      nombre: sintoma.nombre,
-      resultado: ['ok'],
-      hasPreguntas : sintoma.hasPreguntas,
-    }));
-
-    this.sintomasList2 = [];
-    
+    this.sintomasList2 = [];     
     this.diagnosticoForm.patchValue({
       sintomaSubstring: '',
     });
 
-    sintoma.preguntas.forEach(element1 => {
-      this.preguntas.push(this.fb.group({
-        sintoma: [sintoma.nombre],
-        nombre: [element1.descripcion],
-        resultado: [''],
-        opciones: [element1.opciones],
+    if (this.sintomas.controls.some(x=>x.value.nombre == sintomaNombre)) {
+      alert("El sintoma ya ha sido escogido.");
+    } 
+    else {
+      this.sintomas.push(this.fb.group({
+        nombre: sintoma.nombre,
+        resultado: ['ok'],
+        hasPreguntas : sintoma.hasPreguntas,
       }));
-    });
+
+      sintoma.preguntas.forEach(element1 => {
+        this.preguntas.push(this.fb.group({
+          sintoma: [sintoma.nombre],
+          nombre: [element1.descripcion],
+          resultado: [''],
+          opciones: [element1.opciones],
+        }));
+      });   
+    }
   }
 
-  showFormResult(){
-    console.log(this.diagnosticoForm.value);
+  validateSintomas(){
+    if (this.sintomas.controls.length == 0) {
+      alert("Favor escoger al menos un sintoma.")
+    }
+    else{
+      this.showSintomasControl = false;
+      this.showPreguntasControl = true;
+    }
   }
 
   predictDiagnostico(){
-    this.diagnostico = this.diagnosticoForm.value;
-    this.diagnostico.pacienteId = Number.parseInt(this.diagnosticoForm.value['pacienteId']);
+    if (this.preguntas.controls.some(x=>x.value.resultado == '')) {
+      alert("Favor de llenar todas las preguntas.")
+    }
+    else{
+      this.showPreguntasControl = false;
+      this.showResultados = 1;
 
-    let condicionesx : string[] = [];
-    this.diagnosticoForm.value['condiciones'].forEach(element => {
-      condicionesx.push(`${ element.nombre }: ${ element.resultado }`)
-    });
-
-    let sintomasx : string[] = [];
-    this.diagnosticoForm.value['sintomas'].forEach(element => {
-      sintomasx.push(`${ element.nombre }: ${ element.resultado }`)
-    });
-
-    let preguntasx : string[] = [];
-    this.diagnosticoForm.value['preguntas'].forEach(element => {
-      preguntasx.push(`${ element.nombre }: ${ element.resultado }`)
-    });
-
-    this.diagnosticoService.predict(
-      { "edad": this.paciente.edad,
-        "genero": this.paciente.genero,
-        "condiciones": condicionesx,
-        "sintomas": sintomasx,
-        "preguntas": preguntasx }
-          ).subscribe((result : Base<PredictDiagnosticoDto>) => 
+      this.diagnostico = this.diagnosticoForm.value;
+      this.diagnostico.pacienteId = Number.parseInt(this.diagnosticoForm.value['pacienteId']);
+  
+      let condicionesx : string[] = [];
+      this.diagnosticoForm.value['condiciones'].forEach(element => {
+        condicionesx.push(`${ element.nombre }: ${ element.resultado }`)
+      });
+  
+      let sintomasx : string[] = [];
+      this.diagnosticoForm.value['sintomas'].forEach(element => {
+        sintomasx.push(`${ element.nombre }: ${ element.resultado }`)
+      });
+  
+      let preguntasx : string[] = [];
+      this.diagnosticoForm.value['preguntas'].forEach(element => {
+        preguntasx.push(`${ element.nombre }: ${ element.resultado }`)
+      });
+  
+      this.diagnosticoService.predict(
+        { "edad": this.paciente.edad,
+          "genero": this.paciente.genero,
+          "condiciones": condicionesx,
+          "sintomas": sintomasx,
+          "preguntas": preguntasx }
+            ).subscribe((result : Base<PredictDiagnosticoDto>) => 
+      {
+        if (result.isSuccess) 
+        {
+          alert("Predecido con éxito.");
+          
+          this.diagnosticoForm.patchValue({
+            resultados: result.data.resultados,
+            resultadoMasPreciso: result.data.resultadoMasPreciso
+          });
+  
+          this.getEnfRecomExam();
+  
+          this.createDiagnostico();
+          
+          this.showResultados = 2;
+        }
+        else 
+        {
+          alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+        }
+      }, Error => alert("Error en servicio interno. Favor intentar luego."))
+    }
+  }
+  
+  getEnfRecomExam(){
+    let enfermedad = this.diagnosticoForm.value['resultadoMasPreciso'];
+    this.enfermedadService.getByName(enfermedad).subscribe((result : Base<Enfermedad>) => 
     {
       if (result.isSuccess) 
       {
-        alert("Predecido con éxito.");
-        this.diagnosticoForm.patchValue({
-          resultados: result.data.resultados,
-          resultadoMasPreciso: result.data.resultadoMasPreciso
-        });
+        this.recomendaciones = result.data.recomendacion;
+        this.examenes = result.data.examenes;
       }
       else 
       {
         alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
       }
-    }, Error => alert("Error en servicio interno. Favor intentar luego."))
+    }, Error => alert("Error en servicio interno. Favor intentar luego."))  
   }
-  
+
   createDiagnostico(){
     this.diagnostico = this.diagnosticoForm.value;
     this.diagnostico.pacienteId = Number.parseInt(this.diagnosticoForm.value['pacienteId']);
@@ -228,7 +295,6 @@ export class CreateDiagnosticoComponent implements OnInit {
       if (result.isSuccess) 
       {
         alert("Guardado con éxito.");
-        this.activeModal.close('Success click')
       }
       else 
       {
