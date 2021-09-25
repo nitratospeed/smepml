@@ -9,4 +9,5 @@ export interface Diagnostico {
     preguntas: string;
     resultados: string;
     resultadoMasPreciso: string;
+    calificacion: number;
 }

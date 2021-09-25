@@ -25,8 +25,11 @@ export class AppComponent implements OnInit {
   faDiagnoses = faDiagnoses;
   faNotesMedical = faNotesMedical;
 
+  isLoggedIn = '';
+
   constructor() { }
 
   ngOnInit(): void {
+    this.isLoggedIn = localStorage.getItem('isLoggedIn') ?? '';
   }
 }

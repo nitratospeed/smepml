@@ -14,6 +14,8 @@ export class DetailDiagnosticoComponent implements OnInit {
 
   @Input() id;
 
+  currentRate = 0;
+
   diagnostico = {paciente : {}} as Diagnostico;
 
   constructor(public activeModal: NgbActiveModal, private readonly diagnosticoService : DiagnosticoService) { }
@@ -46,4 +48,20 @@ export class DetailDiagnosticoComponent implements OnInit {
     }, Error => alert("Error en servicio interno. Favor intentar luego."))
   }
 
+  ratingDiagnostico(){
+    this.diagnosticoService.rating(
+      { "id": this.id,
+        "calificacion": this.currentRate }
+    ).subscribe((result : Base<boolean>) => 
+    {
+      if (result.isSuccess) 
+      {
+        alert("Calificado con éxito.");
+      }
+      else 
+      {
+        alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+      }
+    }, Error => alert("Error en servicio interno. Favor intentar luego."))
+  }
 }

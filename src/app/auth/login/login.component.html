@@ -1,1 +1,18 @@
-<p>login works!</p>
+<main class="form-signin text-center">
+    <form [formGroup]="authForm">
+      <img class="mb-4" src="assets/logo.png" alt="" width="72">
+      <h1 class="h3 mb-3 fw-normal">Por favor, inicie sesión</h1>
+  
+      <div class="form-floating">
+        <input type="email" class="form-control" placeholder="name@example.com" formControlName="correo">
+        <label>Usuario</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" placeholder="**********" formControlName="contrasena">
+        <label>Contraseña</label>
+      </div>
+  
+      <button class="w-100 btn btn-lg btn-primary" type="button" (click)="auth()">Ingresar</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2021 SMEPML, Inc</p>
+    </form>
+  </main>

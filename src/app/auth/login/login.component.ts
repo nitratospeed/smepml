@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsuarioService } from "src/app/services/usuario.service";
+import { Base } from 'src/app/models/base';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +10,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  authForm = new FormGroup({
+    correo: new FormControl('', Validators.required),
+    contrasena: new FormControl('', Validators.required),
+  });
 
-  constructor() { }
+  constructor(private readonly usuarioService : UsuarioService, private router: Router) { }
+
 
   ngOnInit(): void {
   }
 
+  auth(){
+    if (this.authForm.valid) {
+      this.usuarioService.auth(this.authForm.value).subscribe((result : Base<number>) => 
+      {
+        if (result.isSuccess) 
+        {
+          if (result.data) {
+            alert("Logueado con éxito.");
+            localStorage.setItem('isLoggedIn', "true");
+            this.router.navigate(['diagnostico']);
+            window.location.reload()
+          }
+          else {
+            alert("Usuario y/o contraseña incorrecta.")
+          }
+        }
+        else 
+        {
+          alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+        }
+      }, Error => alert("Error en servicio interno. Favor intentar luego."))  
+    }
+ else{
+   alert("Ingrese usuario y contraseña.")
+ }
+  }
 }

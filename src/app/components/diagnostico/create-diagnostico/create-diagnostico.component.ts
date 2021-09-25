@@ -41,6 +41,9 @@ export class CreateDiagnosticoComponent implements OnInit {
   showPreguntasControl : boolean = false;
   showResultados : number = 0;
 
+  currentRate = 0;
+  diagnosticoId = 0;
+
   svgStyleHead: string = "#57c9d5";
   svgStyleLeftShoulder: string = "#57c9d5";
   svgStyleRightShoulder: string = "#57c9d5";
@@ -341,7 +344,25 @@ export class CreateDiagnosticoComponent implements OnInit {
     {
       if (result.isSuccess) 
       {
+        this.diagnosticoId = result.data;
         alert("Guardado con éxito.");
+      }
+      else 
+      {
+        alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+      }
+    }, Error => alert("Error en servicio interno. Favor intentar luego."))
+  }
+
+  ratingDiagnostico(){
+    this.diagnosticoService.rating(
+      { "id": this.diagnosticoId,
+        "calificacion": this.currentRate }
+    ).subscribe((result : Base<boolean>) => 
+    {
+      if (result.isSuccess) 
+      {
+        alert("Calificado con éxito.");
       }
       else 
       {

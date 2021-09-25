@@ -21,6 +21,10 @@ export class DiagnosticoService {
     return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico', data);
   }
 
+  rating(data) {
+    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico/rating', data);
+  }
+
   email(id) {
     return this.http.post<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/email/${id}`, null);
   }

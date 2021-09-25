@@ -166,6 +166,12 @@
                         </ul>
                     </dd>
                 </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Calificación de Resultados</dt>
+                    <dd class="col-sm-9">
+                        <ngb-rating [(rate)]="currentRate" [max]="5" (rateChange)="ratingDiagnostico()"></ngb-rating>
+                    </dd>
+                </dl>
             </div>
         </form>
     </div>

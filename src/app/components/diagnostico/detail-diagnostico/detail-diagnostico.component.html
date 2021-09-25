@@ -50,6 +50,13 @@
             <dt class="col-sm-3">Resultados</dt>
             <dd class="col-sm-9">{{ diagnostico.resultados }}</dd>
         </dl>
+        <hr>
+        <dl class="row">
+            <dt class="col-sm-3">Calificación de Resultados</dt>
+            <dd class="col-sm-9">
+                <ngb-rating [(rate)]="currentRate" [max]="5" (rateChange)="ratingDiagnostico()"></ngb-rating>
+            </dd>
+        </dl>
     </div>
 </div>
 <div class="modal-footer">
