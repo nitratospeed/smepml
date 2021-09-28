@@ -23,15 +23,13 @@ export class LoginComponent implements OnInit {
 
   auth(){
     if (this.authForm.valid) {
-      this.usuarioService.auth(this.authForm.value).subscribe((result : Base<number>) => 
+      this.usuarioService.auth(this.authForm.value).subscribe((result : Base<boolean>) => 
       {
         if (result.isSuccess) 
         {
           if (result.data) {
             alert("Logueado con éxito.");
-            localStorage.setItem('isLoggedIn', "true");
             this.router.navigate(['diagnostico']);
-            window.location.reload()
           }
           else {
             alert("Usuario y/o contraseña incorrecta.")

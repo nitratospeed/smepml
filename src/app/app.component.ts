@@ -8,6 +8,7 @@ import {
        faStethoscope,
       faDiagnoses,
     faNotesMedical } from '@fortawesome/free-solid-svg-icons';
+import { UsuarioService } from './services/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +26,15 @@ export class AppComponent implements OnInit {
   faDiagnoses = faDiagnoses;
   faNotesMedical = faNotesMedical;
 
-  isLoggedIn = '';
+  //isLoggedIn = false;
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') ?? '';
+    //this.isLoggedIn = this.usuarioService.isLoggedIn;
+  }
+
+  logout(){
+    this.usuarioService.logout();
   }
 }

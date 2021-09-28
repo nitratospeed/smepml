@@ -21,7 +21,6 @@ import { IncidenciaComponent } from './pages/incidencia/incidencia.component';
 import { CreateIncidenciaComponent } from './components/incidencia/create-incidencia/create-incidencia.component';
 import { UpdateIncidenciaComponent } from './components/incidencia/update-incidencia/update-incidencia.component';
 import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -44,7 +43,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CreateIncidenciaComponent,
     UpdateIncidenciaComponent,
     LoginComponent,
-    LogoutComponent,
     DashboardComponent,
   ],
   imports: [

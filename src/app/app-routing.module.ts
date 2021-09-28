@@ -5,17 +5,16 @@ import { PacienteComponent } from './pages/paciente/paciente.component';
 import { DiagnosticoComponent } from './pages/diagnostico/diagnostico.component';
 import { IncidenciaComponent } from './pages/incidencia/incidencia.component';
 import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  {path: 'usuario', component: UsuarioComponent},
-  {path: 'paciente', component: PacienteComponent},
-  {path: 'diagnostico', component: DiagnosticoComponent},
-  {path: 'incidencia', component: IncidenciaComponent},
+  {path: 'usuario', component: UsuarioComponent, canActivate: [AuthGuard]},
+  {path: 'paciente', component: PacienteComponent, canActivate: [AuthGuard]},
+  {path: 'diagnostico', component: DiagnosticoComponent, canActivate: [AuthGuard]},
+  {path: 'incidencia', component: IncidenciaComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'logout', component: LogoutComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
