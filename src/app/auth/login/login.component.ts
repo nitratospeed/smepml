@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
         if (result.isSuccess) 
         {
           if (result.data) {
-            alert("Logueado con éxito.");
-            this.router.navigate(['diagnostico']);
+            alert("Logueado con éxito.");           
+            this.router.parseUrl('');
+            window.location.reload();
           }
           else {
             alert("Usuario y/o contraseña incorrecta.")

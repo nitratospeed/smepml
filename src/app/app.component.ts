@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { 
   faTachometerAlt,
    faHospitalUser,
@@ -26,15 +27,17 @@ export class AppComponent implements OnInit {
   faDiagnoses = faDiagnoses;
   faNotesMedical = faNotesMedical;
 
-  //isLoggedIn = false;
+  isLoggedIn = '';
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
-    //this.isLoggedIn = this.usuarioService.isLoggedIn;
+    this.isLoggedIn = sessionStorage.getItem('userUUID') ?? '';
   }
 
   logout(){
     this.usuarioService.logout();
+    this.router.parseUrl('');
+    window.location.reload();
   }
 }
