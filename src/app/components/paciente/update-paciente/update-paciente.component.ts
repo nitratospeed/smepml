@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { PacienteService } from "src/app/services/paciente.service";
 import { Base } from 'src/app/models/base';
 import { Paciente } from 'src/app/models/paciente';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class UpdatePacienteComponent implements OnInit {
     nombres: new FormControl(''),
     dni: new FormControl(''),
     celular: new FormControl(''),
-    fechaNacimiento: new FormControl(''),
+    fechaNacimiento: new FormControl(),
     correo: new FormControl(''),
     direccion: new FormControl(''),
     edad: new FormControl(0),
@@ -37,8 +38,18 @@ export class UpdatePacienteComponent implements OnInit {
     {
       if (result.isSuccess) 
       {
-        this.paciente = result.data;
-        this.pacienteForm.setValue(this.paciente);
+        this.pacienteForm.patchValue({
+          id: result.data.id,
+          apellidos: result.data.apellidos,
+          nombres: result.data.nombres,
+          dni: result.data.dni,
+          celular: result.data.celular,
+          fechaNacimiento: formatDate(result.data.fechaNacimiento,'yyyy-MM-dd','en'),
+          correo: result.data.correo,
+          direccion: result.data.direccion,
+          edad: result.data.edad,
+          genero: result.data.genero
+        })
       }
       else 
       {
@@ -65,5 +76,16 @@ export class UpdatePacienteComponent implements OnInit {
         alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
       }
     }, Error => alert("Error en servicio interno. Favor intentar luego."))
+  }
+
+  calcEdad(event){
+    let currentYear = new Date().getFullYear();
+    let birthdayYear = new Date(event.target.value).getFullYear();
+
+    let age = currentYear - birthdayYear ?? 0;
+
+    this.pacienteForm.patchValue({
+      edad: age
+    })
   }
 }

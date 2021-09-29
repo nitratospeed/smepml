@@ -6,6 +6,7 @@ import { Usuario } from "src/app/models/usuario";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUsuarioComponent } from 'src/app/components/usuario/create-usuario/create-usuario.component';
 import { UpdateUsuarioComponent } from 'src/app/components/usuario/update-usuario/update-usuario.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-usuario',
@@ -13,6 +14,10 @@ import { UpdateUsuarioComponent } from 'src/app/components/usuario/update-usuari
   styleUrls: ['./usuario.component.scss']
 })
 export class UsuarioComponent implements OnInit {
+
+  usuarioForm = new FormGroup({
+    nombres: new FormControl(''),
+  });
 
   Usuarios : Usuario[];
   Pagination : Pagination<Usuario> = new Pagination<Usuario>();
@@ -26,7 +31,13 @@ export class UsuarioComponent implements OnInit {
   getUsuarios(currentIndex:number) {
     if (currentIndex > 0 && ((this.Pagination.totalPages > 0 && currentIndex <= this.Pagination.totalPages) || (this.Pagination.totalPages == 0)))
     {
-      this.usuarioService.get({"PageNumber": currentIndex, "PageSize": 5}).subscribe((result : Base<Pagination<Usuario>>) => 
+      let params = {
+        "PageNumber": currentIndex, 
+        "PageSize": 5,
+        "Nombres": this.usuarioForm.value['nombres'] ?? ''
+      }
+
+      this.usuarioService.get(params).subscribe((result : Base<Pagination<Usuario>>) => 
       {
         if (result.isSuccess) 
         {

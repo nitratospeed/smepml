@@ -6,6 +6,7 @@ import { Diagnostico } from "src/app/models/diagnostico";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateDiagnosticoComponent } from 'src/app/components/diagnostico/create-diagnostico/create-diagnostico.component';
 import { DetailDiagnosticoComponent } from 'src/app/components/diagnostico/detail-diagnostico/detail-diagnostico.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-diagnostico',
@@ -15,6 +16,12 @@ import { DetailDiagnosticoComponent } from 'src/app/components/diagnostico/detai
 export class DiagnosticoComponent implements OnInit {
 
   Diagnosticos : Diagnostico[];
+
+  diagnosticoForm = new FormGroup({
+    nombres: new FormControl(''),
+    dni: new FormControl(''),
+  });
+
   Pagination : Pagination<Diagnostico> = new Pagination<Diagnostico>();
 
   constructor(private readonly diagnosticoService : DiagnosticoService, private modalService: NgbModal) { }
@@ -26,7 +33,14 @@ export class DiagnosticoComponent implements OnInit {
   getDiagnosticos(currentIndex:number) {
     if (currentIndex > 0 && ((this.Pagination.totalPages > 0 && currentIndex <= this.Pagination.totalPages) || (this.Pagination.totalPages == 0)))
     {
-      this.diagnosticoService.get({"PageNumber": currentIndex, "PageSize": 5}).subscribe((result : Base<Pagination<Diagnostico>>) => 
+      let params = {
+        "PageNumber": currentIndex, 
+        "PageSize": 5,
+        "Nombres": this.diagnosticoForm.value['nombres'] ?? '',
+        "Dni": this.diagnosticoForm.value['dni'] ?? ''
+      }
+
+      this.diagnosticoService.get(params).subscribe((result : Base<Pagination<Diagnostico>>) => 
       {
         if (result.isSuccess) 
         {

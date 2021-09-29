@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Usuario } from '../models/usuario';
 import { Base } from '../models/base';
-import { Observable, of } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +35,7 @@ export class UsuarioService {
       if (result.isSuccess) 
       {
         if (result.data) {
-          sessionStorage.setItem('userUUID', uuidv4());
+          sessionStorage.setItem('userUUID', 'true');
         }
       }
     });

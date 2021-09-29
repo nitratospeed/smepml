@@ -17,6 +17,10 @@ export class DiagnosticoService {
     return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/${data}`);
   }
 
+  report() {
+    return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/report`);
+  }
+
   post(data) {
     return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/diagnostico', data);
   }

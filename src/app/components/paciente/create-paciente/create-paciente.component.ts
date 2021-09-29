@@ -50,4 +50,15 @@ export class CreatePacienteComponent implements OnInit {
       }
     }, Error => alert("Error en servicio interno. Favor intentar luego."))
   }
+
+  calcEdad(event){
+    let currentYear = new Date().getFullYear();
+    let birthdayYear = new Date(event.target.value).getFullYear();
+
+    let age = currentYear - birthdayYear ?? 0;
+
+    this.pacienteForm.patchValue({
+      edad: age
+    })
+  }
 }

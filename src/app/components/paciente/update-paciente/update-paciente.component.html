@@ -42,7 +42,7 @@
                 <label class="form-label">Fecha Nacimiento</label>
             </div>
             <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="fechaNacimiento">
+                <input type="date" class="form-control" (keyup)="calcEdad($event)" (change)="calcEdad($event)" formControlName="fechaNacimiento">
             </div>
         </div>
         <div class="row mb-2">
@@ -66,7 +66,7 @@
                 <label class="form-label">Edad</label>
             </div>
             <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="edad">
+                <input type="text" readonly class="form-control" formControlName="edad">
             </div>
         </div>
         <div class="row mb-2">

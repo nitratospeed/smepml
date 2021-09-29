@@ -3,14 +3,17 @@
         <h3>Diagnósticos</h3>
     </div>
     <div class="card-body">
-        <form class="row g-3">
+        <form [formGroup]="diagnosticoForm" class="row g-3">
             <div class="col-auto">
                 <label for="Nombres" class="visually-hidden">Nombres</label>
-                <input type="text" class="form-control" id="Nombres" placeholder="Filtrar Nombres">
+                <input type="text" class="form-control" placeholder="Filtrar Nombres" formControlName="nombres">
               </div>
             <div class="col-auto">
               <label for="Dni" class="visually-hidden">DNI</label>
-              <input type="text" class="form-control" id="Apellidos" placeholder="Filtrar por DNI">
+              <input type="text" class="form-control" placeholder="Filtrar por DNI" formControlName="dni">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-secondary mb-3" (click)="getDiagnosticos(1)">Filtrar</button>
             </div>
             <div class="col-auto ms-auto">
                 <button type="button" class="btn btn-primary mb-3" (click)="createDiagnostico()">Nuevo Diagnóstico</button>

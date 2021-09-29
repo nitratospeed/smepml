@@ -11,10 +11,6 @@ import { Diagnostico } from "src/app/models/diagnostico";
 })
 export class DashboardComponent implements OnInit {
 
-  Diagnosticos : Diagnostico[];
-
-  sintomas: any[] = []
-
   single: any[]= [];
 
   view: any[] = [700, 400];
@@ -34,37 +30,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDiagnosticos(1)
+    this.getReport()
   }
 
-  getDiagnosticos(currentIndex:number) {
-      this.diagnosticoService.get({"PageNumber": currentIndex, "PageSize": 99}).subscribe((result : Base<Pagination<Diagnostico>>) => 
+  getReport() {
+      this.diagnosticoService.report().subscribe((result : Base<any>) => 
       {
         if (result.isSuccess) 
         {
-          this.Diagnosticos = result.data.items;
-          this.Diagnosticos.forEach(element => {
-            let sintx : any[] = []
-           
-            element.sintomas.split(',').forEach(sint => {
-              let i = 1;
-
-              sintx.push({
-                "name": sint,
-                "value": i,
-              })
-
-              i++;
-            });         
-            this.sintomas.push({
-              "name": element.resultadoMasPreciso.toString(),
-              "series": sintx
-            })
-          });
-
-          this.single = this.sintomas;
-
-          console.log(this.single)
+          this.single = result.data;
         }
         else 
         {
