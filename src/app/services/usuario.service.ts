@@ -26,16 +26,14 @@ export class UsuarioService {
     return this.http.put<any>(`https://smepml-api.azurewebsites.net/api/v1/usuario/${id}`, data);
   }
 
-  redirectUrl: string | null = null;
-
   auth(data) {
     let gg = this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/usuario/auth', data);
     
-    gg.subscribe((result : Base<boolean>) =>{
+    gg.subscribe((result : Base<any>) =>{
       if (result.isSuccess) 
       {
-        if (result.data) {
-          sessionStorage.setItem('userUUID', 'true');
+        if (result.data.valid) {
+          sessionStorage.setItem('access_token', result.data.token);
         }
       }
     });
@@ -43,7 +41,15 @@ export class UsuarioService {
     return gg;
   }
 
+  isAuth(){
+    let token = sessionStorage.getItem('access_token') ?? '';
+    if (token == '') {
+      return false;
+    }
+    return true;
+  }
+
   logout(){
-    sessionStorage.setItem('userUUID', '');
+    sessionStorage.setItem('access_token', '');
   }
 }

@@ -27,17 +27,19 @@ export class AppComponent implements OnInit {
   faDiagnoses = faDiagnoses;
   faNotesMedical = faNotesMedical;
 
-  isLoggedIn = '';
+  isAuthenticated = false;
 
   constructor(private usuarioService: UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = sessionStorage.getItem('userUUID') ?? '';
+    if (this.usuarioService.isAuth()) {
+      this.isAuthenticated = true;
+    }
   }
 
   logout(){
     this.usuarioService.logout();
-    this.router.parseUrl('');
+    this.router.navigate(['']);
     window.location.reload();
   }
 }

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         {
           if (result.data) {
             alert("Logueado con éxito.");           
-            this.router.parseUrl('');
+            this.router.navigate(['']);
             window.location.reload();
           }
           else {
