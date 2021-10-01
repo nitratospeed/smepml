@@ -25,7 +25,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Nombres</th>
-                        <th>Edad</th>
+                        <th>Dni</th>
                         <th>Resultado Más Preciso</th>
                         <th></th>
                     </tr>
@@ -34,7 +34,7 @@
                         <tr *ngFor="let diagnostico of Diagnosticos">
                             <td>{{ diagnostico.id }}</td>
                             <td>{{ diagnostico.paciente.nombres }}</td>
-                            <td>{{ diagnostico.paciente.edad }}</td>
+                            <td>{{ diagnostico.paciente.dni }}</td>
                             <td>{{ diagnostico.resultadoMasPreciso }}</td>
                             <td><a href="javascript:void(0);" (click)="detailDiagnostico(diagnostico.id)">Detalle</a></td>
                         </tr>

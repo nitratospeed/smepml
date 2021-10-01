@@ -3,13 +3,15 @@
         <h3>Incidencias</h3>
     </div>
     <div class="card-body">
-        <form class="row g-3">
+        <form [formGroup]="incidenciaForm" class="row g-3">
+<!--             <div class="col-auto">
+                <input type="text" class="form-control" placeholder="Filtrar Título" formControlName="titulo">
+            </div>
             <div class="col-auto">
-                <label for="Nombres" class="visually-hidden">Fecha</label>
-                <input type="date" class="form-control" id="Nombres" placeholder="Filtrar Fecha">
-              </div>
+                <button type="button" class="btn btn-secondary mb-3" (click)="getIncidencias(1)">Filtrar</button>
+            </div> -->
             <div class="col-auto ms-auto">
-              <button type="button" class="btn btn-primary mb-3">Nueva Incidencia</button>
+              <button type="button" class="btn btn-primary mb-3" (click)="createIncidencia()">Nueva Incidencia</button>
             </div>
           </form>
         <div class="table-responsive">
@@ -24,13 +26,13 @@
                     </tr>
                     </thead>
                     <tbody>
-<!--                         <tr *ngFor="let usuario of Usuarios">
-                            <td>{{ usuario.id }}</td>
-                            <td>{{ usuario.nombreCompleto }}</td>
-                            <td>{{ usuario.correo }}</td>
-                            <td>{{ usuario.perfil }}</td>
-                            <td><a href="javascript:void(0);">Editar</a></td>
-                        </tr> -->
+                        <tr *ngFor="let incidencia of incidencias">
+                            <td>{{ incidencia.id }}</td>
+                            <td>{{ incidencia.titulo }}</td>
+                            <td>{{ incidencia.urgencia }}</td>
+                            <td>{{ incidencia.estado }}</td>
+                            <td><a href="javascript:void(0);" (click)="updateIncidencia(incidencia.id)">Editar</a></td>
+                        </tr>
                     </tbody>
             </table>
         </div>
@@ -38,11 +40,11 @@
     <div class="card-footer text-muted text-center">
         <nav>
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="javascript:void(0);" >Anterior</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getIncidencias(Pagination.pageIndex - 1)">Anterior</a></li>
                 <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                <li class="page-item"><a class="page-link" href="javascript:void(0);" >Siguiente</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getIncidencias(Pagination.pageIndex + 1)">Siguiente</a></li>
             </ul>
         </nav>
         Página 1 de 1

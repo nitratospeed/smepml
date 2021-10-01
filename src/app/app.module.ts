@@ -25,6 +25,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { AcercaDeComponent } from './pages/acerca-de/acerca-de.component';
+import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
+import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politica-privacidad.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     UpdateIncidenciaComponent,
     LoginComponent,
     DashboardComponent,
+    AcercaDeComponent,
+    TerminosCondicionesComponent,
+    PoliticaPrivacidadComponent,
   ],
   imports: [
     BrowserModule,
