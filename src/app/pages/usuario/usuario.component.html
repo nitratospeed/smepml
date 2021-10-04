@@ -1,7 +1,9 @@
-<div class="card">
-    <div class="card-header">
+<div class="card mb-3">
+    <div class="card-body">
         <h3>Usuarios</h3>
     </div>
+</div>
+<div class="card">
     <div class="card-body">
         <form [formGroup]="usuarioForm" class="row g-3">
             <div class="col-auto">
@@ -15,7 +17,7 @@
               <button type="button" class="btn btn-primary mb-3" (click)="createUsuario()">Nuevo Usuario</button>
             </div>
           </form>
-        <div class="table-responsive">
+        <div class="table-responsive mb-2">
             <table class="table table-hover">               
                 <thead class="table-dark">
                     <tr>
@@ -37,8 +39,6 @@
                     </tbody>
             </table>
         </div>
-    </div>
-    <div class="card-footer text-muted text-center">
         <nav>
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getUsuarios(Pagination.pageIndex - 1)">Anterior</a></li>
@@ -48,6 +48,8 @@
                 <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getUsuarios(Pagination.pageIndex + 1)">Siguiente</a></li>
             </ul>
         </nav>
-        Página {{Pagination.pageIndex}} de {{Pagination.totalPages}}
+        <p class="text-center">
+            Página {{Pagination.pageIndex}} de {{Pagination.totalPages}}
+        </p>
     </div>
 </div>

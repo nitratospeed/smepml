@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { CreateUsuarioComponent } from './components/usuario/create-usuario/create-usuario.component';
@@ -59,7 +58,6 @@ import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politic
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    FontAwesomeModule,
     NgxChartsModule,
     BrowserAnimationsModule,
   ],

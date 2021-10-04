@@ -56,11 +56,11 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   createDiagnostico(){
-    this.modalService.open(CreateDiagnosticoComponent, { size: 'lg' });
+    this.modalService.open(CreateDiagnosticoComponent, { size: 'lg', scrollable: true });
   }
 
   detailDiagnostico(id:number){
-    const modalRef = this.modalService.open(DetailDiagnosticoComponent);
+    const modalRef = this.modalService.open(DetailDiagnosticoComponent, {scrollable: true});
     modalRef.componentInstance.id = id;
   }
 }
