@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   logout(){
-    this.usuarioService.logout();
+    this.usuarioService.setAuth('');
     this.router.navigate(['']);
     window.location.reload();
   }

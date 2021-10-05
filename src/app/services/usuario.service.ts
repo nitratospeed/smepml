@@ -27,29 +27,22 @@ export class UsuarioService {
   }
 
   auth(data) {
-    let gg = this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/usuario/auth', data);
-    
-    gg.subscribe((result : Base<any>) =>{
-      if (result.isSuccess) 
-      {
-        if (result.data.valid) {
-          sessionStorage.setItem('access_token', result.data.token);
-        }
-      }
-    });
-
-    return gg;
+    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/usuario/auth', data);
   }
 
   isAuth(){
-    let token = sessionStorage.getItem('access_token') ?? '';
+    let token = this.getAuth();
     if (token == '') {
       return false;
     }
     return true;
   }
 
-  logout(){
-    sessionStorage.setItem('access_token', '');
+  getAuth(){
+    return localStorage.getItem('access_token') ?? '';
+  }
+
+  setAuth(token:string){
+    localStorage.setItem('access_token', token);
   }
 }

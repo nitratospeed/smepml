@@ -12,7 +12,11 @@
         <label>Contraseña</label>
       </div>
   
-      <button class="w-100 btn btn-lg btn-primary" type="button" (click)="auth()">Ingresar</button>
+      <button *ngIf="Loading==false" class="w-100 btn btn-lg btn-primary" type="button" (click)="auth()">Ingresar</button>
+      <button *ngIf="Loading" class="w-100 btn btn-lg btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
+      </button>
       <p class="mt-5 mb-3 text-muted">&copy; 2021 SMEPML, Inc</p>
     </form>
   </main>
