@@ -17,8 +17,14 @@ export class DiagnosticoService {
     return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/${data}`);
   }
 
-  report() {
-    return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/report`);
+  pdf(data) {
+    let params = new HttpParams();
+    return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/pdf`, {params:data, responseType:'blob' as 'json'});
+  }
+
+  report(data) {
+    let params = new HttpParams();
+    return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/diagnostico/report`, {params:data});
   }
 
   post(data) {

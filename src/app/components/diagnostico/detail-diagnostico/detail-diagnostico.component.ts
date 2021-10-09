@@ -26,6 +26,7 @@ export class DetailDiagnosticoComponent implements OnInit {
       if (result.isSuccess) 
       {
         this.diagnostico = result.data;
+        this.currentRate = this.diagnostico.calificacion;
       }
       else 
       {
@@ -45,6 +46,23 @@ export class DetailDiagnosticoComponent implements OnInit {
       {
         alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
       }
+    }, Error => alert("Error en servicio interno. Favor intentar luego."))
+  }
+
+  pdfDiagnostico(){
+    let params = {
+      "id": this.id
+    }
+    this.diagnosticoService.pdf(params).subscribe((result : any) => 
+    {
+      let dataType = result.type;
+      let binaryData = [];
+      binaryData.push(result);
+      let downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+      downloadLink.setAttribute('download', "report.pdf");
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
     }, Error => alert("Error en servicio interno. Favor intentar luego."))
   }
 

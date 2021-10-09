@@ -1,9 +1,8 @@
-<div class="modal-header">
-    <h4 class="modal-title">Nuevo Diagnóstico</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
-</div>
-<div class="modal-body">
-    <div class="container-fluid">
+<div class="card">
+    <div class="card-header">
+        <h3>Nuevo Diagnóstico</h3>
+    </div>
+    <div class="card-body">
         <form [formGroup]="diagnosticoForm">
             <div *ngIf="showDniControl">
                 <div class="row mb-2">
@@ -70,7 +69,7 @@
                         <div class="form-check" *ngFor="let sintoma of sintomas.controls; let x = index">
                             <input class="form-check-input" type="checkbox" value={{sintoma.value.nombre}} id="{{ 'condicion' + x}}" checked (change)="checkedSintoma($event)">
                             <label class="form-check-label" for="{{ 'condicion' + x}}">
-                              {{sintoma.value.nombre}}
+                                {{sintoma.value.nombre}}
                             </label>
                         </div>
                     </div>
@@ -81,7 +80,7 @@
                         <datalist id="datalistOptions" class="datalist">
                             <option *ngFor="let sintomasL of sintomasList2; let i = index" value={{sintomasL.nombre}}>
                         </datalist>
-                      </ng-template>
+                        </ng-template>
                     <div class="human-body">
                         <svg data-position='head' (click)="getBodyPartName('1')" [ngStyle]="{'fill': svgStyleHead }" [autoClose]="'outside'" [ngbPopover]="popContent" container='body' id='head' class='head' xmlns='http://www.w3.org/2000/svg' width='56.594' height='95.031' viewBox='0 0 56.594 95.031'><path d='M15.92 68.5l8.8 12.546 3.97 13.984-9.254-7.38-4.622-15.848zm27.1 0l-8.8 12.546-3.976 13.988 9.254-7.38 4.622-15.848zm6.11-27.775l.108-11.775-21.16-14.742L8.123 26.133 8.09 40.19l-3.24.215 1.462 9.732 5.208 1.81 2.36 11.63 9.72 11.018 10.856-.324 9.56-10.37 1.918-11.952 5.207-1.81 1.342-9.517zm-43.085-1.84l-.257-13.82L28.226 11.9l23.618 15.755-.216 10.37 4.976-17.085L42.556 2.376 25.49 0 10.803 3.673.002 24.415z'/></svg>
                         <svg data-position='left-shoulder' (click)="getBodyPartName('2')" [ngStyle]="{'fill': svgStyleLeftShoulder }" [autoClose]="'outside'" [ngbPopover]="popContent" container='body' id='left-shoulder' class='left-shoulder' xmlns='http://www.w3.org/2000/svg' width='109.532' height='46.594' viewBox='0 0 109.532 46.594'><path d='m 38.244,-0.004 1.98,9.232 -11.653,2.857 -7.474,-2.637 z M 17.005,10.536 12.962,8.35 0.306,22.35 0.244,27.675 c 0,0 16.52,-17.015 16.764,-17.14 z m 1.285,0.58 C 18.3,11.396 0.528,30.038 0.528,30.038 L -0.01,46.595 6.147,36.045 18.017,30.989 26.374,15.6 Z'/></svg>
@@ -175,7 +174,7 @@
             </div>
         </form>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cerrar</button> 
+    <div class="card-footer">
+        <button type="button" class="btn btn-outline-dark" routerLink="/diagnostico">Regresar</button>
+    </div>
 </div>

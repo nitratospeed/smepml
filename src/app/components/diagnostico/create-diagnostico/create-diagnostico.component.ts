@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { DiagnosticoService } from "src/app/services/diagnostico.service";
 import { PacienteService } from "src/app/services/paciente.service";
 import { SintomaService } from "src/app/services/sintoma.service";
@@ -69,7 +68,7 @@ export class CreateDiagnosticoComponent implements OnInit {
     resultadoMasPreciso: [''],
   });
 
-  constructor(public activeModal: NgbActiveModal, 
+  constructor( 
     private fb: FormBuilder,
     private readonly diagnosticoService : DiagnosticoService,
     private readonly sintomaService : SintomaService,

@@ -54,12 +54,13 @@
         <dl class="row">
             <dt class="col-sm-3">Calificación de Resultados</dt>
             <dd class="col-sm-9">
-                <ngb-rating [(rate)]="currentRate" [max]="5" (rateChange)="ratingDiagnostico()"></ngb-rating>
+                <ngb-rating class="rateStar" [(rate)]="currentRate" [max]="5" (rateChange)="ratingDiagnostico()"></ngb-rating>
             </dd>
         </dl>
     </div>
 </div>
 <div class="modal-footer">
+    <button type="button" class="btn btn-dark" (click)="pdfDiagnostico()">Generar PDF</button>
     <button type="button" class="btn btn-primary" (click)="emailDiagnostico()">Enviar Correo</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
 </div>

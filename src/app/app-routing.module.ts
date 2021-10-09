@@ -10,11 +10,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { AcercaDeComponent } from './pages/acerca-de/acerca-de.component';
 import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politica-privacidad.component';
 import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
+import { CreateDiagnosticoComponent } from './components/diagnostico/create-diagnostico/create-diagnostico.component';
 
 const routes: Routes = [
   {path: 'usuario', component: UsuarioComponent, canActivate: [AuthGuard]},
   {path: 'paciente', component: PacienteComponent, canActivate: [AuthGuard]},
   {path: 'diagnostico', component: DiagnosticoComponent, canActivate: [AuthGuard]},
+  {path: 'diagnostico-create', component: CreateDiagnosticoComponent, canActivate: [AuthGuard]},
   {path: 'incidencia', component: IncidenciaComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},

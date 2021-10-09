@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DiagnosticoService } from "src/app/services/diagnostico.service";
 import { Base } from "src/app/models/base";
-import { Pagination } from "src/app/models/pagination";
-import { Diagnostico } from "src/app/models/diagnostico";
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +9,10 @@ import { Diagnostico } from "src/app/models/diagnostico";
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  dashboardForm = new FormGroup({
+    tipoReporte: new FormControl(2),
+  });
 
   single: any[]= [];
 
@@ -34,18 +37,21 @@ export class DashboardComponent implements OnInit {
   }
 
   getReport() {
-      this.diagnosticoService.report().subscribe((result : Base<any>) => 
-      {
-        if (result.isSuccess) 
-        {
-          this.single = result.data;
-        }
-        else 
-        {
-          alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
-        }
-      }, Error => alert("Error en servicio interno. Favor intentar luego.")) 
+    let params = {
+      "tipoReporte": this.dashboardForm.value['tipoReporte']
+    }
 
+    this.diagnosticoService.report(params).subscribe((result : Base<any>) => 
+    {
+      if (result.isSuccess) 
+      {
+        this.single = result.data;
+      }
+      else 
+      {
+        alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+      }
+    }, Error => alert("Error en servicio interno. Favor intentar luego."))
   }
 
   onSelect(data): void {
