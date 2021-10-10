@@ -56,11 +56,21 @@ export class PacienteComponent implements OnInit {
   }
 
   createPaciente(){
-    this.modalService.open(CreatePacienteComponent);
+    const modalRef = this.modalService.open(CreatePacienteComponent, {scrollable: true, size: 'lg'});
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getPacientes(1); 
+      }
+    });
   }
 
   updatePaciente(id:number){
-    const modalRef = this.modalService.open(UpdatePacienteComponent);
+    const modalRef = this.modalService.open(UpdatePacienteComponent, {scrollable: true, size: 'lg'});
     modalRef.componentInstance.id = id;
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getPacientes(1); 
+      }
+    });
   }
 }

@@ -36,7 +36,7 @@ export class CreateIncidenciaComponent implements OnInit {
       if (result.isSuccess) 
       {
         alert("Guardado con éxito.");
-        this.activeModal.close('Success click')
+        this.activeModal.close(true);
       }
       else 
       {

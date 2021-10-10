@@ -56,7 +56,12 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   detailDiagnostico(id:number){
-    const modalRef = this.modalService.open(DetailDiagnosticoComponent, {scrollable: true});
+    const modalRef = this.modalService.open(DetailDiagnosticoComponent, {scrollable: true, size: 'lg'});
     modalRef.componentInstance.id = id;
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getDiagnosticos(1); 
+      }
+    });
   }
 }

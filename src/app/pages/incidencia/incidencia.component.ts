@@ -53,11 +53,21 @@ export class IncidenciaComponent implements OnInit {
   }
 
   createIncidencia(){
-    this.modalService.open(CreateIncidenciaComponent);
+    const modalRef = this.modalService.open(CreateIncidenciaComponent, {scrollable: true, size: 'lg'});
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getIncidencias(1); 
+      }
+    });
   }
 
   updateIncidencia(id:number){
-    const modalRef = this.modalService.open(UpdateIncidenciaComponent);
+    const modalRef = this.modalService.open(UpdateIncidenciaComponent, {scrollable: true, size: 'lg'});
     modalRef.componentInstance.id = id;
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getIncidencias(1); 
+      }
+    });
   }
 }

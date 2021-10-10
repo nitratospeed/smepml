@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
 import { DiagnosticoService } from "src/app/services/diagnostico.service";
 import { Base } from 'src/app/models/base';
 import { Diagnostico } from 'src/app/models/diagnostico';
@@ -41,6 +40,7 @@ export class DetailDiagnosticoComponent implements OnInit {
       if (result.isSuccess) 
       {
         alert("Se envió el correo exitosamente.");
+        this.activeModal.close(true);
       }
       else 
       {
@@ -63,6 +63,8 @@ export class DetailDiagnosticoComponent implements OnInit {
       downloadLink.setAttribute('download', "report.pdf");
       document.body.appendChild(downloadLink);
       downloadLink.click();
+      alert("Se generó el reporte pdf exitosamente.");
+      this.activeModal.close(true);
     }, Error => alert("Error en servicio interno. Favor intentar luego."))
   }
 

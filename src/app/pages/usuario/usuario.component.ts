@@ -3,7 +3,7 @@ import { UsuarioService } from "src/app/services/usuario.service";
 import { Base } from "src/app/models/base";
 import { Pagination } from "src/app/models/pagination";
 import { Usuario } from "src/app/models/usuario";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUsuarioComponent } from 'src/app/components/usuario/create-usuario/create-usuario.component';
 import { UpdateUsuarioComponent } from 'src/app/components/usuario/update-usuario/update-usuario.component';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -60,11 +60,21 @@ export class UsuarioComponent implements OnInit {
   }
 
   createUsuario(){
-    this.modalService.open(CreateUsuarioComponent);
+    const modalRef = this.modalService.open(CreateUsuarioComponent, {scrollable: true, size: 'lg'});
+    modalRef.result.then((result) => {
+      if (result == true) {
+        this.getUsuarios(1); 
+      }
+    });
   }
 
   updateUsuario(id:number){
-    const modalRef = this.modalService.open(UpdateUsuarioComponent);
+    const modalRef = this.modalService.open(UpdateUsuarioComponent, {scrollable: true, size: 'lg'});
     modalRef.componentInstance.id = id;
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getUsuarios(1); 
+      }
+    });
   }
 }

@@ -1,4 +1,4 @@
 export interface PredictDiagnosticoDto {
-    resultados:string;
-    resultadoMasPreciso:string[];
+    resultados:string[];
+    resultadoMasPreciso:string;
 }

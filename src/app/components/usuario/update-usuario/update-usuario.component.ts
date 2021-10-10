@@ -50,7 +50,7 @@ export class UpdateUsuarioComponent implements OnInit {
       if (result.isSuccess) 
       {
         alert("Actualizado con éxito.");
-        this.activeModal.close('Success click')
+        this.activeModal.close(true)
       }
       else 
       {

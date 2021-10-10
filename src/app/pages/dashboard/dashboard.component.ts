@@ -10,13 +10,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
 
-  dashboardForm = new FormGroup({
-    tipoReporte: new FormControl(2),
-  });
+  sintomas: any[]= [];
+  enfermedades: any[]= [];
 
-  single: any[]= [];
-
-  view: any[] = [700, 400];
+  view: any[] = [500, 500];
 
   // options
   gradient: boolean = true;
@@ -24,7 +21,8 @@ export class DashboardComponent implements OnInit {
   showLabels: boolean = true;
   isDoughnut: boolean = false;
   legendPosition: string = 'below';
-
+  legendTitleSintomas: string = 'Top de Síntomas';
+  legendTitleEnfermedades: string = 'Top de Enfermedades';
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -33,19 +31,25 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getReport()
+    this.getReport(1)
+    this.getReport(2)
   }
 
-  getReport() {
+  getReport(tipoReporte:number) {
     let params = {
-      "tipoReporte": this.dashboardForm.value['tipoReporte']
+      "tipoReporte": tipoReporte
     }
 
     this.diagnosticoService.report(params).subscribe((result : Base<any>) => 
     {
       if (result.isSuccess) 
       {
-        this.single = result.data;
+        if (tipoReporte == 1) {
+          this.enfermedades = result.data; 
+        }
+        if (tipoReporte == 2) {
+          this.sintomas = result.data; 
+        }
       }
       else 
       {

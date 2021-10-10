@@ -3,29 +3,39 @@
     <h3>Dashboard</h3>
   </div>
   <div class="card-body">
-    <form [formGroup]="dashboardForm" class="row g-3 mb-3">
-      <div class="col-auto">
-          <label for="Nombres" class="visually-hidden">Reporte</label>
-          <select class="form-select" formControlName="tipoReporte" (change)="getReport()">
-            <option value=1>Top de enfermedades</option>
-            <option value=2>Top de síntomas</option>
-        </select>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <ngx-charts-pie-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="sintomas"
+          [gradient]="gradient"
+          [legend]="showLegend"
+          [legendTitle]="legendTitleSintomas"
+          [legendPosition]="legendPosition"
+          [labels]="showLabels"
+          [doughnut]="isDoughnut"
+          (select)="onSelect($event)"
+          (activate)="onActivate($event)"
+          (deactivate)="onDeactivate($event)">
+        </ngx-charts-pie-chart>
       </div>
-    </form>
-    <div>
-      <ngx-charts-pie-chart
-        [view]="view"
-        [scheme]="colorScheme"
-        [results]="single"
-        [gradient]="gradient"
-        [legend]="showLegend"
-        [legendPosition]="legendPosition"
-        [labels]="showLabels"
-        [doughnut]="isDoughnut"
-        (select)="onSelect($event)"
-        (activate)="onActivate($event)"
-        (deactivate)="onDeactivate($event)">
-      </ngx-charts-pie-chart>
+      <div class="col-md-6">
+        <ngx-charts-pie-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="enfermedades"
+          [gradient]="gradient"
+          [legend]="showLegend"
+          [legendTitle]="legendTitleEnfermedades"
+          [legendPosition]="legendPosition"
+          [labels]="showLabels"
+          [doughnut]="isDoughnut"
+          (select)="onSelect($event)"
+          (activate)="onActivate($event)"
+          (deactivate)="onDeactivate($event)">
+        </ngx-charts-pie-chart>
+      </div>
     </div>
   </div>
 </div>

@@ -43,12 +43,19 @@
         <hr>
         <dl class="row">
             <dt class="col-sm-3">Sintomas</dt>
-            <dd class="col-sm-9">{{ diagnostico.sintomas }}</dd>
+            <dd class="col-sm-9">
+                <p *ngFor="let sintoma of diagnostico?.sintomas?.split(',');">{{sintoma}}</p>
+            </dd>
         </dl>
         <hr>
         <dl class="row">
             <dt class="col-sm-3">Resultados</dt>
-            <dd class="col-sm-9">{{ diagnostico.resultados }}</dd>
+            <dd class="col-sm-9">
+                <p *ngFor="let diag of diagnostico?.resultados?.split(',');">
+                    <span>{{diag}}</span>
+                    <ngb-progressbar type="info" [value]="diag.split(':')[1].replace('%','')" [striped]="true"></ngb-progressbar>
+                </p>
+            </dd>
         </dl>
         <hr>
         <dl class="row">

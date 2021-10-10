@@ -42,6 +42,8 @@ export class CreateDiagnosticoComponent implements OnInit {
 
   currentRate = 0;
   diagnosticoId = 0;
+  sugerencia = '';
+  nivel = '';
 
   svgStyleHead: string = "#57c9d5";
   svgStyleLeftShoulder: string = "#57c9d5";
@@ -193,6 +195,22 @@ export class CreateDiagnosticoComponent implements OnInit {
         else if (bodyPart == 7) { this.svgStyleRightHand = "#ff7d16"; this.svgStyleRightHand = "#ff7d16"; }
         else if (bodyPart == 8) { this.svgStyleLeftFoot = "#ff7d16"; this.svgStyleRightFoot = "#ff7d16"; }
 
+      this.sugerencia = '';
+      this.nivel = '';
+
+      if(this.sintomas.value.length >= 1 && this.sintomas.value.length <= 4){
+        this.sugerencia = "Sugerencia: Agregue muchos más síntomas.";
+        this.nivel = "Potencial de acierto: Débil";
+      }
+        else if(this.sintomas.value.length >= 5 && this.sintomas.value.length <= 8){
+          this.sugerencia = "Sugerencia: Agregue algunos síntomas más.";
+          this.nivel = "Potencial de acierto: Moderado";
+        }
+        else if(this.sintomas.value.length >= 9 && this.sintomas.value.length <= 12){
+          this.sugerencia = "Sugerencia: Resultados Óptimos.";
+          this.nivel = "Potencial de acierto: Fuerte";
+        }
+
       if (sintoma.hasPreguntas) {
         sintoma.preguntas.forEach(element1 => {
           this.preguntas.push(this.fb.group({
@@ -224,6 +242,22 @@ export class CreateDiagnosticoComponent implements OnInit {
       else if (bodyPart == 6) { this.svgStyleLeftLeg = "#57c9d5"; this.svgStyleRightLeg = "#57c9d5"; }
       else if (bodyPart == 7) { this.svgStyleRightHand = "#57c9d5"; this.svgStyleRightHand = "#57c9d5"; }
       else if (bodyPart == 8) { this.svgStyleLeftFoot = "#57c9d5"; this.svgStyleRightFoot = "#57c9d5"; }
+
+      this.sugerencia = '';
+      this.nivel = '';
+
+      if(this.sintomas.value.length >= 1 && this.sintomas.value.length <= 4){
+        this.sugerencia = "Sugerencia: Agregue muchos más síntomas.";
+        this.nivel = "Potencial de acierto: Débil";
+      }
+        else if(this.sintomas.value.length >= 5 && this.sintomas.value.length <= 8){
+          this.sugerencia = "Sugerencia: Agregue algunos síntomas más.";
+          this.nivel = "Potencial de acierto: Moderado";
+        }
+        else if(this.sintomas.value.length >= 9 && this.sintomas.value.length <= 12){
+          this.sugerencia = "Sugerencia: Resultados Óptimos.";
+          this.nivel = "Potencial de acierto: Fuerte";
+        }
 
     if (sintoma.hasPreguntas) {
       this.preguntas.value.forEach(element => {
