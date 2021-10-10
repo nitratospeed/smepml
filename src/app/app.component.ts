@@ -17,10 +17,11 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     let token : string = this.usuarioService.getAuth();
-    let decoded : any = jwt_decode(token);
-
-    let current_time = new Date().getTime() / 1000;
-	  if (current_time > decoded.exp) { alert('Debe iniciar sesión nuevamente.'); this.logout(); }
+    if (token) {
+         let decoded : any = jwt_decode(token);
+         let current_time = new Date().getTime() / 1000;
+         if (current_time > decoded.exp) { alert('Debe iniciar sesión nuevamente.'); this.logout(); }
+    }
   }
 
   ngOnInit(): void {
