@@ -45,4 +45,12 @@ export class UsuarioService {
   setAuth(token:string){
     localStorage.setItem('access_token', token);
   }
+
+  getUser(){
+    return localStorage.getItem('access_user') ?? '';
+  }
+
+  setUser(user:string){
+    localStorage.setItem('access_user', user);
+  }
 }

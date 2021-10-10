@@ -33,9 +33,10 @@ export class LoginComponent implements OnInit {
       {
         if (result.isSuccess) 
         {
-          if (result.data) {
+          if (result.data.valid) {
             alert("Logueado con éxito.");
             this.usuarioService.setAuth(result.data.token);
+            this.usuarioService.setUser(result.data.usuario);
             this.router.navigate(['']);
             window.location.reload();
           }
