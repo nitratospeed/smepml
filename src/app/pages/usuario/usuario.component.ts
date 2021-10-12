@@ -15,8 +15,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class UsuarioComponent implements OnInit {
 
-  Loading : boolean = true;
-
   usuarioForm = new FormGroup({
     nombres: new FormControl(''),
   });
@@ -35,8 +33,6 @@ export class UsuarioComponent implements OnInit {
     {
       this.Usuarios = [];
       
-      this.Loading = true;
-
       let params = {
         "PageNumber": currentIndex, 
         "PageSize": 5,
@@ -47,7 +43,6 @@ export class UsuarioComponent implements OnInit {
       {
         if (result.isSuccess) 
         {
-          this.Loading = false;
           this.Usuarios = result.data.items;
           this.Pagination = result.data;
         }

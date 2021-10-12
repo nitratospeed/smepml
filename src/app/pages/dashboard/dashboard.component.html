@@ -4,38 +4,74 @@
   </div>
   <div class="card-body">
     <div class="row mb-3">
-      <div class="col-md-6">
-        <ngx-charts-pie-chart
-          [view]="view"
-          [scheme]="colorScheme"
-          [results]="sintomas"
-          [gradient]="gradient"
-          [legend]="showLegend"
-          [legendTitle]="legendTitleSintomas"
-          [legendPosition]="legendPosition"
-          [labels]="showLabels"
-          [doughnut]="isDoughnut"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-pie-chart>
+      <div class="col-sm-4">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{diagnosticosCount}}</h5>
+            <p class="card-text">Diagnósticos Realizados</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
-        <ngx-charts-pie-chart
-          [view]="view"
-          [scheme]="colorScheme"
-          [results]="enfermedades"
-          [gradient]="gradient"
-          [legend]="showLegend"
-          [legendTitle]="legendTitleEnfermedades"
-          [legendPosition]="legendPosition"
-          [labels]="showLabels"
-          [doughnut]="isDoughnut"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-pie-chart>
+      <div class="col-sm-4">
+        <div class="card text-white bg-secondary mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{pacientesCount}}</h5>
+            <p class="card-text">Pacientes Resgistrados</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{usuariosCount}}</h5>
+            <p class="card-text">Médicos Registrados</p>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="row mb-3">
+      <div class="col-sm-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Top de Síntomas</h5>
+            <ngx-charts-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="sintomas"
+            [gradient]="gradient"
+            [legend]="showLegend"
+            [legendTitle]="legendTitleSintomas"
+            [legendPosition]="legendPosition"
+            [labels]="showLabels"
+            [doughnut]="isDoughnut"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)">
+          </ngx-charts-pie-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Top de Enfermedades</h5>
+            <ngx-charts-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="enfermedades"
+            [gradient]="gradient"
+            [legend]="showLegend"
+            [legendTitle]="legendTitleEnfermedades"
+            [legendPosition]="legendPosition"
+            [labels]="showLabels"
+            [doughnut]="isDoughnut"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)">
+          </ngx-charts-pie-chart>
+          </div>
+        </div>
+    </div>
+    </div> 
   </div>
 </div>

@@ -117,7 +117,7 @@ export class CreateDiagnosticoComponent implements OnInit {
             this.diagnosticoForm.patchValue({
               pacienteId: this.paciente.id,
             });
-            alert(`Paciente encontrado, Sr/Sra: ${ this.paciente.apellidos }`);
+            alert(`Paciente encontrado, ${this.getGenero(this.paciente.genero)} ${ this.paciente.nombres } ${ this.paciente.apellidos }`);
             this.showDniControl = false;
             this.showCondicionesControl = true;
           }
@@ -134,6 +134,13 @@ export class CreateDiagnosticoComponent implements OnInit {
     else{
       alert("Dni obligatorio.")
     }
+  }
+
+  getGenero(genero:string){
+    if (genero == "M") {
+      return 'Sr.'
+    }
+    return 'Sra.'
   }
 
   validateCondiciones(){
@@ -161,14 +168,20 @@ export class CreateDiagnosticoComponent implements OnInit {
   }
 
   filterSintomas(event){
-    this.sintomasList2 = this.sintomasList.filter(x=>x.nombre.toLowerCase().includes(event.target.value.toLowerCase())).slice(0, 3);
+    this.sintomasList2 = [];
+    let sintomaNombre : string = event.target.value;
+    if (sintomaNombre != '') {
+      this.sintomasList2 = this.sintomasList.filter(x=>x.nombre.toLowerCase().includes(sintomaNombre.toLowerCase())).slice(0, 3);
+    }  
   }
 
-  addSintoma(event){
+  addSintoma(event, body:boolean){
     let sintomaNombre : string = event.target.value;
     let sintoma = {preguntas : {}} as Sintoma;
     sintoma = this.sintomasList.find(x=>x.nombre.toLowerCase() == sintomaNombre.toLowerCase());
-    this.sintomasList2 = [];     
+    if (!body) {
+      this.sintomasList2 = [];   
+    }   
     this.diagnosticoForm.patchValue({
       sintomaSubstring: '',
     });

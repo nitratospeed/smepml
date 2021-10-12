@@ -2,78 +2,77 @@
     <h4 class="modal-title">Nuevo Paciente</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
-<div class="modal-body">
-    <div class="container-fluid">
-        <form [formGroup]="pacienteForm">
-        <div class="row mb-2">
-            <div class="col-auto">
+<div class="modal-body">  
+    <form [formGroup]="pacienteForm">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Apellidos</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="apellidos">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Nombre</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="nombres">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Dni</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="dni">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Celular</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="celular">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Fecha Nacimiento</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="date" class="form-control" (keyup)="calcEdad($event)" (change)="calcEdad($event)" formControlName="fechaNacimiento">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Correo</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="correo">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Dirección</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="direccion">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Edad</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" readonly class="form-control" formControlName="edad">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Género</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <select class="form-select" formControlName="genero">
                     <option value="">Seleccione</option>
                     <option value="M">Masculino</option>
@@ -81,16 +80,9 @@
                 </select>
             </div>
         </div>
-        </form>
-    </div>
+    </form>
 </div>
 <div class="modal-footer">
-    <div class="row justify-content-end">
-        <div class="col">
-            <button type="button" class="btn btn-success" (click)="createPaciente()">Guardar</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
-        </div>
-    </div>   
+    <button type="button" class="btn btn-success" (click)="createPaciente()">Guardar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
 </div>

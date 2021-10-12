@@ -3,6 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DiagnosticoService } from "src/app/services/diagnostico.service";
 import { Base } from 'src/app/models/base';
 import { Diagnostico } from 'src/app/models/diagnostico';
+import { EnfermedadService } from 'src/app/services/enfermedad.service';
+import { Enfermedad } from 'src/app/models/enfermedad';
 
 @Component({
   selector: 'app-detail-diagnostico',
@@ -13,11 +15,16 @@ export class DetailDiagnosticoComponent implements OnInit {
 
   @Input() id;
 
+  recomendaciones : string = '';
+
+  examenes : string[] = [];
+
   currentRate = 0;
 
   diagnostico = {paciente : {}} as Diagnostico;
 
-  constructor(public activeModal: NgbActiveModal, private readonly diagnosticoService : DiagnosticoService) { }
+  constructor(public activeModal: NgbActiveModal, private readonly diagnosticoService : DiagnosticoService
+    , private readonly enfermedadService : EnfermedadService) { }
 
   ngOnInit(): void {
     this.diagnosticoService.getById(this.id).subscribe((result : Base<Diagnostico>) => 
@@ -26,12 +33,29 @@ export class DetailDiagnosticoComponent implements OnInit {
       {
         this.diagnostico = result.data;
         this.currentRate = this.diagnostico.calificacion;
+        this.getEnfRecomExam();
       }
       else 
       {
         alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
       }
     }, Error => alert("Error en servicio interno. Favor intentar luego."))
+  }
+
+  getEnfRecomExam(){
+    let enfermedad = this.diagnostico.resultadoMasPreciso;
+    this.enfermedadService.getByName(enfermedad).subscribe((result : Base<Enfermedad>) => 
+    {
+      if (result.isSuccess) 
+      {
+        this.recomendaciones = result.data.recomendacion;
+        this.examenes = result.data.examenes;
+      }
+      else 
+      {
+        alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+      }
+    }, Error => alert("Error en servicio interno. Favor intentar luego."))  
   }
 
   emailDiagnostico(){

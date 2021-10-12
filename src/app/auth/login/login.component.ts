@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from "src/app/services/usuario.service";
 import { Base } from 'src/app/models/base';
 import { Router } from '@angular/router';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,11 @@ export class LoginComponent implements OnInit {
             alert("Logueado con éxito.");
             this.usuarioService.setAuth(result.data.token);
             this.usuarioService.setUser(result.data.usuario);
+            let token : string = this.usuarioService.getAuth();
+              if (token) {
+                  let decoded : any = jwt_decode(token);
+                  this.usuarioService.setRole(decoded?.perfil ?? ''); 
+              }
             this.router.navigate(['']);
             window.location.reload();
           }

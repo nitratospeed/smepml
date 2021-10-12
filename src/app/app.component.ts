@@ -12,6 +12,7 @@ export class AppComponent implements OnInit, DoCheck {
   
   isAuthenticated = false;
   user = '';
+  role = '';
 
   constructor(private usuarioService: UsuarioService, private router: Router) { }
 
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit, DoCheck {
     if (token) {
          let decoded : any = jwt_decode(token);
          let current_time = new Date().getTime() / 1000;
-         if (current_time > decoded.exp) { alert('Debe iniciar sesión nuevamente.'); this.logout(); }
+         if (current_time > decoded?.exp ?? 0) { alert('Debe iniciar sesión nuevamente.'); this.logout(); }         
     }
   }
 
@@ -28,12 +29,14 @@ export class AppComponent implements OnInit, DoCheck {
     if (this.usuarioService.isAuth()) {
       this.isAuthenticated = true;
       this.user = this.usuarioService.getUser();
+      this.role = this.usuarioService.getRole();
     }
   }
 
   logout(){
     this.usuarioService.setAuth('');
     this.usuarioService.setUser('');
+    this.usuarioService.setRole('');
     this.router.navigate(['']);
     window.location.reload();
   }

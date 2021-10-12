@@ -3,37 +3,36 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-    <div class="container-fluid">
-        <form [formGroup]="usuarioForm">
-        <div class="row mb-2">
-            <div class="col-auto">
+    <form [formGroup]="usuarioForm">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Nombre Completo</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="nombreCompleto">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Correo</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="correo">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Contraseña</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <input type="text" class="form-control" formControlName="contrasena">
             </div>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
+        <div class="row mb-3">
+            <div class="col-sm-6">
                 <label class="form-label">Perfil</label>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-6 ms-auto">
                 <select class="form-select" formControlName="perfil">
                     <option value=0>Seleccione</option>
                     <option value=1>Administrador</option>
@@ -41,16 +40,9 @@
                 </select>
             </div>
         </div>
-        </form>
-    </div>
+    </form>   
 </div>
 <div class="modal-footer">
-    <div class="row justify-content-end">
-        <div class="col">
-            <button type="button" class="btn btn-success" (click)="createUsuario()">Guardar</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
-        </div>
-    </div>   
+    <button type="button" class="btn btn-success" (click)="createUsuario()">Guardar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button> 
 </div>

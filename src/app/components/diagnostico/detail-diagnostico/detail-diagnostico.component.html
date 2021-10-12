@@ -59,6 +59,22 @@
         </dl>
         <hr>
         <dl class="row">
+            <dt class="col-sm-3">Recomendaciones</dt>
+            <dd class="col-sm-9">
+                {{recomendaciones}}
+            </dd>
+        </dl>
+        <hr>
+        <dl class="row">
+            <dt class="col-sm-3">Exámenes Médicos</dt>
+            <dd class="col-sm-9">
+                <ul *ngFor="let examen of examenes;" class="list-unstyled">
+                    <li>{{examen}}</li>
+                </ul>
+            </dd>
+        </dl>
+        <hr>
+        <dl class="row">
             <dt class="col-sm-3">Calificación de Resultados</dt>
             <dd class="col-sm-9">
                 <ngb-rating class="rateStar" [(rate)]="currentRate" [max]="5" (rateChange)="ratingDiagnostico()"></ngb-rating>

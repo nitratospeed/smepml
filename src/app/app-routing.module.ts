@@ -13,16 +13,16 @@ import { TerminosCondicionesComponent } from './pages/terminos-condiciones/termi
 import { CreateDiagnosticoComponent } from './components/diagnostico/create-diagnostico/create-diagnostico.component';
 
 const routes: Routes = [
-  {path: 'usuario', component: UsuarioComponent, canActivate: [AuthGuard]},
-  {path: 'paciente', component: PacienteComponent, canActivate: [AuthGuard]},
-  {path: 'diagnostico', component: DiagnosticoComponent, canActivate: [AuthGuard]},
-  {path: 'diagnostico-create', component: CreateDiagnosticoComponent, canActivate: [AuthGuard]},
-  {path: 'incidencia', component: IncidenciaComponent, canActivate: [AuthGuard]},
+  {path: 'usuario', component: UsuarioComponent, canActivate: [AuthGuard], data: { role: 'Administrador' }},
+  {path: 'paciente', component: PacienteComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
+  {path: 'diagnostico', component: DiagnosticoComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
+  {path: 'diagnostico-create', component: CreateDiagnosticoComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
+  {path: 'incidencia', component: IncidenciaComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'acerca_de', component: AcercaDeComponent, canActivate: [AuthGuard]},
-  {path: 'politica_privacidad', component: PoliticaPrivacidadComponent, canActivate: [AuthGuard]},
-  {path: 'terminos_condiciones', component: TerminosCondicionesComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
+  {path: 'acerca_de', component: AcercaDeComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
+  {path: 'politica_privacidad', component: PoliticaPrivacidadComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
+  {path: 'terminos_condiciones', component: TerminosCondicionesComponent, canActivate: [AuthGuard], data: { role: 'Administrador, Medico' }},
 ];
 
 @NgModule({

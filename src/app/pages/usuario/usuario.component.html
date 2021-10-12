@@ -1,5 +1,7 @@
-<h3 class="p-2">Usuarios</h3>
 <div class="card">
+    <div class="card-header">
+        <h3>Usuarios</h3>
+    </div>
     <div class="card-body">
         <form [formGroup]="usuarioForm" class="row g-3">
             <div class="col-auto">
@@ -9,10 +11,10 @@
             <div class="col-auto">
                 <button type="button" class="btn btn-secondary mb-3" (click)="getUsuarios(1)">Filtrar</button>
             </div>
-            <div class="col-auto ms-auto">
+            <div class="col-sm-auto ms-auto">
               <button type="button" class="btn btn-primary mb-3" (click)="createUsuario()">Nuevo Usuario</button>
             </div>
-          </form>
+        </form>
         <div class="table-responsive mb-2">
             <table class="table table-hover">               
                 <thead class="table-dark">
@@ -38,17 +40,10 @@
                             </a></td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="Loading">
-                        <tr *ngFor="let key of [1,2,3,4,5]">
-                            <td class="placeholder-glow"><span class="placeholder col-2 placeholder-sm"></span></td>
-                            <td class="placeholder-glow"><span class="placeholder col-5 placeholder-sm"></span></td>
-                            <td class="placeholder-glow"><span class="placeholder col-5 placeholder-sm"></span></td>
-                            <td class="placeholder-glow"><span class="placeholder col-3 placeholder-sm"></span></td>
-                            <td class="placeholder-glow"><span class="placeholder col-3 placeholder-sm"></span></td>
-                        </tr>
-                    </tbody>
             </table>
         </div>
+    </div>
+    <div class="card-footer text-muted text-center">
         <nav>
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getUsuarios(Pagination.pageIndex - 1)">Anterior</a></li>

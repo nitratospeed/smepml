@@ -53,4 +53,12 @@ export class UsuarioService {
   setUser(user:string){
     localStorage.setItem('access_user', user);
   }
+
+  getRole(){
+    return localStorage.getItem('access_role') ?? '';
+  }
+
+  setRole(user:string){
+    localStorage.setItem('access_role', user);
+  }
 }
