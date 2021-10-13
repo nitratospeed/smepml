@@ -46,12 +46,11 @@
         <nav>
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getIncidencias(Pagination.pageIndex - 1)">Anterior</a></li>
-                <!--<li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li> -->
                 <li class="page-item"><a class="page-link" href="javascript:void(0);" (click)="getIncidencias(Pagination.pageIndex + 1)">Siguiente</a></li>
             </ul>
         </nav>
-        Página 1 de 1
+        <p class="text-center">
+            Página {{Pagination.pageIndex}} de {{Pagination.totalPages}}
+        </p>
     </div>
 </div>

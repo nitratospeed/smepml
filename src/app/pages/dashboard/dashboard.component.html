@@ -30,48 +30,45 @@
       </div>
     </div>
     <div class="row mb-3">
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Top de Síntomas</h5>
-            <ngx-charts-pie-chart
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="sintomas"
-            [gradient]="gradient"
-            [legend]="showLegend"
-            [legendTitle]="legendTitleSintomas"
-            [legendPosition]="legendPosition"
-            [labels]="showLabels"
-            [doughnut]="isDoughnut"
-            (select)="onSelect($event)"
-            (activate)="onActivate($event)"
-            (deactivate)="onDeactivate($event)">
-          </ngx-charts-pie-chart>
+          <div class="card-body" #ngxChartBar>
+            <h5 class="card-title mb-4">Top de Síntomas</h5>
+              <ngx-charts-bar-vertical
+              [view]="[ngxChartBar.offsetWidth - 50, 0]"
+              [scheme]="colorScheme"
+              [results]="sintomas"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [legend]="showLegend"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical>
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-12">
         <div class="card mb-3">
-          <div class="card-body">
+          <div class="card-body" #ngxChartPie>
             <h5 class="card-title">Top de Enfermedades</h5>
             <ngx-charts-pie-chart
-            [view]="view"
+            [view]="[ngxChartPie.offsetWidth - 50, 0]"
             [scheme]="colorScheme"
             [results]="enfermedades"
             [gradient]="gradient"
             [legend]="showLegend"
-            [legendTitle]="legendTitleEnfermedades"
             [legendPosition]="legendPosition"
             [labels]="showLabels"
-            [doughnut]="isDoughnut"
-            (select)="onSelect($event)"
-            (activate)="onActivate($event)"
-            (deactivate)="onDeactivate($event)">
+            [doughnut]="isDoughnut">
           </ngx-charts-pie-chart>
           </div>
         </div>
+      </div>
     </div>
-    </div> 
   </div>
 </div>

@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
               if (token) {
                   let decoded : any = jwt_decode(token);
                   this.usuarioService.setRole(decoded?.perfil ?? ''); 
+                  this.usuarioService.setUsername(decoded?.username ?? ''); 
               }
             this.router.navigate(['']);
             window.location.reload();

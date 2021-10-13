@@ -15,19 +15,22 @@ export class DashboardComponent implements OnInit {
   sintomas: any[]= [];
   enfermedades: any[]= [];
 
-  view: any[] = [500, 0];
-
   // options
   gradient: boolean = true;
   showLegend: boolean = false;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
   legendPosition: string = 'below';
-  legendTitleSintomas: string = 'Top de Síntomas';
-  legendTitleEnfermedades: string = 'Top de Enfermedades';
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
+
+  showXAxis = true;
+  showYAxis = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Síntomas';
+  showYAxisLabel = true;
+  yAxisLabel = 'Cantidad';
 
   usuariosCount : number = 0;
   pacientesCount : number = 0;
@@ -51,15 +54,15 @@ export class DashboardComponent implements OnInit {
       "tipoReporte": tipoReporte
     }
 
-    this.diagnosticoService.report(params).subscribe((result : Base<any>) => 
+    this.diagnosticoService.report(params).subscribe((result : Base<string[]>) => 
     {
       if (result.isSuccess) 
       {
         if (tipoReporte == 1) {
-          this.enfermedades = result.data; 
+          this.enfermedades = result.data.splice(0, 15); 
         }
         if (tipoReporte == 2) {
-          this.sintomas = result.data; 
+          this.sintomas = result.data.splice(0, 15); 
         }
       }
       else 

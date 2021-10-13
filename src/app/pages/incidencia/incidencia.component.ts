@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateIncidenciaComponent } from 'src/app/components/incidencia/create-incidencia/create-incidencia.component';
 import { UpdateIncidenciaComponent } from 'src/app/components/incidencia/update-incidencia/update-incidencia.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-incidencia',
@@ -22,7 +23,8 @@ export class IncidenciaComponent implements OnInit {
   incidencias : Incidencia[];
   Pagination : Pagination<Incidencia> = new Pagination<Incidencia>();
 
-  constructor(private readonly incidenciaService : IncidenciaService, private modalService: NgbModal) { }
+  constructor(private readonly incidenciaService : IncidenciaService, private modalService: NgbModal,
+    private readonly usuarioService : UsuarioService) { }
 
   ngOnInit(): void {
     this.getIncidencias(1);
@@ -34,7 +36,7 @@ export class IncidenciaComponent implements OnInit {
       let params = {
         "PageNumber": currentIndex, 
         "PageSize": 5,
-        //"Titulo": this.incidenciaForm.value['titulo'] ?? ''
+        "Username": this.usuarioService.getUsername()
       }
 
       this.incidenciaService.get(params).subscribe((result : Base<Pagination<Incidencia>>) => 

@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateDiagnosticoComponent } from 'src/app/components/diagnostico/create-diagnostico/create-diagnostico.component';
 import { DetailDiagnosticoComponent } from 'src/app/components/diagnostico/detail-diagnostico/detail-diagnostico.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-diagnostico',
@@ -24,7 +25,8 @@ export class DiagnosticoComponent implements OnInit {
 
   Pagination : Pagination<Diagnostico> = new Pagination<Diagnostico>();
 
-  constructor(private readonly diagnosticoService : DiagnosticoService, private modalService: NgbModal) { }
+  constructor(private readonly diagnosticoService : DiagnosticoService, private modalService: NgbModal,
+    private readonly usuarioService : UsuarioService) { }
 
   ngOnInit(): void {
     this.getDiagnosticos(1);
@@ -37,7 +39,8 @@ export class DiagnosticoComponent implements OnInit {
         "PageNumber": currentIndex, 
         "PageSize": 5,
         "Nombres": this.diagnosticoForm.value['nombres'] ?? '',
-        "Dni": this.diagnosticoForm.value['dni'] ?? ''
+        "Dni": this.diagnosticoForm.value['dni'] ?? '',
+        "Username": this.usuarioService.getUsername()
       }
 
       this.diagnosticoService.get(params).subscribe((result : Base<Pagination<Diagnostico>>) => 
