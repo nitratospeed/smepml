@@ -36,7 +36,7 @@ export class IncidenciaComponent implements OnInit {
       let params = {
         "PageNumber": currentIndex, 
         "PageSize": 5,
-        "Username": this.usuarioService.getUsername()
+        "Username": this.usuarioService.getRole() == "Medico" ? this.usuarioService.getUsername() : ''
       }
 
       this.incidenciaService.get(params).subscribe((result : Base<Pagination<Incidencia>>) => 

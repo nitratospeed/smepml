@@ -40,7 +40,7 @@ export class DiagnosticoComponent implements OnInit {
         "PageSize": 5,
         "Nombres": this.diagnosticoForm.value['nombres'] ?? '',
         "Dni": this.diagnosticoForm.value['dni'] ?? '',
-        "Username": this.usuarioService.getUsername()
+        "Username": this.usuarioService.getRole() == "Medico" ? this.usuarioService.getUsername() : ''
       }
 
       this.diagnosticoService.get(params).subscribe((result : Base<Pagination<Diagnostico>>) => 

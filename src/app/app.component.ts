@@ -37,6 +37,7 @@ export class AppComponent implements OnInit, DoCheck {
     this.usuarioService.setAuth('');
     this.usuarioService.setUser('');
     this.usuarioService.setRole('');
+    this.usuarioService.setUsername('');
     this.router.navigate(['']);
     window.location.reload();
   }
