@@ -4,16 +4,22 @@
     </div>
     <div class="card-body">
         <form [formGroup]="incidenciaForm" class="row g-3">
-<!--             <div class="col-auto">
+            <div class="col-auto">
                 <input type="text" class="form-control" placeholder="Filtrar Título" formControlName="titulo">
             </div>
             <div class="col-auto">
+                <input type="text" class="form-control" placeholder="Filtrar Urgencia" formControlName="urgencia">
+            </div>
+            <div *ngIf="role == 'Administrador'" class="col-auto">
+                <input type="text" class="form-control" placeholder="Filtrar Usuario" formControlName="username">
+            </div>
+            <div class="col-auto">
                 <button type="button" class="btn btn-secondary mb-3" (click)="getIncidencias(1)">Filtrar</button>
-            </div> -->
+            </div>
             <div class="col-sm-auto ms-auto">
               <button type="button" class="btn btn-primary mb-3" (click)="createIncidencia()">Nueva Incidencia</button>
             </div>
-          </form>
+        </form>
         <div class="table-responsive">
             <table class="table table-hover">               
                 <thead class="table-dark">

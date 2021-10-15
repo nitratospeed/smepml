@@ -14,6 +14,8 @@ export class CreateIncidenciaComponent implements OnInit {
 
   incidencia : Incidencia;
 
+  adjuntoX : any;
+
   incidenciaForm = new FormGroup({
     urgencia: new FormControl(''),
     titulo: new FormControl(''),
@@ -27,11 +29,27 @@ export class CreateIncidenciaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createIncidencia(){
-    this.incidencia = this.incidenciaForm.value;
-    this.incidencia.estado = "Abierto";
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      this.adjuntoX = event.target.files[0];
+    }
 
-    this.incidenciaService.post(this.incidencia).subscribe((result : Base<number>) => 
+    console.log(this.adjuntoX)
+  }
+
+  createIncidencia(){
+
+    let params = {
+      "titulo": this.incidenciaForm.value['titulo'], 
+      "descripcion": this.incidenciaForm.value['descripcion'], 
+      "urgencia": this.incidenciaForm.value['urgencia'], 
+      "estado": "Abierto", 
+    }
+
+    const formData = new FormData();
+    formData.append('adjuntoUrl', this.adjuntoX);
+
+    this.incidenciaService.post(params, formData).subscribe((result : Base<number>) => 
     {
       if (result.isSuccess) 
       {

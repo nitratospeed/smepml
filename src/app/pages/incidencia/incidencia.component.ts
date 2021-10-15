@@ -16,8 +16,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class IncidenciaComponent implements OnInit {
 
+  role = '';
+
   incidenciaForm = new FormGroup({
     titulo: new FormControl(''),
+    username: new FormControl(''),
+    urgencia: new FormControl(''),
   });
 
   incidencias : Incidencia[];
@@ -28,6 +32,7 @@ export class IncidenciaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIncidencias(1);
+    this.role = this.usuarioService.getRole();
   }
 
   getIncidencias(currentIndex:number) {
@@ -36,7 +41,9 @@ export class IncidenciaComponent implements OnInit {
       let params = {
         "PageNumber": currentIndex, 
         "PageSize": 5,
-        "Username": this.usuarioService.getRole() == "Medico" ? this.usuarioService.getUsername() : ''
+        "Username": this.usuarioService.getRole() == "Medico" ? this.usuarioService.getUsername() : this.incidenciaForm.value['username'],
+        "Titulo" : this.incidenciaForm.value['titulo'],
+        "Urgencia" : this.incidenciaForm.value['urgencia'],
       }
 
       this.incidenciaService.get(params).subscribe((result : Base<Pagination<Incidencia>>) => 

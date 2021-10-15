@@ -17,8 +17,9 @@ export class IncidenciaService {
     return this.http.get<any>(`https://smepml-api.azurewebsites.net/api/v1/incidencia/${data}`);
   }
 
-  post(data) {
-    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/incidencia', data);
+  post(data, file) {
+    let params = new HttpParams();
+    return this.http.post<any>('https://smepml-api.azurewebsites.net/api/v1/incidencia', file, {params:data});
   }
 
   put(id, data) {

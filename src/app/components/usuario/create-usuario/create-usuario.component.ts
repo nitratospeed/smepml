@@ -18,6 +18,7 @@ export class CreateUsuarioComponent implements OnInit {
     nombreCompleto: new FormControl(''),
     correo: new FormControl(''),
     contrasena: new FormControl(''),
+    rep_contrasena: new FormControl(''),
     perfil: new FormControl(0),
   });
 
@@ -26,21 +27,31 @@ export class CreateUsuarioComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createUsuario(){
-    this.usuario = this.usuarioForm.value;
-    this.usuario.perfil = Number.parseInt(this.usuarioForm.value['perfil']);
+  checkContrasena(){
+    if (this.usuarioForm.value['contrasena'] != this.usuarioForm.value['rep_contrasena']) {
+      alert('Las contraseñas no coinciden.')
+      return false;
+    }
+    return true;
+  }
 
-    this.usuarioService.post(this.usuario).subscribe((result : Base<number>) => 
-    {
-      if (result.isSuccess) 
+  createUsuario(){
+    if (this.checkContrasena()) {
+      this.usuario = this.usuarioForm.value;
+      this.usuario.perfil = Number.parseInt(this.usuarioForm.value['perfil']);
+  
+      this.usuarioService.post(this.usuario).subscribe((result : Base<number>) => 
       {
-        alert("Guardado con éxito.");
-        this.activeModal.close(true)
-      }
-      else 
-      {
-        alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
-      }
-    }, Error => alert("Error en servicio interno. Favor intentar luego."))
+        if (result.isSuccess) 
+        {
+          alert("Guardado con éxito.");
+          this.activeModal.close(true)
+        }
+        else 
+        {
+          alert(`${ result.message }: ${ result.exception }: ${ result.validationErrors}"`);
+        }
+      }, Error => alert("Error en servicio interno. Favor intentar luego.")) 
+    }
   }
 }

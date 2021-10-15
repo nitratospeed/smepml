@@ -3,58 +3,60 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-    <div class="container-fluid">
-        <form [formGroup]="incidenciaForm">
-        <div class="row mb-2">
-            <div class="col-auto">
-                <label class="form-label">Urgencia</label>
-            </div>
-            <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="urgencia">
-            </div>
+    <form [formGroup]="incidenciaForm">
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">Urgencia</label>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
-                <label class="form-label">Título</label>
-            </div>
-            <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="titulo">
-            </div>
+        <div class="col-sm-6 ms-auto">
+            <select class="form-select" formControlName="urgencia">
+                <option value="">Seleccione</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
         </div>
-        <div class="row mb-2">
-            <div class="col-auto">
-                <label class="form-label">Descripción</label>
-            </div>
-            <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="descripcion">
-            </div>
-        </div>
-        <div class="row mb-2">
-            <div class="col-auto">
-                <label class="form-label">Adjunto URL</label>
-            </div>
-            <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="adjuntoUrl">
-            </div>
-        </div>
-        <div class="row mb-2">
-            <div class="col-auto">
-                <label class="form-label">Estado</label>
-            </div>
-            <div class="col-auto ms-auto">
-                <input type="text" class="form-control" formControlName="estado">
-            </div>
-        </div>
-        </form>
     </div>
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">Título</label>
+        </div>
+        <div class="col-sm-6 ms-auto">
+            <input type="text" class="form-control" formControlName="titulo">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">Descripción</label>
+        </div>
+        <div class="col-sm-6 ms-auto">
+            <input type="text" class="form-control" formControlName="descripcion">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">Adjunto URL</label>
+        </div>
+        <div class="col-sm-6 ms-auto">
+            <input type="text" class="form-control visually-hidden" formControlName="adjuntoUrl">
+            <a href={{incidencia.adjuntoUrl}} target="_blank" class="link-dark">Abrir archivo</a>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">Estado</label>
+        </div>
+        <div class="col-sm-6 ms-auto">
+            <select class="form-select" formControlName="estado">
+                <option value="Abierto">Abierto</option>
+                <option value="En Proceso">En Proceso</option>
+                <option value="Cerrado">Cerrado</option>
+            </select>
+        </div>
+    </div>
+    </form>
 </div>
 <div class="modal-footer">
-    <div class="row justify-content-end">
-        <div class="col">
-            <button type="button" class="btn btn-success" (click)="updateIncidencia()">Actualizar</button>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
-        </div>
-    </div>   
+    <button type="button" class="btn btn-success" (click)="updateIncidencia()">Actualizar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>
 </div>
