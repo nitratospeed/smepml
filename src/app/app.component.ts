@@ -42,7 +42,14 @@ export class AppComponent implements OnInit, DoCheck {
     window.location.reload();
   }
 
-  actionSidebar(){
-    document.getElementById("sidebar").classList.toggle('active');
+  changeSidebarSize(){
+    if (document.getElementById('collapseWidthExample').classList.contains('col-2')) {
+        document.getElementById('collapseWidthExample').classList.replace('col-2', 'col-1');
+        document.getElementById('content').classList.replace('col-sm-10', 'col-sm-11');
+    }
+    else {
+        document.getElementById('collapseWidthExample').classList.replace('col-1', 'col-2');
+        document.getElementById('content').classList.replace('col-sm-11', 'col-sm-10');
+    }
   }
 }
