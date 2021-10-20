@@ -4,5 +4,12 @@ export interface Incidencia {
     titulo: string,
     descripcion: string,
     adjuntoUrl: string,
-    estado: string
+    estado: string,
+    seguimientos: Seguimiento[]
+}
+
+export interface Seguimiento{
+    id: number,
+    descripcion: string,
+    incidenciaId: number
 }

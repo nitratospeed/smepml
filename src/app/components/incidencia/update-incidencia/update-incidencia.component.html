@@ -30,7 +30,7 @@
             <label class="form-label">Descripción</label>
         </div>
         <div class="col-sm-6 ms-auto">
-            <input type="text" class="form-control" formControlName="descripcion">
+            <textarea class="form-control" formControlName="descripcion" cols="30" rows="10"></textarea>
         </div>
     </div>
     <div class="row mb-3">
@@ -39,19 +39,60 @@
         </div>
         <div class="col-sm-6 ms-auto">
             <input type="text" class="form-control visually-hidden" formControlName="adjuntoUrl">
-            <a href={{incidencia.adjuntoUrl}} target="_blank" class="link-dark">Abrir archivo</a>
+            <a href={{incidencia?.adjuntoUrl}} target="_blank" class="link-dark">Abrir archivo</a>
         </div>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-6">
         <div class="col-sm-6">
             <label class="form-label">Estado</label>
         </div>
-        <div class="col-sm-6 ms-auto">
+        <div *ngIf="perfil=='Medico'" class="col-sm-6 ms-auto">
+            <input type="text" readonly class="form-control-plaintext text-md-end p-0" formControlName="estado">
+        </div>
+        <div *ngIf="perfil=='Administrador'" class="col-sm-6 ms-auto">
             <select class="form-select" formControlName="estado">
                 <option value="Abierto">Abierto</option>
                 <option value="En Proceso">En Proceso</option>
                 <option value="Cerrado">Cerrado</option>
             </select>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">Acciones Históricas</label>
+        </div>
+    </div>
+    <div *ngIf="perfil=='Medico' || perfil=='Administrador'" >
+        <div *ngFor="let seg of incidencia?.seguimientos; let i = index;" class="row mb-3" >
+            <div class="col-sm-6">
+                <label class="form-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="ms-1 mb-1 bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                      </svg>
+                    Acción #{{i+1}}</label>
+            </div>
+            <div class="col-sm-6 ms-auto">
+                <p>{{seg.descripcion}}</p>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="perfil=='Administrador'" class="row mb-3">
+        <div class="col-sm-6">
+            <label class="form-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="ms-1 mb-1 bi bi-person-plus-fill" viewBox="0 0 16 16">
+                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+                Agregar Acción</label>
+        </div>
+        <div class="col-sm-6">
+            <div formGroupName="seguimientos">
+                <input type="hidden" formControlName="id">
+                <input type="hidden" formControlName="incidenciaId">
+                <textarea class="form-control" formControlName="descripcion" form cols="30" rows="5"></textarea>
+            </div>
         </div>
     </div>
     </form>

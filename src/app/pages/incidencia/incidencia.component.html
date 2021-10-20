@@ -8,7 +8,12 @@
                 <input type="text" class="form-control" placeholder="Filtrar Título" formControlName="titulo">
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" placeholder="Filtrar Urgencia" formControlName="urgencia">
+                <select class="form-select" formControlName="urgencia">
+                    <option value="">Filtrar Urgencia</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
             </div>
             <div *ngIf="role == 'Administrador'" class="col-auto">
                 <input type="text" class="form-control" placeholder="Filtrar Usuario" formControlName="username">
