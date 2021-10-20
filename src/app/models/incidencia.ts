@@ -5,6 +5,7 @@ export interface Incidencia {
     descripcion: string,
     adjuntoUrl: string,
     estado: string,
+    usuario: string,
     seguimientos: Seguimiento[]
 }
 

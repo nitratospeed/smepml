@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
 
   sintomas: any[]= [];
   enfermedades: any[]= [];
+  diagMedicos: any[]=[];
+  diagCalif: any[]=[];
 
   // options
   gradient: boolean = true;
@@ -28,9 +30,16 @@ export class DashboardComponent implements OnInit {
   showXAxis = true;
   showYAxis = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Síntomas';
   showYAxisLabel = true;
+
+  xAxisLabel = 'Síntomas';
   yAxisLabel = 'Cantidad';
+
+  xAxisLabel3 = 'Diagnósticos';
+  yAxisLabel3 = 'Cantidad x Médico';
+
+  xAxisLabel4 = 'Diagnósticos';
+  yAxisLabel4 = 'Calificación';
 
   usuariosCount : number = 0;
   pacientesCount : number = 0;
@@ -44,6 +53,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getReport(1);
     this.getReport(2);
+    this.getReport(3);
+    this.getReport(4);
     this.getCountUsuarios();
     this.getCountPacientes();
     this.getCountDiagnosticos();
@@ -63,6 +74,12 @@ export class DashboardComponent implements OnInit {
         }
         if (tipoReporte == 2) {
           this.sintomas = result.data.splice(0, 15); 
+        }
+        if (tipoReporte == 3) {
+          this.diagMedicos = result.data.splice(0, 15); 
+        }
+        if (tipoReporte == 4) {
+          this.diagCalif = result.data.splice(0, 15); 
         }
       }
       else 

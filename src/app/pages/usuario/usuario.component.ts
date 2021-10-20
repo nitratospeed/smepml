@@ -7,6 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUsuarioComponent } from 'src/app/components/usuario/create-usuario/create-usuario.component';
 import { UpdateUsuarioComponent } from 'src/app/components/usuario/update-usuario/update-usuario.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DeleteUsuarioComponent } from 'src/app/components/usuario/delete-usuario/delete-usuario.component';
 
 @Component({
   selector: 'app-usuario',
@@ -17,6 +18,7 @@ export class UsuarioComponent implements OnInit {
 
   usuarioForm = new FormGroup({
     nombres: new FormControl(''),
+    estado: new FormControl(true)
   });
 
   Usuarios : Usuario[];
@@ -36,7 +38,8 @@ export class UsuarioComponent implements OnInit {
       let params = {
         "PageNumber": currentIndex, 
         "PageSize": 5,
-        "Nombres": this.usuarioForm.value['nombres'] ?? ''
+        "Nombres": this.usuarioForm.value['nombres'] ?? '',
+        "Estado": this.usuarioForm.value['estado']
       }
 
       this.usuarioService.get(params).subscribe((result : Base<Pagination<Usuario>>) => 
@@ -65,6 +68,16 @@ export class UsuarioComponent implements OnInit {
 
   updateUsuario(id:number){
     const modalRef = this.modalService.open(UpdateUsuarioComponent, {scrollable: true, size: 'lg'});
+    modalRef.componentInstance.id = id;
+    modalRef.result.then((result) => {
+      if (result==true) {
+        this.getUsuarios(1); 
+      }
+    });
+  }
+
+  deleteUsuario(id:number){
+    const modalRef = this.modalService.open(DeleteUsuarioComponent, {scrollable: true});
     modalRef.componentInstance.id = id;
     modalRef.result.then((result) => {
       if (result==true) {
