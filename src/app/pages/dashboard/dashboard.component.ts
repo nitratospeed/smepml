@@ -35,11 +35,11 @@ export class DashboardComponent implements OnInit {
   xAxisLabel = 'Síntomas';
   yAxisLabel = 'Cantidad';
 
-  xAxisLabel3 = 'Diagnósticos';
-  yAxisLabel3 = 'Cantidad x Médico';
+  xAxisLabel3 = 'Médicos';
+  yAxisLabel3 = '# Diagnósticos';
 
-  xAxisLabel4 = 'Diagnósticos';
-  yAxisLabel4 = 'Calificación';
+  xAxisLabel4 = 'Calificaciones';
+  yAxisLabel4 = '# Diagnósticos';
 
   usuariosCount : number = 0;
   pacientesCount : number = 0;
